@@ -2,6 +2,8 @@
 __pycache__/
 *.pyc
 NativosMakerAi/
+webrun5/
 *.frz
 *.xml
+*.war
 .DS_Store

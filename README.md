@@ -2,7 +2,7 @@
 
 Repositório com a documentação completa da plataforma **Maker AI (v6.1.0.14)** da Softwell Solutions, incluindo o manual oficial, estrutura do banco de dados e referência técnica de todos os componentes nativos.
 
-> **639 arquivos markdown** · **~10 MB** de documentação técnica
+> **649 arquivos markdown** · **~10 MB** de documentação técnica
 
 ---
 
@@ -55,15 +55,27 @@ manual_maker_ai/
 │   ├── versionamento-e-historico.md
 │   └── outras-tabelas-do-sistema.md
 │
-└── nativos/                      # 🔧 Componentes nativos do Maker
+├── nativos/                      # 🔧 Componentes nativos do Maker
+│   ├── README.md
+│   ├── funcoes/                  # 1.186 funções nativas (47 categorias)
+│   ├── fluxos/                   # 68 fluxogramas nativos
+│   ├── templates-fluxos/         # 5 templates de fluxos
+│   ├── formularios/              # 11 formulários do sistema
+│   ├── dados-tabelas/            # 98 tabelas com 6.406 registros
+│   ├── compilador/               # 302 descritores do compilador
+│   └── dicionario-dados/         # Dicionário de dados
+│
+└── webrun-arquitetura/           # ⚙️ Arquitetura do Webrun (WAR)
     ├── README.md
-    ├── funcoes/                  # 1.186 funções nativas (47 categorias)
-    ├── fluxos/                   # 68 fluxogramas nativos
-    ├── templates-fluxos/         # 5 templates de fluxos
-    ├── formularios/              # 11 formulários do sistema
-    ├── dados-tabelas/            # 98 tabelas com 6.406 registros
-    ├── compilador/               # 302 descritores do compilador
-    └── dicionario-dados/         # Dicionário de dados
+    ├── 01-visao-geral.md         # Visão geral, servlets e filtros
+    ├── 02-componentes-javascript.md # 63 componentes HTML/JS
+    ├── 03-classes-java.md        # ~280 classes em 15 pacotes
+    ├── 04-configuracoes.md       # Configurações XML do runtime
+    ├── 05-paginas-jsp.md         # 56 páginas JSP
+    ├── 06-engine-javascript.md   # Engine JS principal (wfr.js)
+    ├── 07-propriedades-metadata.md # Metadados de componentes
+    ├── 08-dependencias-jars.md   # 205 JARs de terceiros
+    └── 09-internacionalizacao.md # i18n (4 idiomas)
 ```
 
 ---
@@ -84,6 +96,20 @@ Documentação de **97 entidades** (tabelas `FR_*`) do framework, extraídas do 
 - Fluxos de automação e regras de negócio
 - Compilador e geração de código
 - Documentação, versionamento e rastreabilidade
+
+### Arquitetura do Webrun (WAR)
+Documentação completa da arquitetura do **Webrun v5.0.0.46**, o runtime que executa as aplicações Maker, extraída do WAR:
+
+| Seção | Conteúdo |
+|-------|----------|
+| **Visão Geral** | Estrutura do WAR, fluxo de requisições, servlets e filtros |
+| **Componentes JS** | 63 componentes HTML/JavaScript com herança, métodos e propriedades |
+| **Classes Java** | ~280 classes em 15 pacotes (wfr.*) com descrição de cada uma |
+| **Configurações** | config.xml, databases.xml, web.xml e demais configurações |
+| **Páginas JSP** | 56 páginas JSP categorizadas por função |
+| **Engine JS** | wfr.js (6.660 linhas), rulesFunctions.js, wfr_masks.js |
+| **Dependências** | 205 JARs de terceiros categorizados |
+| **i18n** | 4 idiomas (PT-BR, EN-US, ES-ES, FR-FR) |
 
 ### Componentes Nativos
 Referência técnica extraída dos XMLs nativos do Maker:
@@ -108,6 +134,7 @@ Comece por [`manual_maker_ai/INDEX.md`](manual_maker_ai/INDEX.md) para o índice
 - [Componentes Nativos](manual_maker_ai/nativos/README.md)
 - [Funções Nativas](manual_maker_ai/nativos/funcoes/README.md)
 - [Referência do Compilador](manual_maker_ai/nativos/compilador/README.md)
+- [Arquitetura do Webrun](manual_maker_ai/webrun-arquitetura/README.md)
 
 ### Para IA / LLM
 Este repositório foi criado para servir como **base de conhecimento** para assistentes de IA trabalharem com o Maker AI. Todo o conteúdo está em Markdown puro, ideal para indexação e RAG.
@@ -121,6 +148,7 @@ Este repositório foi criado para servir como **base de conhecimento** para assi
 | `scraper.py` | Raspa o manual oficial do site manual.softwell.com.br |
 | `generate_db_docs.py` | Gera documentação da estrutura do BD a partir do `spfa.xml` |
 | `generate_nativos_docs.py` | Gera documentação dos XMLs nativos (funções, fluxos, formulários, etc.) |
+| `generate_war_docs.py` | Gera documentação da arquitetura do Webrun a partir do WAR extraído |
 
 ### Dependências
 ```bash
@@ -139,6 +167,9 @@ python generate_db_docs.py
 
 # Gerar docs dos nativos (requer pasta NativosMakerAi/)
 python generate_nativos_docs.py
+
+# Gerar docs da arquitetura Webrun (requer pasta webrun5/)
+python generate_war_docs.py
 ```
 
 ---
@@ -155,6 +186,7 @@ python generate_nativos_docs.py
 | `FormulariosNativosMakerAi.xml` | Formulários nativos exportados |
 | `DadosTabelasNativaMakerAi.xml` | Dados das tabelas nativas exportadas |
 | `DicionarioDeDadosMakerAi.xml` | Dicionário de dados exportado |
+| `webrun5/` (WAR extraído) | Arquivo WAR do Webrun extraído para análise |
 
 ---
 
