@@ -2,7 +2,7 @@
 
 Repositório com a documentação completa da plataforma **Maker AI (v6.1.0.14)** da Softwell Solutions, incluindo o manual oficial, estrutura do banco de dados e referência técnica de todos os componentes nativos.
 
-> **649 arquivos markdown** · **~10 MB** de documentação técnica
+> **658 arquivos markdown** · **~10 MB** de documentação técnica
 
 ---
 
@@ -76,6 +76,17 @@ manual_maker_ai/
     ├── 07-propriedades-metadata.md # Metadados de componentes
     ├── 08-dependencias-jars.md   # 205 JARs de terceiros
     └── 09-internacionalizacao.md # i18n (4 idiomas)
+
+└── recursos-ide/                 # 🧰 Recursos da IDE Maker AI
+    ├── README.md
+    ├── 01-componentes-adicionais.md # 23 componentes adicionais
+    ├── 02-plugins.md             # 7 plugins da IDE
+    ├── 03-propriedades-runner.md # Propriedades no runtime
+    ├── 04-templates-projeto.md   # Templates Júpiter/Saturno/Vênus
+    ├── 05-skins-e-cores.md       # Skins e esquemas de cores
+    ├── 06-dicionarios.md         # Dicionários da IDE
+    ├── 07-configuracoes.md       # Configurações SGBD/portal
+    └── 08-api-versoes.md         # 19 versões da API
 ```
 
 ---
@@ -123,6 +134,20 @@ Referência técnica extraída dos XMLs nativos do Maker:
 | **Dados das Tabelas** | 98 tabelas / 6.406 registros | Dados de referência e configuração do framework |
 | **Compilador** | 302 descritores | Referência completa do gerador de código |
 
+### Recursos da IDE
+Documentação dos recursos internos da IDE Maker AI, extraídos da pasta `Resources/`:
+
+| Seção | Conteúdo |
+|-------|----------|
+| **Componentes Adicionais** | 23 componentes (Aba, Card, Chat, Calendário, QueryCopilot, etc.) com propriedades, eventos e funções |
+| **Plugins** | 7 plugins da IDE (Busca Textual, Estatísticas, Excel→BD, FabricaHub, Ficha Técnica, Publicação Nuvem, Visão Hierárquica) |
+| **Propriedades Runner** | 20 definições de propriedades e eventos dos componentes no runtime |
+| **Templates** | 3 templates de projeto (Júpiter, Saturno, Vênus) com formulários pré-configurados |
+| **Skins e Cores** | Skin Bootstrap + 2 esquemas de cores (Visual Dark, Visual Dark Blue) com 8 formas de fluxo |
+| **Dicionários** | Inspetor de propriedades, palavras acentuadas, traduções PT/EN, tipos de componentes |
+| **Configurações** | Compatibilidade de SGBDs, portal Maker Mobile, funções de pacote |
+| **Versões da API** | 19 versões da API (12.2.3 → 12.2.35) |
+
 ---
 
 ## 🚀 Como usar
@@ -135,6 +160,7 @@ Comece por [`manual_maker_ai/INDEX.md`](manual_maker_ai/INDEX.md) para o índice
 - [Funções Nativas](manual_maker_ai/nativos/funcoes/README.md)
 - [Referência do Compilador](manual_maker_ai/nativos/compilador/README.md)
 - [Arquitetura do Webrun](manual_maker_ai/webrun-arquitetura/README.md)
+- [Recursos da IDE](manual_maker_ai/recursos-ide/README.md)
 
 ### Para IA / LLM
 Este repositório foi criado para servir como **base de conhecimento** para assistentes de IA trabalharem com o Maker AI. Todo o conteúdo está em Markdown puro, ideal para indexação e RAG.
@@ -149,6 +175,7 @@ Este repositório foi criado para servir como **base de conhecimento** para assi
 | `generate_db_docs.py` | Gera documentação da estrutura do BD a partir do `spfa.xml` |
 | `generate_nativos_docs.py` | Gera documentação dos XMLs nativos (funções, fluxos, formulários, etc.) |
 | `generate_war_docs.py` | Gera documentação da arquitetura do Webrun a partir do WAR extraído |
+| `generate_resources_docs.py` | Gera documentação dos recursos da IDE a partir da pasta Resources/ |
 
 ### Dependências
 ```bash
@@ -170,6 +197,9 @@ python generate_nativos_docs.py
 
 # Gerar docs da arquitetura Webrun (requer pasta webrun5/)
 python generate_war_docs.py
+
+# Gerar docs dos recursos da IDE (requer pasta Resources/)
+python generate_resources_docs.py
 ```
 
 ---
@@ -187,6 +217,7 @@ python generate_war_docs.py
 | `DadosTabelasNativaMakerAi.xml` | Dados das tabelas nativas exportadas |
 | `DicionarioDeDadosMakerAi.xml` | Dicionário de dados exportado |
 | `webrun5/` (WAR extraído) | Arquivo WAR do Webrun extraído para análise |
+| `Resources/` (pasta da IDE) | Recursos internos da IDE Maker AI (componentes, plugins, templates, skins, dicionários) |
 
 ---
 

@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 NativosMakerAi/
 webrun5/
+Resources/
 *.frz
 *.xml
 *.war
