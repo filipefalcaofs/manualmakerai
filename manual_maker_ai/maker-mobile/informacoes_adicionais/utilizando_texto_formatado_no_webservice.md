@@ -1,0 +1,118 @@
+# Utilizando Texto formatado no Webservice
+
+> Fonte: https://manual.softwell.com.br/docs/maker-mobile/informacoes_adicionais/utilizando_texto_formatado_no_webservice
+
+# Utilizando Texto formatado no Webservice
+
+Neste tutorial, mostraremos como retornar um **texto formatado** via Webservice e como obter este retorno no Mobile.
+
+**Texto formatado** é um recurso utilizado para divisão de colunas/registros de acordo com o formato desejado. Por exemplo, imaginando que existe uma tabela com 02 colunas e 03 registros, poderíamos utilizar “|” (pipe) para separar os registros e “,” (vírgula) para separar as colunas:
+
+> 1,Maker|2,Webrun|3,Mobile|
+
+Como primeiro passo, devemos criar o fluxo que será publicado como Webservice. Este fluxo fará a leitura de uma tabela e formatará o texto para retorno.
+
+Criando o Webservice no Maker
+
+- Para um melhor entendimento, o fluxo ficará da seguinte forma:
+
+![](/assets/images/novo_webservice_1-c1cdc54e749168be8f04a5b2f4864a80.jpg)
+
+- Defina as seguintes variáveis:
+
+![](/assets/images/novo_webservice_2-a9032ca3ff30b78e279eb13ecd512fb8.jpg)
+
+- Adicione um objeto **Processamento** e no **Montador de Expressão** utilize a função **Abrir consulta**. Atribua o resultado a variável **Tabela.**
+
+![](/assets/images/novo_webservice_3-0a68c0fb16b97ec3a7df00e53b8929f3.jpg)
+
+> **Nota**: Utilize o assistente SQL para realizar uma consulta na tabela FR\_ACAO
+
+- Adicione um objeto **Decisão** e no **Montador de Expressão** defina a função **Existem registros**. Defina a variável **Tabela** no parâmetro.
+
+![](/assets/images/novo_webservice_4-5ca357ec201423dc204de0e273a5bd4d.jpg)
+
+- Para a decisão **SIM** selecione um objeto **processamento** e no **Montador de Expressão** realize as alterações conforme a imagem abaixo:
+
+![](/assets/images/novo_webservice_5-40d900ab4b0527b8ba315bbd23bbb2bb.jpg)
+
+Observe que adicionamos o conteúdo da linha atual da tabela ao conteúdo existente na variável **retorno.**
+
+- Insira um último **processamento** e informe a função **Próximo – Registro**.
+
+![](/assets/images/novo_webservice_6-4d08da8a9b37154ae3cad656e8a4929a.jpg)
+
+- No final do fluxo clique sobre o objeto fim e determine o seguinte retorno.
+
+![](/assets/images/novo_webservice_7-f26f59a7491ba59c97d881b48473db28.jpg)
+
+- Salve o fluxo, e publique-o como [Webservice](/docs/dicas-e-truques/maker/publicando_um_fluxo_como_webservice "Como publicar um fluxo como webservice").
+
+Criando o fluxo que consumirá o Webservice
+
+Nosso próximo passo é criar o fluxo que consumirá o Webservice criado anteriormente.
+
+- Para um melhor entendimento o fluxo ficará da seguinte forma:
+
+![](/assets/images/novo_webservice_8-350660b600efaffcd5b91ffebb21bc56.jpg)
+
+- Defina as seguintes variáveis:
+
+![](/assets/images/novo_webservice_9-6469a44b8e6fda191e06f10514db1676.jpg)
+
+- Insira um objeto **processamento** e no **montador de expressão** determine a **função Chamar Serviço Web para dispositivos móveis.** Atribua o resultado à variável **retorno da consulta.**
+
+![](/assets/images/novo_webservice_10-9a89e8ed2d45ded44f98b7ea198ddfc8.jpg)
+
+- No primeiro parâmetro informe a URL do Webservice;
+- No segundo parâmetro informe a porta do Webservice,
+- No terceiro parâmetro informe o nome do método que será executado;
+- O quarto e quinto parâmetros devem ficar vazios (O Webservice não possui parâmetros de entrada)
+- Insira um objeto **processamento** e no **montador de expressão** selecione a função **Quebrar texto** e informe os parâmetros conforme imagem abaixo. Atribua seu retorno a variável **Lista de registros**.
+
+![](/assets/images/novo_webservice_11-a59092dc28d28196c88e90a0ac647827.jpg)
+
+- Insira um objeto **processamento** e no **montador de expressão** selecione a função **Tamanho da lista**. Atribua seu retorno a variável **Qtde de registros**.
+
+![](/assets/images/novo_webservice_12-110e61a6a5e2ee0ef34b81757fe1cc63.jpg)
+
+- Insira um objeto **Decisão** e no **Montador de Expressão** selecione a função **Menor** **ou igual**.
+
+![](/assets/images/novo_webservice_13-892bf6dcbbb45539428dbd6cd6349db6.jpg)
+
+- Insira um objeto **processamento** e no **montador de expressão** selecione a função **Quebrar texto** e informe os parâmetros conforme imagem abaixo. Atribua seu retorno a variável **Lista temporária**
+
+![](data:image/png;base64,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)
+
+- Informe um objeto **processamento** e no **montador de expressão**
+
+![](/assets/images/novo_webservice_14-f3539fc427eb9d16d3613baab3473f7f.jpg)
+
+![](/assets/images/novo_webservice_15-9899f8db8960590d59b239d7ea5f80fd.jpg)
+
+- Para o campo ‘aco\_codigo’ informe a função **Obter Objeto da Lista**.
+
+![](/assets/images/novo_webservice_16-723f09ec897fb635167a7df1d8fd47f2.jpg)
+
+- No primeiro parâmetro informe a variável Lista temporária
+- No segundo parâmetro informe 1 (Obteremos o primeiro objeto da lista para inserir no campo código)
+- No campo ‘aco\_nome’ informe novamente a função anterior.
+
+![](/assets/images/novo_webservice_17-5ae1052635094024a6c76598882331a8.jpg)
+
+- No primeiro parâmetro informe a variável Lista temporária,
+- No segundo parâmetro informe 2.
+- Adicione um objeto processamento e no montador de expressão selecione a função Soma.
+
+![](/assets/images/novo_webservice_18-cca69b6e3fe9daa69310f45139d8da85.jpg)
+
+- No primeiro parâmetro informe a variável Contador;
+- No segundo parâmetro informe 1.
+- Para a decisão **Não**, ligue ao objeto **Fim**.
+- Salve o fluxo e associe ao componente botão do formulário. Exporte o projeto para a plataforma desejada e execute-o.
+
+![](/assets/images/novo_webservice_19-8966b9be8059f91ee04407a081681af5.png)
+
+![](/assets/images/novo_webservice_20-dfc52b26566803302ef334a413e0da14.png)
+
+> **Observação**: Adapte a tabela ‘mob\_novo\_codigo’ para sua tabela existente.

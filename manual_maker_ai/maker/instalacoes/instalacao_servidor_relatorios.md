@@ -1,0 +1,87 @@
+# Instalação do Servidor de Relatório 3
+
+> Fonte: https://manual.softwell.com.br/docs/maker/instalacoes/instalacao_servidor_relatorios
+
+# Instalação do Servidor de Relatório 3
+
+Este recurso é aplicado para usuários que necessitam gerar relatórios Maker e contêm servidores aplicados para gerenciar relatórios. Para o ambiente Linux, será necessário um servidor Windows.
+
+Para instalação do Servidor de Relatórios, utilize o arquivo Servidor de Relatórios.exe ([disponível aqui](http://download.softwell.com.br/maker3/reports/Servidor_de_Relatorios_3_0_0_40.exe)) e siga os passos do assistente de instalação.
+
+![image1844.jpg](/assets/images/image64-54cdb70c9a0dd4c8827273521c0654c7.png)
+
+Após a instalação, o serviço chamado Servidor de Relatórios 3 (Softwell Solutions) será criado e iniciado automaticamente no Windows.
+
+## Conhecendo os executáveis da pasta Reports
+
+- ReportServer.exe - Executável responsável pelo gerenciamento das requisições e controle de geração dos relatórios, este executável “chama” várias instâncias do ReportEngine.exe.
+- ReportServer.exe - Executável responsável pelo gerenciamento das requisições e controle de geração dos relatórios, este executável “chama” várias instâncias do ReportEngine.exe.
+
+## Parâmetros de configuração
+
+A partir desta versão, o arquivo MakerReports.ini deixou de existir, dando lugar ao arquivo Reporting.conf. Neste arquivo constam os seguintes parâmetros:
+
+![image1886.png](data:image/png;base64,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)
+
+- **MinWorkers** - Quantidade mínima de ReportEngine.exe que serão alocados em memória RAM. Valor padrão: 2.
+- **MaxWorkers** – Quantidade máxima de ReportEngine.exe que serão alocados em memória RAM. Toda vez que uma requisição vier ao ReportServer.exe e não houver ReportEngine.exe disponível, um novo processo será criado para atender à requisição. Valor padrão: 5.
+- **IdleTimeOut** – Tempo máximo de inatividade de um ReportEngine.exe, sempre que houver mais ReportEngine.exe alocados em memória RAM do que o definido no parâmetro MinWorkers e estes atingirem o tempo de inatividade definido, o ReportServer.exe irá retirá-los da memória RAM. Valor Padrão: 300 (Unidade utilizada: segundos).
+- **RecycleCount** - Quantidade máxima de relatórios que podem ser gerados em cada ReportEngine.exe, quando o número de relatórios chegar ao valor definido neste parâmetro, o processo do executável ReportEngine.exe será encerrado e um novo processo será criado. Este parâmetro tem a finalidade de evitar Locks no processo ou Lixos de Memória. Valor padrão: 100.
+- **ResponseTimeout** - Tempo máximo para que o relatório seja gerado, caso atinja o tempo máximo definido, uma exceção é gerada. Valor padrão: 60. (Unidade utilizada: segundos).
+- **ServiceName** – Nome real do serviço. Se este parâmetro não existir, o valor padrão é: SoftwellReportServer.
+- **ServiceDisplayName** – Nome de exibição do serviço. Se este parâmetro não existir, o valor padrão é: Servidor de Relatórios (Softwell Solutions).
+- **ServicePort** – Porta onde o serviço do ***ReportServer*** estará escutando. Se este parâmetro não existir, ***o valor padrão é: 9193.***
+
+## Pasta Settings
+
+Esta pasta contém um arquivo chamado Default.ini, este arquivo define um padrão para todos os relatórios gerados dos sistemas existentes. Caso seja necessário customizar os relatórios por cada sistema existente, é necessário criar um arquivo no padrão “sigla do sistema.ini” (Ex.: SGP.ini). No momento da geração do relatório, o Webrun buscará pelo arquivo .INI correspondente à sigla do sistema, caso não encontre, as configurações padrão do arquivo Default.ini são carregadas.
+
+![image0006.png](/assets/images/image0006-a2e1cd097ed6038844dce877f081adc1.png)
+
+![image0007.png](/assets/images/image0007-b9231d9851c9e776a3dc3d07ac3fa9e6.png)
+
+- **UseImagesAsResources** – Se uma imagem se repetir no relatório a ser gerado, o Gerador de Relatórios aproveitará a imagem gerada anteriormente e replicará nos demais locais utilizados. Valor padrão: True.
+- **EmbedTrueTypeFonts** – Fonte padrão do relatório. Valor padrão: None.
+
+  - Full: Todas as fontes do Servidor serão carregadas no arquivo gerado;
+  - Subset: Somente as fontes utilizadas no relatório serão carregadas no arquivo gerado.
+- **ImageOutputFormat** – Formato de saída das imagens utilizadas no relatório. Valor padrão: JPEG.
+- **ImagePixelFormat** – Densidade de Pixels da imagem utilizada no relatório. Valor padrão: 24bits.
+- **JPEGQuality** - Qualidade da imagem utilizada.
+
+  - Observação: Este parâmetro é formado pela extensão utilizada no parâmetro ImageOutputFormat + Quality (Ex.: PNGQuality). Valor padrão: 100. (Unidade utilizada: Percentual)
+- **ImageSourceDPI** – Pontos por polegada utilizado na composição da imagem. Quanto maior for o valor definido neste parâmetro, mais detalhada e definida será a imagem gerada. Valor padrão: 300. (DPI – dots per inch).
+- **Monochrome** – Este parâmetro permite gerar imagens em preto e branco. Quando for “True” a(s)  imagem(ens) utilizada(s) será(ão) gerada(s) em preto e branco. Valor padrão: False.
+- **CompressionLevel** – Nível de compressão utilizado para geração do relatório. Valor padrão: MaxCompress.
+- - Os valores destacados em verde são os valores válidos para cada respectivo parâmetro.
+
+Observações:
+
+1. Para que funcione corretamente é necessário que nenhum arquivo seja excluído.
+2. Suporte somente a Relatórios gerados no RB10.
+3. O Suporte a HTTPS somente é possível em ambientes que utilizem o padrão OpenSSL.
+
+# Configuração de Servidores de Relatórios
+
+O objetivo deste item é possibilitar que sejam gerados relatórios a partir de servidores separados. Como exemplo, Servidor Linux.
+
+O primeiro passo é instalar o Gerador de Relatórios no servidor desejado:
+
+1. Acesse o diretório *..\DVD\_IMAGE\Support* do DVD de Instalação do Maker 3;
+2. Execute o instalador de relatórios ![image671.gif](data:image/gif;base64,R0lGODdhsQAVAPcAAAAAAACczgD/AAD//zFjzjFj/zGczmNjzmPO/2P//4SEhMbGxtbW1v//AP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAsQAVAAAI/wAdCBxIsKDBgwgTKlzIsKHDhxAjSnSogIHFiwwUAJjIsaPHjyBDNlRwgIBJkw40ilzJsqXLlSQRJEiAwEDKjS9z6ty5U4HPAzNrBrjJs6jRoxIVCCRJ00CAAkRb4oQ4lWNVpAivvvTpc0FMpwUIRHUAoKzWhVfPolVoVi3Zg24Jxi1YdmBdg3OtDlSacoFXv4D9qnwrMi9etnazwpU69S7doj4BCOZKeQFOrWYFbtyc+HJmsnc5y/38ObFmu6E1h159+a3nxo5dywbdmjBpwqg3wxa9lKzftgC4Ws59+nRq47h5636MvLjz2rM7m3bdujFuubLTzrYeu3h17Ht9K8YYMKCBZsCYadetKlp58uvP1bMvDdx2ZuvNoy9nXrst6NzrLWbbf86lRNZ4C5TnwG/d5Vdge+9xd5iD4OEnXX4SYohahRpCCB5/z/HWV3B+DVDWbwm5p12HF37o3nTQcZZhhC2y9yGL+l3X34PXKWCZj78JQF5a9B0Ho2qsFQggksx5d5x/BN7m5GtNTqmikQMOKOVSP/q1oAAoYiXmmGL6WBZfCzQggGFktulmR6RB+eacdNZp55145qnnnnz26eefgAbqUEAAOw==) e siga os passos do Assistente de Instalação;
+3. Como padrão, será instalado na pasta *..Softwell Solutions\ReportServer\*
+
+O segundo passo é criar os Parâmetros de Configuração:
+
+![image287.jpg](/assets/images/image287-1d4023355bd11cb420e567982ad5ccaa.jpg)
+
+1. Adicione dois parâmetros:
+
+   1. **Servidor** = HOST:9193
+   2. **ServidorRetorno** = 1
+
+Observações:
+
+1. É utilizada a porta 9193 como padrão;
+2. Para o Servidor de Relatórios funcionar, ele tem que estar com o Firewall desativado.
+3. Atualmente, o servidor de relatórios trabalha apenas com o Report Builder 10.

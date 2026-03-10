@@ -1,0 +1,93 @@
+# Integração
+
+> Fonte: https://manual.softwell.com.br/docs/maker/componentes/integracao
+
+# Integração
+
+![integracao_icone_maker.jpg](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABpCAIAAAC24JptAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOgSURBVHhe7dzRdaMwFEXR1JWC3Ma0kBJSRTqYKlLMjMR5wDPIOHMjYk1yz0cWFkLANs4nT69OzXZ6YffH/Uug2U4JNNspgWY7JdBspwRasnt/eX6iy9s0Y1uZ8PzyHh9+dKBdP3fHOrabA+2G3bTxcsnPYRmKj3XK9ac4NkamsXWFenTaufC/zcvXGY0J69CN38HjAu223XLJ5R6XwbivMjTfTwxWiBhiJK+Qi0Pr7sbeUkxYF7w99WGBdvTc8fU3Buvd5C5v+/l5pJQP2e8tHUyou8bCA021W/ZSeUo28zcr5F/iZm/peELd+w3s4h7SLzRKeMxvrsAadXtdq9aY8H/9Zus1Uus3OG3WG+Kf+Tp5/ufOPiojeYW08/lyifG0QpE5nDCYXPu561JhGO5mOwdaN7v02H13uROfux8QaLZTAs12SqDZTgk02ymBZjsl0GynBJrtlECznRJotlMCzXZKoNlOCTTbKYFmOyXQbKcEmu2UQLOdEmi2UwLNdkqg2U4JtK+2+3VycZqTA812SqDZTgk02ymBZjsl0GynBJrtlECznRJotlMCbSC73x8uDmgVpzk50May2/9tVmffKE5zcqD5uVMCbbjn7m62a2S7O8UttsooyzYbzV3N4jQnB9qIdk2p5t59cZqTA204uw1N/ticsClOc3KgDf3c7eHyRrM4zcmBNvT/u6aX7RodoyzZrpHt7hS32Mp2d4pbbFVQPlgc0CpOc3KgDWTXpTjNyYFmOyXQbKcEmu2UQLOdEmi2UwLNdkqg2U4JNNspgfbVdt8j0GynBFovu+lFMIO/3KO+hiS97+YTgdbHrsoVuLtv0ikT+ly8WuHrcQGgdbFLV3Ss83C7+Vv+ZKD1sMtf5qIzbQz49sFp1TheDrQOdldXs3yYrjsuecFdp5ah+X5isELEECN5hVwcWnc39pZiwrrg1dR0ZjnQzrRbRveDZSOeCPrCtw/uD/z3QHuc3XrMVHkcNvM3K+Rf4mZv6XhC3TvbDfXcNW47b2wG48LXH9RcWoX5zRVYo26va9UaE9ZT5Klpoh5oPeyW267XSMO+fbAOreJqoHWx63RFS4Wh42q5snL6PuRA62MXX/Hnbjg9dufI1RP0kOtt97MCzXZKoNlOCTTbKYFmOyXQbKcEmu2UQLOdEmi2UwLNdkqg2U4JNNspgWY7JdBspwSa7ZRAs50SaLZTAs12SqDZTgk02ymBZjsl0MLOCdlO7fX1L7op52O0V26lAAAAAElFTkSuQmCC)
+
+Componente Maker 3 que integra bibliotecas de frameworks terceiros (como jQuery, Bootstrap, etc) à formulários Maker, sendo possível transportar códigos prontos ou desenvolver do zero. Confira as funcionalidades do mesmo:
+
+O componente Integração conta com as seguintes funcionalidades:
+
+- **Suporte à HTML e CSS nativos;**
+- **Suporte à responsividade;**
+- **Importação de bibliotecas através de endereço CDN;**
+- **Reconhecimento automático de botões e âncoras com associação de Id;**
+- **Associação de fluxos Maker à elementos HTML através de eventos DOM;**
+- **Pré-visualização em tela;**
+
+**Propriedades em comum:**
+
+| Propriedade | Descrição | Tipo | Exemplo |
+| --- | --- | --- | --- |
+| Altura | Define a altura do componente | Inteiro | 250 |
+| Código | Informa o código gerado pelo Maker ao qual o componente/formulário foi associado. De forma geral, não interfere nas características do componente. | Inteiro | 5 |
+| Container | Informa em qual container o componente irá ser inserido. | Indefinido |  |
+| Dica | Armazena uma dica para o componente, o qual se torna acessível no modo de inserção ou alteração. | Letras | "Digite o CPF do cliente" |
+| Habilitado | Torna o componente possível ser editado ou manipulado. | Lógico | Sim |
+| PosiçãoX e PosiçãoY | O "X" determina a posição do componente em relação à esquerda do formulário, e o "Y" em relação ao topo. | Inteiro | 100 |
+| Tabulação | Indica a ordem de tabulação do componente em relação aos outros que compõem a aba do formulário na qual está posto. Essa ordem pode ser observada quando o usuário altera o estado do formulário/grade para o modo de inclusão ou edição e navega entre os componentes/campos usando a tecla Tab. | Inteiro | 2 |
+| Tabular | Selecionando a opção Sim, quando o usuário estiver navegando entre os componentes, como foi descrito no item anterior, o componente receberá foco (observada a ordem de tabulação). | Lógico | Sim |
+| Tamanho | Aplicado a todos - determina a largura do componente ou formulário. | Inteiro | 100 |
+| Visível | Aplicada a todos os componentes, com exceção da Moldura e do objeto formulário - Selecionando a opção Sim, o componente aparece no formulário. | Lógico | Sim |
+| Nome | Aplicada a todos os componentes e para o objeto formulário - apresenta o nome do componente. O Maker sugere um nome diferente dos nomes dos componentes existentes no formulário para evitar que mais de um componente possua o mesmo nome. | Letras | "Tabela de Consumidores" |
+| Descrição | Aplicada a todos os componentes exceto para os componentes Árvore, Grade, Moldura, Imagem e para o objeto formulário - É a legenda que aparece sobre o componente para identificar (resumidamente) qual a sua função. Observação: Ao selecionar um determinado campo o Maker irá sugerir uma descrição obtida no dicionários de dados, caso o usuário deseje deixar o campo da descrição em branco basta apagá-lo e clicar fora do componente. | Letras | "Insira aqui a idade do consumidor" |
+
+**Propriedades específicas do componente Integração:**
+
+| Propriedade | Descrição | Tipo | Exemplo |
+| --- | --- | --- | --- |
+| Abrir como página | Quando essa propriedade é Não, ele desenha o HTML dentro da div do componente. Quando Sim, ele cria um arquivo HTML, CSS e JS pros códigos, e cria um IFRAME. | Lógico | Sim |
+| Posicionamento | Define se o componente aparecerá em sua posição natural, em uma posição relativa ou ocupará toda a área de exibição. | Lista | Área |
+| Alinhamento Vertical | Define se o componente deverá se alinhar ao topo, centro ou rodapé da área de exibição. | Lista | Nenhum |
+| Alinhamento Horizontal | Define se o componente deverá se alinhar à esquerda, ao centro ou à direita da área de exibição. | Lista | Nenhum |
+
+Para configurar o componente, utilize a propriedade "Estrutura" do mesmo:
+
+![](data:image/png;base64,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)
+
+- Na propriedade estrutura, uma tela de edição do componente Integração é aberta, onde na mesma é possivel a configuração de toda estrutura.
+
+Segue imagens de um componente já configurado.
+
+- HTML
+
+Aba onde será inserido o conteúdo HTML do componente desejado, é recomendável que se insira apenas o conteúdo dentro do "body do documento, pois o cabeçalho é tratado automaticamente pelo Integração
+
+![](/assets/images/integracao_HTML-4e798e797f51b4274aa7dba376608b88.png)
+
+- CSS.
+
+Aba onde será inserido o conteúdo CSS do componente.
+
+![](/assets/images/integracao_CSS-9e946b00379c10306a0a3722ba95b3f6.png)
+
+- Java Script.
+
+Aba onde se insere o código JavaScript do componente, ao utilizar códigos de frameworks de terceiros, deve-se importar a biblioteca na tela seguinte para o devido funcionamento.
+
+![](/assets/images/integracao_JS-130c1d1690756fc48755fc01242f77a1.png)
+
+- Bibliotecas.
+
+Aqui serão inseridas as bibliotecas para framework JavaScript e CSS, deve ser passado o endereço CDN da biblioteca, o mesmo deve ser passado com o prefixo completo do endereço (http://).
+
+![](/assets/images/integracao_Library-9128a9a69d923cd9fd95374c90abead4.png)
+
+- Eventos.
+
+Nesta aba é possível vincular eventos Maker à elementos específicos do HTML inserido. Para ser possível vincular os eventos, estes elementos (tags) devem possuir um ID, no caso de tags "button" e "a", caso não possuam ID, serão adicionados automaticamente pelo Integração. Os fluxos serão executados por eventos DOM pre-definidos no componente, deve-se ficar atento às restrições de eventos para certos tipos de elemento. Poderá também ser passado parâmetros (em forma de Constante) para os fluxos, desde que esses sejam feitos para recebê-los.
+
+![](/assets/images/integracao_Events-79a5bda3cb44d3f70357252f12df3950.png)
+
+Exemplo de Frameworks suportados pelo componente.
+
+- **jQuery**
+- **Bootstrap 3**
+- **Angular JS**
+- **React JS, entre outros.**
+
+## **Utilizando Componente Integração**
+
+[](/novidades/videos/Integração.mp4)

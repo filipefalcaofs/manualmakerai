@@ -1,0 +1,159 @@
+# Erros & Soluções - Banco de dados
+
+> Fonte: https://manual.softwell.com.br/docs/topicos-de-erros/banco_de_dados/erros_solucoes_banco_de_dados
+
+# Erros & Soluções - Banco de dados
+
+A Softwell Solutions busca através deste guia, apresentar ao usuário uma lista de erros mais comuns no Banco de dados e sua solução. Este tópico estará em constante atualização.
+
+- [Lost connection to MYSQL server during query socket error on write. WSAGetLastError return 1004($2746)](#lost-connection-to-mysql-server-during-query-socket-error-on-write-wsagetlasterror-return-10042746)
+- [O assistente não conseguiu criar o novo banco de dados.](#o-assistente-n%C3%A3o-conseguiu-criar-o-novo-banco-de-dados)
+- [Ao processar a consulta! Observe se todos os filtros foram passados com valores corretos!](#ao-processar-a-consulta-observe-se-todos-os-filtros-foram-passados-com-valores-corretos)
+- [No Suitable Driver](#no-suitable-driver)
+- [Operator does not exist: integer = character varying.](#operator-does-not-exist-integer-character-varying)
+
+## Lost connection to MYSQL server during query socket error on write. WSAGetLastError return 1004($2746)
+
+![image1769.jpg](/assets/images/banco1-620d94d631fd2a88d64ce1351f404980.png)
+
+#### Para corrigir, defina um novo tamanho máximo para pacotes de dados no servidor através das seguintes opções:
+
+- Primeira opção - por meio da linha de comando de inicialização do servidor:
+
+`shell>mysql--max\_allowed\_packed=16M`
+
+- Segunda opção - por meio da adição de um parâmetro no INI de configuração do servidor:
+
+**[mysqld]**
+
+`max\_allowed\_packet=16M`
+
+- ou
+
+**[mysqld]**
+
+`set-variable = max\_allowed\_packet=10240000`
+
+## O assistente não conseguiu criar o novo banco de dados
+
+![image1811.jpg](/assets/images/banco2-15e8b8602181045593c6a3f91ed5d809.png)
+
+**Ocorre porque o Charset Latin1 não está disponível nesta versão do Postgres.**
+
+**Solução:**
+
+1. Ir até **Configurações Avançadas**
+2. Modificar o parâmetro **CharSet** de **Latin1** para **Win1252**.
+
+## Ao processar a consulta, Observe se todos os filtros foram passados com valores corretos!
+
+#### Quando aparecer a mensagem:
+
+![image1772.jpg](data:image/png;base64,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)
+
+Ocorrida na aba **Localizar** do formulário, significa que o charset usado não é compatível com o SGBD. Para evitar o erro, utilize o charset compatível com o SGBD. Clique aqui para visualizar os tipos de charset suportado pelos SGBD´s.
+
+#### Casos com Postgres UTF8
+
+1. **No databases.xml**, que por padrão fica no diretório: **C:\Program Files (x86)\Softwell Solutions\Maker Studio Bootstrap\Webrun Studio Bootstrap\config**
+2. Remover o **to\_ascii** do parâmetro **UpperFunctionStart** no grupo **PostgreSQL** e o parênteses ")" do parâmetro **UpperFunctionEnd**.
+3. **Após remoção, os parâmetros devem ficar conforme o modelo abaixo:**
+
+```prism-code
+<item>    
+      <item-name>UpperFunctionStart</item-param>    
+      <item-param>UPPER(</item-param>``    
+</item>    
+    
+<item>    
+      <item-name>UpperFunctionEnd</item-name>    
+      <item-param)</item-param>    
+</item>
+```
+
+#### É necessário reiniciar o Webrun após salvar o databases.xml.
+
+#### Observações:
+
+- Este problema também ocorre quando um **UNION** estiver associado a um formulário.
+- Ao ser removido o **to\_ascii** é necessário alterar o seguinte parâmetro:
+
+**Antes:**
+
+```prism-code
+<item>    
+      <item-name>removeNonAsciiCharsOnTextSearch</item-name>    
+      <item-param>1``</item-param>``    
+</item>
+```
+
+**Depois:**
+
+```prism-code
+<item>    
+      <item-name>removeNonAsciiCharsOnTextSearch</item-name>    
+      <item-name>0``</item-param>``    
+</item>
+```
+
+## No Suitable Driver
+
+A mensagem de erro ***No Suitable Driver*** é apresentada ao tentar acessar no Webrun um projeto criado sobre o banco de dados ***Postgres***. O erro é apresentado nas versões anteriores do **Webrun 3**, ao tentar acessar os projetos de exemplos que acompanham o "**Instalador do Maker**" ou um novo projeto no Webrun.
+
+**Solução:** Para a correção do erro:
+
+1. Acesse a tela de Configurações do Sistema no Webrun.
+2. No campo Servidor, informe o **IP ou o nome do computador no qual está o banco de dados** e, no campo **Banco, informe o nome do banco de dados**.
+3. Em seguida, **clique no botão** ![image1915.gif](data:image/gif;base64,R0lGODdhNgArAPcAAAAAABAICBgIABgYECkhITEYCDEhEDEpKTExMTkxKTk5OUIhCEJCQkJCSkoxGFI5MVJSUlopAFpCOVpSSlpaWlpaY1pjY2NCIWNKKWNjY2Nja2spAGtCKWtSQmtja2tra2trc3M5AHNCEHNjSnNjWnNra3Nzc3Nze3tKGHtSMXtaOXtaQntrUnt7e3t7hHuEhIRCAIRCEIRKEIRKGIRSIYSEhISElISMjIxKCIxrUoyEhIyMjIyMlJRCAJRSEJRaGJRjKZR7a5SMe5SUlJSUnJSUpZxaGJx7a5yMc5yUlJyUnJyclJycnJycpZycraVSEKWUhKWcpaWlpaWlraWltaWtta1jGK2cjK2tra2tta2tva21vbVjIbW1tbW1vbW1xrW9vbW9xr29tb29vb29xr29zr3GzsZ7KcbGvcbGxsbGzsbG1sbOzsbO1s57Kc7Ozs7O3s7W3s7W59bW1tbW59be3tbe596MMd7e3t7e5+fn5+/v7/f39////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAANgArAAAI/wD7CBxIsKDBgwgTKlzIsKHDhwfXwOkzEaLFhnLWZGnChIiTMAfhlBlJ5yJEOFPU8OGjB48UkAPjeGEysEZFkws16unTsksXJhBuThnyJg2TFjdxJlwzBQ/POTsofABRoYmcPl+YvMEzpkZJgXCuKi0YJ8zOPW9aMODxpc+aLROnpNmDx8RNNkPGGoQDpuiYIQwIxClIp8mePVgaDMyzI4MZvQPhkMEiZYeJDAQMkEhqhwmfPWNAuOiTR8oYCo/1wlHjFE+LDxQCFFgQI8hNOlL28MGDxQSTLm/mfCijt8yYgXwYKDhBgYAIGVagDHTy4XCfPaxZvnExeOyaFgK7SP9hYKNMGxcSUPhwcwVOFQhd0swpyOcGFch9pNQAnSHDTSUj0GDEHUJkMEYaTcw3UBo7EJHUWE1QABgP3QkUBQtA/KCCGGlgMcdrLWSgwQtVPKjXEARYQFxBU7CAgRh/zcEEBSbiR9AJbRlEBghoYFHDG0mAUKONC5HBwxtYfPAGFCkgsQaREH1hQx1YUDDHEhcYccYRT0LJkBYu8MYAHl54sAINPnCRQ5deIkQFCLwhoMcYRfShAwYz4PCECmq0GREFOw0AWhEVleBADDD0wEGffkY2RRfz8TEGD0lNUEAIIWwgQaOREcEEFn2M4YKJCQgQwQIdcDrQFhQwkYaQCA2AIMADVag6EBlMTDGkQAdMYeuvwAYr7LDEFlsQAAYBgCxkyg7ULEPLRuusXs/2Ua1Cy05rI7LcWuvstco+y2243gpErrXVdnust+pmK6258JZbbrbronvQu+/Oq22++Zp7Lr0E4RuvvvHyO7C8/QZcL7r0hivwwP/+a+zEFFdsbEAAOw==)
+4. Na sequência, **clique em** ![image1916.gif](data:image/gif;base64,R0lGODdhNAApAPcAAAAAAAC1AAC9AADGAADOAAiMAAitCAi1CAjOCBCcEBDGEBitGBi1GBi9GBjGGBjOGCGtISHGISm1KTGtMTG9MTHGMTHWMTHeMTmlOTmtOTneOUK1QkK9QkK9SkLWQkLWSkLeQkqtSkq1UkrGSkrOSkreSlK1UlK9UlLOUlLeUlqUWlqtWlqtY1q1Wlq9WlrWY1reWlrnWmO1Y2O9Y2PGY2PnY2uta2u1a2u9a2u9c2vGa2vGc2vWa2vna3Otc3POc3Pnc3ute3u1e3vOhHvWe3vne4SthIS9hIS9jITGhITOhITehITvhIy9jIy9lIzGjIzGlIzOjIzWjIzejIzvjIzvlJS9lJTGlJTOlJTWlJTvjJzGnJzOpZzenJznnJzvnKXGpaXOpaXOraXnpaXvpa3Gra3Ora3Ota3nra33rbXOvbXWtbXntbXvtbX3tb3Oxr3Wvb3nvb33xsbOzsbnxsbvxsb3xsb/xs7Wzs7nzs7vztb31tb/1v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAANAApAAAI/wD7CBxIsKDBgwgTKlyocI2ZMGvgMJxI0WCTJGzo5ImDRYiZiiAXyuiyR4+eOmxS7mgSsmXBK0rQoBkzY4WNID5uZDjisieGKVKWbDBS0EqBKz0p4nkzxwkHHjwmqEAoJOlEFgkgQBiBgoQECQYwWO0p44CDCGgfKMgwNmmIAAIEDBiwoGCOE20rthBAYIBYgjq+tHGRl6KIAQwK6ihC5gsVvIUZQin4owcTID2AwOgQGSSNEj1qxEgBwgKCxJ0NnjEoZouJDyAuNJCB5ElqgxTEHHxRI4WGDbcRnqlARIyaPmq4TNFSpIcHMMERqnlRpU0dO3bcfNECBEd0hUO8yHvhw+dOmiU6vjN8EiWLkiNl1MufT7++/fv48+vfzxCAfwALAYiQgAURWBGBBuqHIEH/DSTgfwsK1CCC/jnYR4IXNmihhBxeuOGDDBr0IIYelighhB1GCOKGGVZoYoEsYrhiiTPS+OGAIZ7o4ow8VkjhjvwFKeSQRBYZXUAAOw==).
+
+#### Operator does not exist: integer character varying
+
+---
+
+Ao exportar um banco criado no postgres 8.x para a versão 9, poderá apresentar erro de operador de comparação de inteiro com string(varchar), **isso ocorre pois as versões do postgres a partir da 8.3 não fazem conversões Implícitas de valores.**
+
+Executando o script abaixo é possível fazer com que haja uma conversão de tipos, **forçando um CAST que converte o valor de um tipo de dado para outro.**
+
+#### Para executar o script, siga os seguintes passos
+
+### Maker
+
+1. No projeto selecionado, abra o menu **Utilitários;**
+
+![](/assets/images/erros_solucoes_1-030f2c43dbb4008f3950b7a4a340963c.png)
+
+2. Selecione a opção **Executor de Scripts SQL...**
+
+![](/assets/images/erros_solucoes_2-5fb65c1f9f223516720aded5c73a5dac.png)
+
+3. **Insira o script abaixo:**
+
+**Script:**
+
+CREATE OR REPLACE FUNCTION public.int\_equal\_string(i integer, s character varying)  
+RETURNS boolean AS  
+'select cast($1 as varchar(20)) = $2'  
+LANGUAGE 'sql' VOLATILE  
+COST 100;
+
+CREATE OPERATOR public.=(  
+PROCEDURE = "int\_equal\_string",  
+LEFTARG = int4,  
+RIGHTARG = varchar);
+
+---  
+CREATE OR REPLACE FUNCTION public.bigint\_equal\_string(i bigint, s character varying)  
+RETURNS boolean AS  
+'select cast($1 as varchar(20)) = $2'  
+LANGUAGE 'sql' VOLATILE  
+COST 100;
+
+CREATE OPERATOR public.=(  
+PROCEDURE = "bigint\_equal\_string",  
+LEFTARG = bigint,  
+RIGHTARG = varchar);
+
+**Informado o script , execute-o, salve o projeto e observe que os problemas de conversões de tipos será solucionado.**
+
+#### Observação: caso o erro de conversão do volte a ocorrer recomendamos utilizar a solução que consta na documentação do PostgreSQL.

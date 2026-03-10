@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+NativosMakerAi/
+*.frz
+*.xml
+.DS_Store

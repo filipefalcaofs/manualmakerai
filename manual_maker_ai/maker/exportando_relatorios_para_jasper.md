@@ -1,0 +1,19 @@
+# Exportando Relatórios para JASPER
+
+> Fonte: https://manual.softwell.com.br/docs/maker/exportando_relatorios_para_jasper
+
+# Exportando Relatórios para JASPER
+
+Para que o relatório seja exportado, é necessário ativar a opção por meio do menu Configurações e da tela Configurações, na aba Outros\* selecione a opção Conversão dos relatórios para JASPER.
+
+![jasper01.png](/assets/images/jasper01-dcec32c17499f11be6af557561614e6b.png)
+
+Após ter ativado a opção, clique no menu Projeto e selecione a opção Exportar relatórios para o Jasper.
+
+![jasper02.png](/assets/images/jasper02-7bad2df23ae40c8c5a5a3684fa1dd526.png)
+
+Selecione o(s) relatório(s) que deseja e clique em exportar.
+
+- ![](data:image/png;base64,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): clicando sobre esta opção, será aberta uma janela que permite ao usuário salvar o relatório com a extensão \*.JRXML. Será criada uma pasta nomeada por bridge (caso não exista no diretório escolhido), onde será armazenado(s) as pastas e o(s) arquivo(s). Os Relatórios com essa extensão podem ser utilizados em sistemas operacionais Linux e Windows (por meio de um Web Service, por exemplo). Observar que, pelo atalho da [Paleta de Objetos](/docs/maker/paleta_objetos), exporta-se apenas um relatório por vez e este deve ser utilizado quando a estrutura de pastas para a exportação (citada acima) estiver pronta.
+
+Observação: Ao converter um relatório para jasper, alguns componentes podem não funcionar corretamente. Para que todos eles funcionem adequadamente será necessario o uso do [iReport](/docs/dicas-e-truques/relatório/utilizando_o_ireport).
