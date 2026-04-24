@@ -1,0 +1,446 @@
+<form FRM_CODIGO="500000252" FRM_GUID="{70291062-0AA0-48AD-AB9F-FD3FE310D821}">
+            <property name="IMG_INCLUIR">1</property>
+            <property name="IMG_ALTERAR">2</property>
+            <property name="IMG_EXCLUIR">8</property>
+            <property name="IMG_GRAVAR">12</property>
+            <property name="IMG_CANCELAR">13</property>
+            <property name="IMG_ATUALIZAR">7</property>
+            <property name="IMG_GRAVAR_MAIS">15</property>
+            <property name="IMG_LOG">16</property>
+            <property name="IMG_VALORES_PADRAO"></property>
+            <property name="IMG_UTILITARIO">1</property>
+            <property name="IMG_SAIR">11</property>
+            <property name="IMG_IMPRIMIR">10</property>
+            <property name="IMG_AJUDA">14</property>
+            <property name="IMG_PROXIMO"></property>
+            <property name="IMG_ULTIMO"></property>
+            <property name="IMG_PRIMEIRO"></property>
+            <property name="IMG_ANTERIOR"></property>
+            <property name="FRM_DESCRICAO">Cadastro&#x0020;de&#x0020;Linhas&#x0020;de&#x0020;Transporte</property>
+            <property name="FRM_POSICAOX">15</property>
+            <property name="FRM_POSICAOY">0</property>
+            <property name="FRM_TAMANHO">1246</property>
+            <property name="FRM_ALTURA">775</property>
+            <property name="FRM_TIPO_CRIACAO">0</property>
+            <property name="FNT_CAMPOCHAVE">LNH_ID</property>
+            <property name="FNT_TABELA">SMB_LINHA</property>
+            <property name="FNT_SQLSELECT">Select&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;Case&#x0020;When&#x0020;SMB_LINHA&#x002E;LNH_ID_MAE&#x0020;Is&#x0020;Null&#x0020;Then&#x0020;SMB_LINHA&#x002E;LNH_CODIGO&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;Else&#x0020;SMB_LINHA&#x002E;LNH_ID_MAE&#x0020;End&#x0020;As&#x0020;LinhaMae&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;Case&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;When&#x0020;SMB_LINHA&#x002E;LNH_ID_MAE&#x0020;Is&#x0020;Not&#x0020;Null&#x0020;Then&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;dbo&#x002E;GetLinhasFilhas(SMB_LINHA&#x002E;LNH_ID_MAE)&#x0020;Else&#x0020;&#x0027;&#x0020;&#x0027;&#x0020;End&#x0020;As&#x0020;LinhasFilhas&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_NOME&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_STATUS&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_ATIVACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_DESATIVACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;TPF_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;GRL_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;TER_ID_INICIAL&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;TER_ID_FINAL&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_BANDEIRA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_OFICIO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;AnexoOficio&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_VALOR_DIFERENCIAL&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;TPV_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_NIVEL_CONFORTO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;PES_COD_EMPRESA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;TPO_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;CDT_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;TPL_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;FRO_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;FRC_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_INICIO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_FIM&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;SMB_CAD_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_IMAGEM&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_VEICULO_IMAGEM&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;NVT_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_FROTA_VEICULOS&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_VEICULOS_FROTA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;CAJ_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;AJ_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;TL_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;CON_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_ID_MAE&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_CODIGO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LIT_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LIN_COD_FILHA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;CLA_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;CON_ID_PICO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_OFICIO_DESATIVACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_INICIO_PROGRAMACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_FIM_PROGRAMACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_RESP_NAO_PADRAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_ORGAO_FISCALIZADOR&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_PRE_EMBARQUE&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;USR_COD&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_VERSAO_LINHA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_CRIACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_USUARIO_CRIACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_MOTIVO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_OFICIO_CRIACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_FIM_TESTE&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_INICIO_TESTE&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_DESATIVACAO_VERSAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_DATA_ATIVACAO_VERSAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;SMB_MOTIVO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;SMB_DATA_ALTERACAO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_TEMPO_IDA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_TEMPO_VOLTA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_TEMPO_IMPRODUTIVA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;Coalesce(SMB_LINHA&#x002E;LNH_TEMPO_IDA&#x002C;&#x0020;0)&#x0020;&#x002B;&#x0020;Coalesce(SMB_LINHA&#x002E;LNH_TEMPO_VOLTA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;0)&#x0020;As&#x0020;LNH_TEMPO_PERCURSO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_IDA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;SE&#x0027;))&#x0020;As&#x0020;sentidoIDA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_VOLTA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;SE&#x0027;))&#x0020;As&#x0020;sentidoVOLTA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_IDA&#x0020;&#x002B;&#x0020;i&#x002E;ITI_EXTENSAO_VOLTA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;SE&#x0027;))&#x0020;As&#x0020;sentidoTOTAL&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_IDA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;OP&#x0027;))&#x0020;As&#x0020;operacionalIDA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_VOLTA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;OP&#x0027;))&#x0020;As&#x0020;operacionalVOLTA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_OUTRO&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;OP&#x0027;))&#x0020;As&#x0020;operacionalOUTRO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_IDA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;OC&#x0027;))&#x0020;As&#x0020;ociosaIDA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_VOLTA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;OC&#x0027;))&#x0020;As&#x0020;ociosaVOLTA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_IDA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;EX&#x0027;))&#x0020;As&#x0020;expressaIDA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(i&#x002E;ITI_EXTENSAO_VOLTA&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;&#x003D;&#x0020;&#x0027;EX&#x0027;))&#x0020;As&#x0020;expressaVOLTA&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;Format(Coalesce(Sum(i&#x002E;ITI_EXTENSAO_IDA)&#x002C;&#x0020;0)&#x0020;&#x002B;&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;Coalesce(Sum(i&#x002E;ITI_EXTENSAO_VOLTA)&#x002C;&#x0020;0)&#x0020;&#x002B;&#x0020;Coalesce(Sum(i&#x002E;ITI_EXTENSAO_OUTRO)&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;0)&#x002C;&#x0020;&#x0027;N2&#x0027;&#x002C;&#x0020;&#x0027;pt-BR&#x0027;)&#x0020;&#x002B;&#x0020;&#x0027;&#x0020;km&#x0027;&#x0020;From&#x0020;SMB_ITINERARIO&#x0020;i&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(i&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(i&#x002E;ITI_TIPO&#x0020;In&#x0020;(&#x0027;OP&#x0027;&#x002C;&#x0020;&#x0027;OC&#x0027;&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;&#x0027;EX&#x0027;)))&#x0020;As&#x0020;totalImprodutivaKM&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;a&#x002E;OFN_NUMERO_OFICIO&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_OFICIO_NOTIFICACAO&#x0020;a&#x0020;Left&#x0020;Join&#x0020;SMB_OFICIO_LINHAS_IMPACTADAS&#x0020;b&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;On&#x0020;b&#x002E;OFN_COD&#x0020;&#x003D;&#x0020;a&#x002E;OFN_COD&#x0020;Inner&#x0020;Join&#x0020;SMB_ASSUNTO_OFICIO&#x0020;c&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;On&#x0020;c&#x002E;ASO_COD&#x0020;&#x003D;&#x0020;a&#x002E;ASO_COD&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(b&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x0020;(c&#x002E;ASO_COD&#x0020;&#x003D;&#x0020;11))&#x0020;As&#x0020;Num_Oficio&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;(Select&#x0020;Top&#x0020;1&#x0020;a&#x002E;OFN_NUMERO_OFICIO&#x000D;&#x000A;&#x0020;&#x0020;From&#x0020;SMB_OFICIO_NOTIFICACAO&#x0020;a&#x0020;Left&#x0020;Join&#x0020;SMB_OFICIO_LINHAS_IMPACTADAS&#x0020;b&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;On&#x0020;b&#x002E;OFN_COD&#x0020;&#x003D;&#x0020;a&#x002E;OFN_COD&#x0020;Inner&#x0020;Join&#x0020;SMB_ASSUNTO_OFICIO&#x0020;c&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;&#x0020;On&#x0020;c&#x002E;ASO_COD&#x0020;&#x003D;&#x0020;a&#x002E;ASO_COD&#x000D;&#x000A;&#x0020;&#x0020;Where&#x0020;(b&#x002E;LNH_ID&#x0020;&#x003D;&#x0020;SMB_LINHA&#x002E;LNH_ID)&#x0020;And&#x000D;&#x000A;&#x0020;&#x0020;&#x0020;&#x0020;(c&#x002E;ASO_COD&#x0020;&#x003D;&#x0020;12))&#x0020;As&#x0020;Num_Oficio_desativacao&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;CON_ID_ENTRE_PICO&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;EVE_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x002E;LNH_CODIGO_ORIGINAL&#x000D;&#x000A;From&#x000D;&#x000A;&#x0020;&#x0020;SMB_LINHA&#x000D;&#x000A;&#x002F;&#x002A;WHERE_NEW&#x002A;&#x002F;&#x000D;&#x000A;&#x002F;&#x002A;ORDER_NEW&#x002A;&#x002F;&#x000D;&#x000A;</property>
+            <property name="FNT_SQLINSERT"></property>
+            <property name="FNT_SQLUPDATE">LNH_ID&#x000D;&#x000A;LNH_NOME&#x000D;&#x000A;LNH_STATUS&#x000D;&#x000A;TPF_ID&#x000D;&#x000A;TER_ID_INICIAL&#x000D;&#x000A;TER_ID_FINAL&#x000D;&#x000A;TPV_ID&#x000D;&#x000A;TPO_ID&#x000D;&#x000A;FRO_ID&#x000D;&#x000A;FRC_ID&#x000D;&#x000A;SMB_CAD_ID&#x000D;&#x000A;LNH_VEICULOS_FROTA&#x000D;&#x000A;CAJ_ID&#x000D;&#x000A;AJ_ID&#x000D;&#x000A;LNH_CODIGO&#x000D;&#x000A;LIT_ID&#x000D;&#x000A;LNH_INICIO_PROGRAMACAO&#x000D;&#x000A;</property>
+            <property name="FNT_SQLDELETE"></property>
+            <property name="FNT_CAMPOINCREMENTO"></property>
+            <property name="FNT_CAMPOGRADE"></property>
+            <property name="FNT_CAMPOPESQUISA"></property>
+            <property name="FNT_SQLDEFAULT">LNH_STATUS&#x003D;E&#x000D;&#x000A;</property>
+            <property name="FNT_SQLMASCARA"></property>
+            <property name="REL_CODIGO"></property>
+            <category CAT_CODIGO="1"><![CDATA[Uso Geral]]></category>
+            <category CAT_CODIGO="2"><![CDATA[Template Default]]></category>
+            <category CAT_CODIGO="3"><![CDATA[Veículos]]></category>
+            <category CAT_CODIGO="4"><![CDATA[Entidade Operadora]]></category>
+            <category CAT_CODIGO="5"><![CDATA[Operador]]></category>
+            <category CAT_CODIGO="6"><![CDATA[Sistema]]></category>
+            <component COM_CODIGO="1052031" COM_TIPO="F" name="">
+                <property name="AbaLocalizar">FALSE</property>
+                <property name="AbaLocalizarPermitirImportarDados">TRUE</property>
+                <property name="AbaLocalizarPermitirOrdenarGrade">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioHtml">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioListagem">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioTxt">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioXml">TRUE</property>
+                <property name="AbaLocalizarPermitirRemoverOrdenacaoGrade">TRUE</property>
+                <property name="Abas">TRUE</property>
+                <property name="Ajuda"></property>
+                <property name="Apresentacao">0</property>
+                <property name="BarraDeRolagem">True</property>
+                <property name="BarraNavegacaoFixa">TRUE</property>
+                <property name="BotaoFechar">True</property>
+                <property name="BotaoMaximizar">False</property>
+                <property name="BotaoMinimizar">True</property>
+                <property name="CampoVersao"></property>
+                <property name="Centralizado">False</property>
+                <property name="CentralizadoVertical">False</property>
+                <property name="ClasseCss">&#x002E;loading-overlay&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;display&#x003A;&#x0020;none&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;background&#x003A;&#x0020;rgba(255&#x002C;&#x0020;255&#x002C;&#x0020;255&#x002C;&#x0020;0&#x002E;7)&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;position&#x003A;&#x0020;fixed&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;bottom&#x003A;&#x0020;0&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;left&#x003A;&#x0020;0&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;right&#x003A;&#x0020;0&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;top&#x003A;&#x0020;0&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;z-index&#x003A;&#x0020;9998&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;align-items&#x003A;&#x0020;center&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;justify-content&#x003A;&#x0020;center&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;&#x000D;&#x000A;&#x000D;&#x000A;&#x005B;id&#x002A;&#x003D;&#x0022;tabsController&#x0022;&#x005D;&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;display&#x003A;&#x0020;flex&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;flex-wrap&#x003A;&#x0020;nowrap&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;white-space&#x003A;&#x0020;nowrap&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;&#x000D;&#x000A;&#x005B;id&#x002A;&#x003D;&#x0022;tabsController&#x0022;&#x005D;&#x0020;&#x002E;nav-item&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;flex&#x003A;&#x0020;0&#x0020;0&#x0020;auto&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;max-width&#x003A;&#x0020;none&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;overflow&#x003A;&#x0020;visible&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;&#x000D;&#x000A;&#x005B;id&#x002A;&#x003D;&#x0022;tabsController&#x0022;&#x005D;&#x0020;&#x002E;nav-link&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;white-space&#x003A;&#x0020;nowrap&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;text-overflow&#x003A;&#x0020;clip&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;overflow&#x003A;&#x0020;visible&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;text-align&#x003A;&#x0020;center&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;padding&#x003A;&#x0020;10px&#x0020;15px&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;font-size&#x003A;&#x0020;0&#x002E;9rem&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;&#x000D;&#x000A;&#x002F;&#x002A;&#x0020;Removendo&#x0020;truncamento&#x0020;de&#x0020;texto&#x0020;&#x002A;&#x002F;&#x000D;&#x000A;&#x005B;id&#x002A;&#x003D;&#x0022;tabsController&#x0022;&#x005D;&#x0020;&#x002E;text-truncate&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;display&#x003A;&#x0020;inline&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;overflow&#x003A;&#x0020;visible&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;text-overflow&#x003A;&#x0020;unset&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;white-space&#x003A;&#x0020;normal&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;&#x000D;&#x000A;&#x002F;&#x002A;&#x0020;Barra&#x0020;de&#x0020;rolagem&#x0020;personalizada&#x0020;&#x002A;&#x002F;&#x000D;&#x000A;&#x005B;id&#x002A;&#x003D;&#x0022;tabsController&#x0022;&#x005D;&#x003A;&#x003A;-webkit-scrollbar&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;height&#x003A;&#x0020;5px&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;&#x000D;&#x000A;&#x005B;id&#x002A;&#x003D;&#x0022;tabsController&#x0022;&#x005D;&#x003A;&#x003A;-webkit-scrollbar-thumb&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;background&#x003A;&#x0020;&#x0023;ccc&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x0020;&#x0020;border-radius&#x003A;&#x0020;10px&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x002F;&#x002A;&#x0020;Removendo&#x0020;o&#x0020;icone&#x0020;do&#x0020;LK&#x0020;dos&#x0020;cabecalhos&#x0020;&#x002A;&#x002F;&#x000D;&#x000A;&#x0023;lkpNomeEvento13&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento13&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNomeEvento12&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento12&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento11&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNomeEvento10&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento10&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNomeEvento11&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNomeEvento9&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento9&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento8&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNomeEvento7&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento7&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNomeEvento6&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento6&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNomeEvento8&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigoEvento8&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpSigla8&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNome8&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigo14&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpSigla9&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNome9&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigo9&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpSigla10&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNome10&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigo10&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpSigla11&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNome11&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigo11&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpSigla7&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNome7&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigo7&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpSigla12&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNome12&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigo12&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpSigla13&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpNome13&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;edtRespServidor&#x0020;button&#x002C;&#x000D;&#x000A;&#x0023;lkpCodigo13&#x0020;button&#x0020;&#x007B;&#x000D;&#x000A;&#x0020;&#x0020;display&#x003A;&#x0020;none&#x0020;&#x0021;important&#x003B;&#x000D;&#x000A;&#x007D;&#x000D;&#x000A;</property>
+                <property name="Cor">clWindow</property>
+                <property name="EditarAoDuploClicar">TRUE</property>
+                <property name="EntrarComoPesquisa">FALSE</property>
+                <property name="ExibicaoImagemFundo"></property>
+                <property name="FonteDeDados">(Conex&#x00E3;o&#x0020;principal)</property>
+                <property name="FormularioLocalizar">0</property>
+                <property name="Imagem"></property>
+                <property name="MensagemErroChaveEstrangeira"></property>
+                <property name="MensagemErroChavePrimaria"></property>
+                <property name="Modal">False</property>
+                <property name="Navegacao">TRUE</property>
+                <property name="Popup">FALSE</property>
+                <property name="PreLoad">FALSE</property>
+                <property name="Responsivo">TRUE</property>
+                <property name="UltimaModificacao">29&#x002F;01&#x002F;2026&#x0020;09&#x003A;43&#x003A;10</property>
+                <property name="UltimoUsuario">guilherme&#x002E;dortas</property>
+                <event name="Antes de Deletar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[pLHN_ID=LNH_ID]]></param>
+                        <param name="Nome"><![CDATA[CLT - Antes de Deletar]]></param>
+                    </action>
+                </event>
+                <event name="Antes de Gravar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[pComp_dt_inic={};pComp_dt_fim={TMAKEREDIT1};pComp_toClean={TMAKEREDIT1};FORM='Cadastro de Linhas de Transporte';dt_ativacao={edtDataAtivacao};dt_desativacao={TMAKEREDIT};Id=LNH_ID;pNome=LNH_NOME;pTerminalInicial={LckInicioTerminal};pTerminalFinal={LckFinalTerminal};pTerminalComparar={};pQtdVeiculos={};pTLinhaInicial={LckInicioTerminal};pTLinhaFinal={TMAKERCOMBOBOX1};pGrupoLinha={};pLinha=LNH_ID;pLinhaGrupo=GRL_ID;pAnexos=;pNivelConforto={TMAKERLOOKUP2};pCod=LNH_CODIGO;LNH_ID=LNH_ID;pLNH_CODIGO=LNH_CODIGO;pLNH_VERSAO=LNH_VERSAO_LINHA]]></param>
+                        <param name="Nome"><![CDATA[Cadastro linha de Transporte -  Ao sair - Data inicio]]></param>
+                    </action>
+                </event>
+                <event name="Antes de Inserir">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[pComp_dt_inic={};pComp_dt_fim={TMAKEREDIT1};pComp_toClean={TMAKEREDIT1};FORM='Cadastro de Linhas de Transporte';dt_ativacao={edtDataAtivacao};dt_desativacao={TMAKEREDIT};Id=LNH_ID;pNome=LNH_NOME;pTerminalInicial={LckInicioTerminal};pTerminalFinal={LckFinalTerminal};pTerminalComparar={};pQtdVeiculos={};pTLinhaInicial={LckInicioTerminal};pTLinhaFinal={TMAKERCOMBOBOX1};pGrupoLinha={};pLinha=LNH_ID;pLinhaGrupo=GRL_ID;pAnexos=;pNivelConforto={TMAKERLOOKUP3};pCod=LNH_CODIGO;LNH_ID=LNH_ID;pLNH_CODIGO=LNH_CODIGO;pLNH_VERSAO=LNH_VERSAO_LINHA]]></param>
+                        <param name="Nome"><![CDATA[Cadastro linha de Transporte -  Ao sair - Data inicio]]></param>
+                    </action>
+                </event>
+                <event name="Ao Entrar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[LNH_ID=LNH_ID;LNH_CODIGO=LNH_CODIGO;pStatus=LNH_STATUS;TipoFrota=TPF_ID;pTipoLinha=LIT_ID;pCheckBox={TMAKERCHECKBOX}]]></param>
+                        <param name="Nome"><![CDATA[Cadastro de linha - Ao entrar]]></param>
+                    </action>
+                </event>
+                <event name="Ao Navegar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[pTipoFrota=;pStatus=LNH_STATUS]]></param>
+                        <param name="Nome"><![CDATA[Cadastro de linha - ao navegar]]></param>
+                    </action>
+                </event>
+                <event name="Depois de Inserir">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[]]></param>
+                        <param name="Nome"><![CDATA[CLT - Depois de Inserir]]></param>
+                    </action>
+                </event>
+            </component>
+            <component COM_CODIGO="1052034" COM_TIPO="K" name="TMAKERLOOKUP5">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="BuscaIncremental">True</property>
+                <property name="Campo">SMB_CAD_ID</property>
+                <property name="CampoChave">SMB_CAD_ID</property>
+                <property name="CampoLista">SMB_CAD_SIGLA_DO_SISTEMA</property>
+                <property name="ChamaSubForm">True</property>
+                <property name="Codigo">1052034</property>
+                <property name="CodigoForm"></property>
+                <property name="Container">TMAKERCONTAINER2</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Sistema&#x0020;de&#x0020;Transporte</property>
+                <property name="Dica"></property>
+                <property name="Estilo">0</property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDeDados"></property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">2</property>
+                <property name="LarguraExibicao">0</property>
+                <property name="Mascara"></property>
+                <property name="Nome">TMAKERLOOKUP5</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">1</property>
+                <property name="Paginacao">0</property>
+                <property name="PermitirInclusao">False</property>
+                <property name="Placeholder"></property>
+                <property name="PosicaoX">141</property>
+                <property name="PosicaoY">10</property>
+                <property name="SQL">Select&#x000D;&#x000A;&#x0020;&#x0020;SMB_CADASTRO_DE_SISTEMA&#x002E;SMB_CAD_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_CADASTRO_DE_SISTEMA&#x002E;SMB_CAD_SIGLA_DO_SISTEMA&#x000D;&#x000A;From&#x000D;&#x000A;&#x0020;&#x0020;SMB_CADASTRO_DE_SISTEMA&#x000D;&#x000A;&#x002F;&#x002A;WHERE_NEW&#x002A;&#x002F;&#x000D;&#x000A;Order&#x0020;By&#x000D;&#x000A;&#x0020;&#x0020;SMB_CADASTRO_DE_SISTEMA&#x002E;SMB_CAD_SIGLA_DO_SISTEMA&#x000D;&#x000A;&#x002F;&#x002A;ORDER_ADD&#x002A;&#x002F;&#x000D;&#x000A;</property>
+                <property name="Tabulacao">0</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">90</property>
+                <property name="Tipo"></property>
+                <property name="TipoFiltroInicial">2</property>
+                <property name="ValorInicial"></property>
+                <property name="Visivel">True</property>
+                <event name="Ao Modificar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[pComponente={TMAKERLOOKUP1}]]></param>
+                        <param name="Nome"><![CDATA[Cadasto de linha de transporte - limpar campos]]></param>
+                    </action>
+                </event>
+            </component>
+            <component COM_CODIGO="1052047" COM_TIPO="P" name="TMAKERCONTAINER">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Alinhar">0</property>
+                <property name="Altura">55</property>
+                <property name="Codigo">1052047</property>
+                <property name="Container"></property>
+                <property name="Cor">-16777211</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="LarguraMaxima">0</property>
+                <property name="Nome">TMAKERCONTAINER</property>
+                <property name="NomeClasseCss">form-group&#x0020;card&#x0020;shadow-sm&#x0020;bg-primary-subtle&#x000A;</property>
+                <property name="Ordem">7</property>
+                <property name="PosicaoX">22</property>
+                <property name="PosicaoY">24</property>
+                <property name="Tamanho">1193</property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1052049" COM_TIPO="E" name="edtDataAtivacao">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="Campo">LNH_DATA_ATIVACAO</property>
+                <property name="Codigo">1052049</property>
+                <property name="Container">ContainerData</property>
+                <property name="Conteudo">2</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Data&#x0020;de&#x0020;Ativa&#x00E7;&#x00E3;o&#x0020;da&#x0020;Linha</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Nome">edtDataAtivacao</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">0</property>
+                <property name="Placeholder"></property>
+                <property name="PosicaoX">628</property>
+                <property name="PosicaoY">29</property>
+                <property name="Senha">False</property>
+                <property name="Tabulacao">5</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">273</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo">DATA&#x0020;(ANO&#x0020;4)</property>
+                <property name="ValorInicial"></property>
+                <property name="Visivel">True</property>
+                <event name="Ao Sair">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[pComponente='edtDataAtivacao']]></param>
+                        <param name="Nome"><![CDATA[Cadastro de Linha - Ao Alterar Data de Ativacao]]></param>
+                    </action>
+                </event>
+            </component>
+            <component COM_CODIGO="1052050" COM_TIPO="E" name="TMAKEREDIT">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="Campo">LNH_DATA_DESATIVACAO</property>
+                <property name="Codigo">1052050</property>
+                <property name="Container">ContainerData</property>
+                <property name="Conteudo">2</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Data&#x0020;da&#x0020;Desativa&#x00E7;&#x00E3;o&#x0020;da&#x0020;Linha</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Nome">TMAKEREDIT</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">1</property>
+                <property name="Placeholder"></property>
+                <property name="PosicaoX">926</property>
+                <property name="PosicaoY">30</property>
+                <property name="Senha">False</property>
+                <property name="Tabulacao">6</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">271</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo">DATA&#x0020;(ANO&#x0020;4)</property>
+                <property name="ValorInicial"></property>
+                <property name="Visivel">True</property>
+                <event name="Ao Sair">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[Formulario='{70291062-0AA0-48AD-AB9F-FD3FE310D821}';Limite_data_anterior=;NomeCompData='TMAKEREDIT';NomeDataInicio='edtDataAtivacao';Nome_DataFim='TMAKEREDIT';Limite_data_avancada=;DatasIntervalo='S';TratarHoje='']]></param>
+                        <param name="Nome"><![CDATA[GER - Tratativa - Mix Validação Data Correta]]></param>
+                    </action>
+                </event>
+            </component>
+            <component COM_CODIGO="1052129" COM_TIPO="K" name="TMAKERLOOKUP">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="BuscaIncremental">True</property>
+                <property name="Campo">TPF_ID</property>
+                <property name="CampoChave">TPF_ID</property>
+                <property name="CampoLista">TPF_DESCRICAO</property>
+                <property name="ChamaSubForm">True</property>
+                <property name="Codigo">1052129</property>
+                <property name="CodigoForm"></property>
+                <property name="Container"></property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Tipo&#x0020;de&#x0020;Programa&#x00E7;&#x00E3;o</property>
+                <property name="Dica"></property>
+                <property name="Estilo">0</property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDeDados"></property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="LarguraExibicao">0</property>
+                <property name="Mascara"></property>
+                <property name="Nome">TMAKERLOOKUP</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">8</property>
+                <property name="Paginacao">0</property>
+                <property name="PermitirInclusao">False</property>
+                <property name="Placeholder"></property>
+                <property name="PosicaoX">22</property>
+                <property name="PosicaoY">624</property>
+                <property name="SQL">Select&#x000D;&#x000A;&#x0020;&#x0020;SMB_TIPO_FROTA&#x002E;TPF_ID&#x002C;&#x000D;&#x000A;&#x0020;&#x0020;SMB_TIPO_FROTA&#x002E;TPF_DESCRICAO&#x000D;&#x000A;From&#x000D;&#x000A;&#x0020;&#x0020;SMB_TIPO_FROTA&#x000D;&#x000A;&#x002F;&#x002A;WHERE_NEW&#x002A;&#x002F;&#x000D;&#x000A;&#x002F;&#x002A;ORDER_NEW&#x002A;&#x002F;&#x000D;&#x000A;</property>
+                <property name="Tabulacao">24</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">368</property>
+                <property name="Tipo"></property>
+                <property name="TipoFiltroInicial">2</property>
+                <property name="ValorInicial"></property>
+                <property name="Visivel">True</property>
+                <event name="Ao Modificar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[pTipoFrota=TPF_ID]]></param>
+                        <param name="Nome"><![CDATA[Cadastro de linha Mostrar componente - frota]]></param>
+                    </action>
+                </event>
+            </component>
+            <component COM_CODIGO="1052194" COM_TIPO="C" name="TMAKERCOMBOBOX1">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">True</property>
+                <property name="Atributos"></property>
+                <property name="Campo">LNH_STATUS</property>
+                <property name="Codigo">1052194</property>
+                <property name="Container"></property>
+                <property name="Cor">-16777192</property>
+                <property name="Descricao">Status&#x0020;da&#x0020;Linha</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="LarguraExibicao">0</property>
+                <property name="Lista">Ativa&#x000A;Inativa&#x000A;Em&#x0020;Cadastro&#x000A;Cancelado&#x000A;Suspenso&#x0020;por&#x0020;Evento&#x000A;Em&#x0020;Teste&#x000A;</property>
+                <property name="Nome">TMAKERCOMBOBOX1</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">9</property>
+                <property name="Placeholder"></property>
+                <property name="PosicaoX">22</property>
+                <property name="PosicaoY">196</property>
+                <property name="Tabulacao">3</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">290</property>
+                <property name="Tipo"></property>
+                <property name="Valores">A&#x000A;I&#x000A;E&#x000A;C&#x000A;S&#x000A;T&#x000A;</property>
+                <property name="ValorInicial">E</property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1052329" COM_TIPO="E" name="TMAKEREDIT2">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="Campo">LNH_CODIGO</property>
+                <property name="Codigo">1052329</property>
+                <property name="Container"></property>
+                <property name="Conteudo">0</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">C&#x00F3;digo</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Nome">TMAKEREDIT2</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">10</property>
+                <property name="Placeholder"></property>
+                <property name="PosicaoX">22</property>
+                <property name="PosicaoY">120</property>
+                <property name="Senha">False</property>
+                <property name="Tabulacao">1</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">290</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo"></property>
+                <property name="ValorInicial"></property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1052331" COM_TIPO="E" name="TMAKEREDIT5">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">True</property>
+                <property name="Atributos"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="Campo">LNH_VALOR_DIFERENCIAL</property>
+                <property name="Codigo">1052331</property>
+                <property name="Container"></property>
+                <property name="Conteudo">1</property>
+                <property name="Cor">-16777192</property>
+                <property name="Descricao">Valor&#x0020;de&#x0020;Tarifa</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Nome">TMAKEREDIT5</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">11</property>
+                <property name="Placeholder"></property>
+                <property name="PosicaoX">305</property>
+                <property name="PosicaoY">929</property>
+                <property name="Senha">False</property>
+                <property name="Tabulacao">38</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">312</property>
+                <property name="TamanhoMaximo">16</property>
+                <property name="Tipo">MONET&#x00C1;RIO</property>
+                <property name="ValorInicial"></property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1052332" COM_TIPO="K" name="TMAKERCOMBOBOX3">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">35</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="BuscaIncremental">True</property>
+                <property name="Campo">NVT_ID</property>
+                <property name="CampoChave">TAT_ID</property>
+                <property name="CampoLista">TAT_DESCRICAO</property>
+                <property name="ChamaSubForm">True</property>
+                <property name="Codigo">1052332</property>
+                <property name="CodigoForm"></property>
+                <property name="Container"></property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">N&#x00ED;vel&#x0020;Tarif&#x00E1;rio</property>
+                <property name="Dica"></property>
+                <property name="Estilo">0</property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDeDados"></property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="LarguraExibicao">0</property>
+                <property name="Mascara"></property>
+                <property name="Nome">TMAKERCOMBOBOX3</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">12</property>
+                <property name="Paginacao">0</property>
+  

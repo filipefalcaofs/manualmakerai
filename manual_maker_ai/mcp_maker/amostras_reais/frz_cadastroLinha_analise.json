@@ -1,0 +1,2313 @@
+{
+  "resumo": {
+    "arquivo": "cadastroLinha.frz",
+    "tamanho_xml": 13314208,
+    "formularios": 21,
+    "regras": 79,
+    "regras_servidor": 37,
+    "regras_cliente": 42,
+    "tabelas": 12,
+    "componentes_form_principal": 183,
+    "abas": 8,
+    "eventos": 74,
+    "funcoes_distintas": 111,
+    "top_funcoes": {
+      "isNullOrEmpty": 28,
+      "isEqual": 19,
+      "ebfSQLExecuteQuery": 17,
+      "ActNewErrorMessage": 17,
+      "ebfConcat": 16,
+      "ebfSQLEOF": 14,
+      "ebfFormChangeComponentValue": 13,
+      "ebfGetElementFromList": 13,
+      "ebfSQLClose": 12,
+      "ebfSQLField": 12,
+      "ebfListParamsCreate": 11,
+      "oprIf": 10,
+      "oprAdd": 9,
+      "ebfSetSessionAttribute": 8,
+      "ebfListLength": 7,
+      "isGreater": 7,
+      "ebfGetValueObjectJson": 7,
+      "isMinorOrEqual": 6,
+      "ebfReplace": 6,
+      "toString": 5
+    }
+  },
+  "regras": [
+    {
+      "nome": "Area - ao modificar componente",
+      "destino": "Servidor",
+      "componentes": 33,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 3,
+        "TFlowConnector": 3,
+        "TFlowLine": 17,
+        "TFlowExpression": 7
+      },
+      "funcoes": [
+        "ebfFormIsInBrowserMode",
+        "isNullOrEmpty",
+        "ebfFormChangeComponentValue",
+        "ebfListParamsCreate",
+        "ebfSQLClose",
+        "ebfFlowExecute",
+        "ebfSQLField",
+        "ebfSQLExecuteQuery"
+      ],
+      "total_funcoes": 12,
+      "parametros": [
+        "pAJ_ID"
+      ],
+      "variaveis": [
+        "vTabela",
+        "vDados"
+      ]
+    },
+    {
+      "nome": "Cadasto de linha de transporte - limpar campos",
+      "destino": "Cliente",
+      "componentes": 25,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowDecision": 2,
+        "TFlowExpression": 4,
+        "TFlowLine": 12,
+        "TFlowEnd": 1,
+        "TFlowConnector": 4
+      },
+      "funcoes": [
+        "isEqual",
+        "ebfGetElementFromList",
+        "oprAdd",
+        "getAllComponentNames",
+        "isMinorOrEqual",
+        "ebfListLength"
+      ],
+      "total_funcoes": 6,
+      "parametros": [
+        "pComponente"
+      ],
+      "variaveis": [
+        "Contador"
+      ]
+    },
+    {
+      "nome": "Cadastrar tipo de operacao - verificar duplicidade",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "pId",
+        "pDescricao"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Cadastro de Linha - Ao Alterar Data de Ativacao",
+      "destino": "Cliente",
+      "componentes": 8,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 2,
+        "TFlowLine": 3
+      },
+      "funcoes": [
+        "ebfGetGUIDActualForm"
+      ],
+      "total_funcoes": 2,
+      "parametros": [
+        "pComponente"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Cadastro de linha - Ao entrar",
+      "destino": "Cliente",
+      "componentes": 51,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowSubRoutine": 11,
+        "TFlowLine": 25,
+        "TFlowExpression": 10,
+        "TFlowDecision": 2,
+        "TFlowEnd": 1
+      },
+      "funcoes": [
+        "isEqual",
+        "ComponenteEditavel",
+        "isNullOrEmpty",
+        "ebfConcat",
+        "isDiferent",
+        "ebfFormSetVisible",
+        "ebfSetSessionAttribute",
+        "ebfSQLGetFormField",
+        "toString",
+        "oprOr"
+      ],
+      "total_funcoes": 52,
+      "parametros": [
+        "LNH_ID",
+        "LNH_CODIGO",
+        "pStatus",
+        "TipoFrota",
+        "pTipoLinha",
+        "pCheckBox"
+      ],
+      "variaveis": [
+        "retorno"
+      ]
+    },
+    {
+      "nome": "Cadastro de linha - ao navegar",
+      "destino": "Cliente",
+      "componentes": 17,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 6,
+        "TFlowDecision": 1,
+        "TFlowLine": 7
+      },
+      "funcoes": [
+        "isEqual",
+        "ebfSQLGetFormField"
+      ],
+      "total_funcoes": 2,
+      "parametros": [
+        "pTipoFrota",
+        "pStatus"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Cadastro de Linha - Atualizar Parametros",
+      "destino": "Servidor",
+      "componentes": 20,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 6,
+        "TFlowLine": 9,
+        "TFlowDecision": 1
+      },
+      "funcoes": [
+        "ebfFormChangeComponentValue",
+        "ebfSQLClose",
+        "ebfSQLEOF",
+        "ebfSQLField",
+        "ebfSQLExecuteQuery"
+      ],
+      "total_funcoes": 11,
+      "parametros": [
+        "LNH_CODIGO"
+      ],
+      "variaveis": [
+        "vTabela"
+      ]
+    },
+    {
+      "nome": "Cadastro de linha - Verifica modo navegacao",
+      "destino": "Cliente",
+      "componentes": 11,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 1,
+        "TFlowLine": 5,
+        "TFlowSubRoutine": 2
+      },
+      "funcoes": [
+        "ebfFormIsInBrowserMode"
+      ],
+      "total_funcoes": 1,
+      "parametros": [],
+      "variaveis": []
+    },
+    {
+      "nome": "Cadastro de linha de transporte - Verificar Duplicidade",
+      "destino": "Servidor",
+      "componentes": 15,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowDecision": 1,
+        "TFlowExpression": 2,
+        "TFlowLine": 7,
+        "TFlowEnd": 1,
+        "TFlowConnector": 1,
+        "TFlowActivity": 1
+      },
+      "funcoes": [
+        "ebfConcat",
+        "ebfSQLClose",
+        "ActNewErrorMessage",
+        "ebfSQLEOF",
+        "ebfSQLExecuteQuery"
+      ],
+      "total_funcoes": 5,
+      "parametros": [
+        "pLNH_CODIGO",
+        "pLNH_ID"
+      ],
+      "variaveis": [
+        "vTabela"
+      ]
+    },
+    {
+      "nome": "Cadastro de linha Mostrar componente - frota",
+      "destino": "Cliente",
+      "componentes": 19,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowDecision": 2,
+        "TFlowExpression": 4,
+        "TFlowEnd": 2,
+        "TFlowLine": 9
+      },
+      "funcoes": [
+        "ebfFormSetRequired",
+        "isEqual",
+        "ebfFormSetEnabled",
+        "isNullOrEmpty"
+      ],
+      "total_funcoes": 6,
+      "parametros": [
+        "pTipoFrota"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Cadastro de linha Verificar quantidade de veiculos Linha",
+      "destino": "Servidor",
+      "componentes": 29,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowExpression": 7,
+        "TFlowLine": 14,
+        "TFlowEnd": 2,
+        "TFlowDecision": 2,
+        "TFlowActivity": 1,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "isEqual",
+        "ebfConcat",
+        "ebfSQLClose",
+        "isGreater",
+        "ActNewErrorMessage",
+        "oprAdd",
+        "ebfSQLField",
+        "ebfSQLExecuteQuery"
+      ],
+      "total_funcoes": 11,
+      "parametros": [
+        "pVeiculos",
+        "pTerminalInicial",
+        "pTerminalFinal"
+      ],
+      "variaveis": [
+        "TabelaInicial",
+        "vTotalTerminalFial",
+        "TabelaFinal",
+        "vTotalTerminalInicial",
+        "Resultado"
+      ]
+    },
+    {
+      "nome": "Cadastro de linhas de tranporte - mostrar valor tarifario",
+      "destino": "Servidor",
+      "componentes": 15,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 4,
+        "TFlowLine": 7,
+        "TFlowDecision": 1
+      },
+      "funcoes": [
+        "isNullOrEmpty",
+        "ebfFormChangeComponentValue",
+        "ebfSQLClose",
+        "ebfSQLField",
+        "ebfSQLExecuteQuery"
+      ],
+      "total_funcoes": 5,
+      "parametros": [
+        "pID_TAT"
+      ],
+      "variaveis": [
+        "Tabela",
+        "vValor"
+      ]
+    },
+    {
+      "nome": "Cadastro de linhas de transporte - obter valor tarifario",
+      "destino": "Cliente",
+      "componentes": 9,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 3,
+        "TFlowExpression": 2
+      },
+      "funcoes": [
+        "ebfFormChangeComponentValue"
+      ],
+      "total_funcoes": 1,
+      "parametros": [
+        "p_ID"
+      ],
+      "variaveis": [
+        "retorno"
+      ]
+    },
+    {
+      "nome": "Cadastro de Tipo de Linha - Antes de Inserir",
+      "destino": "Servidor",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "pDescricao",
+        "pID"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Cadastro de Tra&#x00E7;ado de Linha - Verificar Duplicidade",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "pID",
+        "pDescricao"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Cadastro linha de Transporte -  Ao sair - Data inicio",
+      "destino": "Cliente",
+      "componentes": 21,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 3,
+        "TFlowSubRoutine": 4,
+        "TFlowDecision": 2,
+        "TFlowExpression": 1,
+        "TFlowLine": 9
+      },
+      "funcoes": [
+        "ebfFormIsInInsertMode",
+        "ebfSQLSetFormField",
+        "isNullOrEmpty"
+      ],
+      "total_funcoes": 3,
+      "parametros": [
+        "pComp_dt_inic",
+        "pComp_dt_fim",
+        "pComp_toClean",
+        "FORM",
+        "dt_ativacao",
+        "dt_desativacao",
+        "Id",
+        "pNome",
+        "pTerminalInicial",
+        "pTerminalFinal",
+        "pTerminalComparar",
+        "pQtdVeiculos",
+        "pTLinhaInicial",
+        "pTLinhaFinal",
+        "pGrupoLinha",
+        "pLinha",
+        "pLinhaGrupo",
+        "pAnexos",
+        "pNivelConforto",
+        "pCod",
+        "LNH_ID",
+        "pLNH_CODIGO",
+        "pLNH_VERSAO"
+      ],
+      "variaveis": [
+        "Data_ini",
+        "Data_fim",
+        "vNovaVersao"
+      ]
+    },
+    {
+      "nome": "CDL -  Comparacao entre datas de ativacao",
+      "destino": "Cliente",
+      "componentes": 24,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 3,
+        "TFlowExpression": 1,
+        "TFlowActivity": 1,
+        "TFlowConnector": 4,
+        "TFlowLine": 12
+      },
+      "funcoes": [
+        "isEqual",
+        "isNullOrEmpty",
+        "toDate",
+        "ebfFormChangeComponentValue",
+        "isMinor",
+        "ActNewErrorMessage",
+        "ebfFormGetComponentValue",
+        "ebfDateDate",
+        "ebfDateToday"
+      ],
+      "total_funcoes": 11,
+      "parametros": [
+        "Data_Ativacao",
+        "Data_desativacao"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "CDL - Ao clicar na linha da grade de pontos de linha",
+      "destino": "Cliente",
+      "componentes": 13,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 6,
+        "TFlowDecision": 1,
+        "TFlowConnector": 1
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "pLinha",
+        "pLNH_ID"
+      ],
+      "variaveis": [
+        "vSentido"
+      ]
+    },
+    {
+      "nome": "CDL - exibir componente ao clicar",
+      "destino": "Cliente",
+      "componentes": 17,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 1,
+        "TFlowLine": 8,
+        "TFlowExpression": 5
+      },
+      "funcoes": [
+        "ebfFormChangeComponentValue",
+        "isEqual",
+        "ebfFormSetVisible"
+      ],
+      "total_funcoes": 6,
+      "parametros": [
+        "pCheckBox"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "CDL - Mapa - Ao Carregar",
+      "destino": "Cliente",
+      "componentes": 10,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 2,
+        "TFlowExpression": 1,
+        "TFlowLine": 4
+      },
+      "funcoes": [
+        "ebfListParamsCreate",
+        "ebfSetLocalVariable"
+      ],
+      "total_funcoes": 2,
+      "parametros": [
+        "LNH_ID"
+      ],
+      "variaveis": [
+        "retornoMapa"
+      ]
+    },
+    {
+      "nome": "CDL - Mensagem de Alerta",
+      "destino": "Servidor",
+      "componentes": 24,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 4,
+        "TFlowExpression": 3,
+        "TFlowDecision": 3,
+        "TFlowLine": 11,
+        "TFlowActivity": 1
+      },
+      "funcoes": [
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfSQLEOF",
+        "ebfSQLClose",
+        "toString",
+        "ebfSQLField",
+        "ebfSQLExecuteQuery",
+        "ActNewWarningMessage"
+      ],
+      "total_funcoes": 13,
+      "parametros": [
+        "pLNH_CODIGO"
+      ],
+      "variaveis": [
+        "vTabela"
+      ]
+    },
+    {
+      "nome": "CDL - Mensagem oficio",
+      "destino": "Servidor",
+      "componentes": 8,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowActivity": 1,
+        "TFlowLine": 3,
+        "TFlowSubRoutine": 1
+      },
+      "funcoes": [
+        "ebfListParamsCreate",
+        "ActNewInteractionConfirmMessage"
+      ],
+      "total_funcoes": 2,
+      "parametros": [
+        "pHOL_ID"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "CLT - Abrir Atualizar Status",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "LNH_ID"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "CLT - Antes de Deletar",
+      "destino": "Servidor",
+      "componentes": 12,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowDecision": 1,
+        "TFlowEnd": 2,
+        "TFlowLine": 5,
+        "TFlowActivity": 1,
+        "TFlowExpression": 1
+      },
+      "funcoes": [
+        "ActNewErrorMessage",
+        "ebfSQLExecuteQuery",
+        "isEqual",
+        "ebfSQLField"
+      ],
+      "total_funcoes": 4,
+      "parametros": [
+        "pLHN_ID"
+      ],
+      "variaveis": [
+        "vTabela"
+      ]
+    },
+    {
+      "nome": "CLT - Ao Clicar no botao Atualizar Pontos da Linha",
+      "destino": "Cliente",
+      "componentes": 11,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 1,
+        "TFlowLine": 5,
+        "TFlowActivity": 1,
+        "TFlowSubRoutine": 1
+      },
+      "funcoes": [
+        "ActNewErrorMessage",
+        "ebfFormIsInEditMode",
+        "ebfFormIsInInsertMode",
+        "oprOr"
+      ],
+      "total_funcoes": 4,
+      "parametros": [
+        "LNH_ID"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "CLT - Ao Clicar no Botao Gerar Nova Versao",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "pLNH_ID"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "CLT - Ao Entrar - Verificar Dias Ativos e Inativos",
+      "destino": "Servidor",
+      "componentes": 16,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 6,
+        "TFlowLine": 6,
+        "TFlowSubRoutine": 1
+      },
+      "funcoes": [
+        "oprSubtract",
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfFormChangeComponentValue",
+        "ebfSQLField",
+        "toLong",
+        "ebfSQLExecuteQuery",
+        "oprIf"
+      ],
+      "total_funcoes": 16,
+      "parametros": [
+        "pLNH_ID"
+      ],
+      "variaveis": [
+        "vTabela",
+        "vDiasAtivo",
+        "vDiasInativo"
+      ]
+    },
+    {
+      "nome": "CLT - Depois de Inserir",
+      "destino": "Servidor",
+      "componentes": 5,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowRemark": 1,
+        "TFlowLine": 1
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "id"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "CLT - Grupo de linha - Ao Modificar",
+      "destino": "Cliente",
+      "componentes": 11,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 2,
+        "TFlowLine": 5,
+        "TFlowDecision": 1
+      },
+      "funcoes": [
+        "ebfGetElementFromList",
+        "ebfFormChangeComponentValue",
+        "isNullOrEmpty",
+        "ebfGetValueObjectJson"
+      ],
+      "total_funcoes": 5,
+      "parametros": [],
+      "variaveis": []
+    },
+    {
+      "nome": "CLT - Linha Mae - Ao Modificar",
+      "destino": "Servidor",
+      "componentes": 30,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowExpression": 9,
+        "TFlowDecision": 2,
+        "TFlowLine": 14,
+        "TFlowConnector": 2,
+        "TFlowEnd": 1
+      },
+      "funcoes": [],
+      "total_funcoes": 0,
+      "parametros": [
+        "LNH_ID_MAE"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Ger - Abrir relatorio Jasper",
+      "destino": "Servidor",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfConcat",
+        "ebfGenerateGUID",
+        "ebfJasperGenerateReport"
+      ],
+      "total_funcoes": 4,
+      "parametros": [
+        "Filtro",
+        "pReferenciaSpinner"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "ger - alterar labels dos botoes da interacao",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfExecuteJS"
+      ],
+      "total_funcoes": 1,
+      "parametros": [
+        "bt_ok",
+        "bt_cancelar"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "GER - Obter Coordenadas do Perimetro - Ao Entrar",
+      "destino": "Servidor",
+      "componentes": 8,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 1,
+        "TFlowLine": 3,
+        "TFlowExpression": 1
+      },
+      "funcoes": [
+        "EbfInverterCoordenadas"
+      ],
+      "total_funcoes": 1,
+      "parametros": [
+        "coordenates",
+        "Rota",
+        "Tipo"
+      ],
+      "variaveis": [
+        "ListaPontos",
+        "Contador",
+        "ListaAux",
+        "TamLista",
+        "ContadorPolygon",
+        "lat",
+        "log",
+        "ListaPontosImg",
+        "latLong"
+      ]
+    },
+    {
+      "nome": "GER - Tratativa - Mix Validacao Data Correta",
+      "destino": "Cliente",
+      "componentes": 69,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 9,
+        "TFlowExpression": 5,
+        "TFlowActivity": 5,
+        "TFlowLine": 38,
+        "TFlowConnector": 9
+      },
+      "funcoes": [
+        "ebfDateYearDifference",
+        "isEqual",
+        "isNullOrEmpty",
+        "toDate",
+        "ebfFormChangeComponentValue",
+        "ebfFormatDateTime",
+        "isGreater",
+        "ActNewErrorMessage",
+        "isMinor",
+        "ebfFormGetComponentValue",
+        "ebfDateToday",
+        "toString"
+      ],
+      "total_funcoes": 52,
+      "parametros": [
+        "Formulario",
+        "Limite_data_anterior",
+        "NomeCompData",
+        "NomeDataInicio",
+        "Nome_DataFim",
+        "Limite_data_avancada",
+        "DatasIntervalo",
+        "TratarHoje"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "GER - Tratativa - Mix Validacao Data Correta - V2",
+      "destino": "Cliente",
+      "componentes": 71,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 9,
+        "TFlowExpression": 5,
+        "TFlowActivity": 5,
+        "TFlowConnector": 10,
+        "TFlowLine": 39
+      },
+      "funcoes": [
+        "ebfDateYearDifference",
+        "isEqual",
+        "isNullOrEmpty",
+        "toDate",
+        "ebfFormChangeComponentValue",
+        "ebfFormatDateTime",
+        "isGreater",
+        "ActNewErrorMessage",
+        "isMinor",
+        "ebfFormGetComponentValue",
+        "ebfDateToday",
+        "toString",
+        "oprIf"
+      ],
+      "total_funcoes": 53,
+      "parametros": [
+        "Formulario",
+        "Limite_data_anterior",
+        "NomeCompData",
+        "NomeDataInicio",
+        "Nome_DataFim",
+        "Limite_data_avancada",
+        "DatasIntervalo",
+        "TratarHoje",
+        "MensagemIntervalo"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Abrir formulario filtrado",
+      "destino": "Servidor",
+      "componentes": 14,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 2,
+        "TFlowLine": 6,
+        "TFlowDecision": 1,
+        "TFlowActivity": 1
+      },
+      "funcoes": [
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfFormOpenFilteredForm",
+        "ebfSetSessionAttribute",
+        "ActNewErrorMessage",
+        "ebfGetFormID"
+      ],
+      "total_funcoes": 6,
+      "parametros": [
+        "Campo",
+        "Valor"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Abrir formulario filtrado em modo",
+      "destino": "Servidor",
+      "componentes": 21,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 3,
+        "TFlowLine": 10,
+        "TFlowDecision": 2,
+        "TFlowActivity": 2
+      },
+      "funcoes": [
+        "ebfFormIsInInsertMode",
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfSetSessionAttribute",
+        "ActNewErrorMessage",
+        "ebfFormOpenFilterAndMode",
+        "ebfGetFormID"
+      ],
+      "total_funcoes": 10,
+      "parametros": [
+        "Campo",
+        "Valor",
+        "Modo"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Definir Mapa com Parametros",
+      "destino": "Servidor",
+      "componentes": 23,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 7,
+        "TFlowLine": 11,
+        "TFlowDecision": 1,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "ebfGetJSONText",
+        "ebfSQLExecuteQuery",
+        "ebfResultSetGetColumns",
+        "ebfMapAddObject",
+        "ebfMapCreateObject",
+        "ebfSetSessionAttribute",
+        "ebfGetElementFromList",
+        "oprAdd",
+        "ebfResultSetToJSON",
+        "ebfSQLField",
+        "isMinorOrEqual",
+        "ebfListLength"
+      ],
+      "total_funcoes": 13,
+      "parametros": [],
+      "variaveis": [
+        "TabConf",
+        "MapaPar",
+        "ListaCampos",
+        "Contador",
+        "JsonPar"
+      ]
+    },
+    {
+      "nome": "Geral - Definir variavel de sessao",
+      "destino": "Servidor",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfSetSessionAttribute"
+      ],
+      "total_funcoes": 1,
+      "parametros": [
+        "Valor",
+        "Global"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Habilitar&#x002F;Deabiltar componente",
+      "destino": "Cliente",
+      "componentes": 15,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 3,
+        "TFlowLine": 7,
+        "TFlowDecision": 1,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "ebfSplit",
+        "ebfLength",
+        "oprNot",
+        "isGreater",
+        "ebfGetElementFromList",
+        "oprAdd",
+        "ebfFormSetEnabled"
+      ],
+      "total_funcoes": 7,
+      "parametros": [
+        "ListaComponente",
+        "Logico"
+      ],
+      "variaveis": [
+        "Contador"
+      ]
+    },
+    {
+      "nome": "Geral - Importar Biblioteca Maps",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfMapsImportLibrary"
+      ],
+      "total_funcoes": 1,
+      "parametros": [],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Modo Edicao",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfEnableIncludeButton"
+      ],
+      "total_funcoes": 1,
+      "parametros": [],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Obter dados - Ponto de Parada",
+      "destino": "Servidor",
+      "componentes": 14,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 3,
+        "TFlowDecision": 1,
+        "TFlowLine": 6
+      },
+      "funcoes": [
+        "ebfSQLClose",
+        "ebfSQLEOF",
+        "ebfResultSetToJSON",
+        "ebfListCreate",
+        "ebfSQLExecuteQuery"
+      ],
+      "total_funcoes": 5,
+      "parametros": [],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Obter dados de grupo de linha",
+      "destino": "Servidor",
+      "componentes": 13,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 3,
+        "TFlowDecision": 1,
+        "TFlowLine": 6
+      },
+      "funcoes": [
+        "ebfSQLClose",
+        "ebfSQLExecuteQuery",
+        "ebfResultSetToJSON",
+        "ebfSQLEOF"
+      ],
+      "total_funcoes": 4,
+      "parametros": [],
+      "variaveis": [
+        "JSON"
+      ]
+    },
+    {
+      "nome": "Geral - Obter dados do bairro",
+      "destino": "Servidor",
+      "componentes": 13,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 3,
+        "TFlowDecision": 1,
+        "TFlowLine": 6
+      },
+      "funcoes": [
+        "isNullOrEmpty",
+        "ebfSQLEOF",
+        "ebfSQLClose",
+        "ebfResultSetToJSON",
+        "ebfListCreate",
+        "ebfSQLExecuteQuery",
+        "oprIf"
+      ],
+      "total_funcoes": 7,
+      "parametros": [],
+      "variaveis": [
+        "JSON"
+      ]
+    },
+    {
+      "nome": "Geral - Obter variavel de sessao",
+      "destino": "Servidor",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfGetSessionAttribute"
+      ],
+      "total_funcoes": 1,
+      "parametros": [],
+      "variaveis": []
+    },
+    {
+      "nome": "GERAL - Verifica se valor e maior que 0",
+      "destino": "Cliente",
+      "componentes": 18,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 2,
+        "TFlowLine": 9,
+        "TFlowConnector": 2,
+        "TFlowExpression": 1,
+        "TFlowActivity": 1
+      },
+      "funcoes": [
+        "ebfAppend",
+        "isNullOrEmpty",
+        "ebfFormChangeComponentValue",
+        "isGreater",
+        "ActNewErrorMessage"
+      ],
+      "total_funcoes": 5,
+      "parametros": [
+        "valor",
+        "formulario",
+        "componente"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Geral - Verificar Duplicidade de Registros - V2",
+      "destino": "Servidor",
+      "componentes": 28,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 4,
+        "TFlowDecision": 3,
+        "TFlowActivity": 2,
+        "TFlowLine": 14,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "isEqual",
+        "isNullOrEmpty",
+        "ebfConcat",
+        "isDiferent",
+        "ebfLength",
+        "ebfSQLEOF",
+        "ActNewErrorMessage",
+        "ebfSQLDynamicQuery",
+        "ebfReplaceAll",
+        "ebfReplace",
+        "ebfToLowerCase",
+        "ebfRegExpReplaceText",
+        "oprIf"
+      ],
+      "total_funcoes": 21,
+      "parametros": [
+        "pValorCampo",
+        "pNomeCampo",
+        "pNomeTabela",
+        "pAccentSensitivo",
+        "pMsgTitulo",
+        "pMsgMensagem",
+        "pMsgTempo",
+        "pMsgPosicao",
+        "pDescComponente",
+        "pId",
+        "pNomeCampoId"
+      ],
+      "variaveis": [
+        "vComando",
+        "vTabela",
+        "vValorRegex"
+      ]
+    },
+    {
+      "nome": "Geral - Verificar Duplicidade de Registros - V3",
+      "destino": "Servidor",
+      "componentes": 28,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 4,
+        "TFlowDecision": 3,
+        "TFlowActivity": 2,
+        "TFlowConnector": 1,
+        "TFlowLine": 14
+      },
+      "funcoes": [
+        "isEqual",
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfSQLEOF",
+        "ActNewErrorMessage",
+        "ebfSQLDynamicQuery",
+        "ebfReplaceAll",
+        "ebfReplace",
+        "ebfToLowerCase",
+        "oprIf"
+      ],
+      "total_funcoes": 18,
+      "parametros": [
+        "pValorCampo",
+        "pNomeCampo",
+        "pNomeTabela",
+        "pAccentSensitivo",
+        "pMsgTitulo",
+        "pMsgMensagem",
+        "pMsgTempo",
+        "pMsgPosicao",
+        "pDescComponente",
+        "pId",
+        "pNomeCampoId",
+        "pString"
+      ],
+      "variaveis": [
+        "vComando",
+        "vTabela"
+      ]
+    },
+    {
+      "nome": "Geral - Visualizar Dados",
+      "destino": "Cliente",
+      "componentes": 26,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 7,
+        "TFlowLine": 13,
+        "TFlowDecision": 2,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "ebfFormIsInBrowserMode",
+        "ebfFormSetReadonly",
+        "oprNot",
+        "isGreater",
+        "ebfGetElementFromList",
+        "removeNavigator",
+        "oprAdd",
+        "getAllComponentNames",
+        "ebfCSSImportContent",
+        "ebfListLength"
+      ],
+      "total_funcoes": 10,
+      "parametros": [],
+      "variaveis": [
+        "Contador",
+        "Componente"
+      ]
+    },
+    {
+      "nome": "Geral - Visualizar ou editar formulario",
+      "destino": "Cliente",
+      "componentes": 26,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowSubRoutine": 5,
+        "TFlowDecision": 2,
+        "TFlowLine": 13,
+        "TFlowEnd": 1,
+        "TFlowConnector": 3
+      },
+      "funcoes": [
+        "isEqual"
+      ],
+      "total_funcoes": 2,
+      "parametros": [],
+      "variaveis": [
+        "CodForm",
+        "Modo"
+      ]
+    },
+    {
+      "nome": "Gerar - OSO",
+      "destino": "Cliente",
+      "componentes": 15,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 3,
+        "TFlowDecision": 1,
+        "TFlowLine": 7,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "ebfCreateSpinner",
+        "ebfListParamsCreate",
+        "isNullOrEmpty",
+        "ebfAsyncJavaFlowExecute"
+      ],
+      "total_funcoes": 6,
+      "parametros": [
+        "codigoOSO",
+        "LNH_ID",
+        "PAR_STATUS",
+        "PAR_VERSAO",
+        "PAR_ID"
+      ],
+      "variaveis": [
+        "referenciaSpinner"
+      ]
+    },
+    {
+      "nome": "ITI - Atualizar componentes pos exclusao",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfFormRefreshComponent"
+      ],
+      "total_funcoes": 1,
+      "parametros": [],
+      "variaveis": []
+    },
+    {
+      "nome": "ITI - Chamar Excluir KML",
+      "destino": "Cliente",
+      "componentes": 14,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowSubRoutine": 2,
+        "TFlowLine": 5,
+        "TFlowExpression": 4,
+        "TFlowEnd": 1
+      },
+      "funcoes": [
+        "ebfRefreshRecord",
+        "ebfSetSessionAttribute"
+      ],
+      "total_funcoes": 2,
+      "parametros": [
+        "ITI_TIPO",
+        "LNH_ID"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "ITI - Confirmar exclusao",
+      "destino": "Cliente",
+      "componentes": 6,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowActivity": 1,
+        "TFlowLine": 2
+      },
+      "funcoes": [
+        "ebfListParamsCreate",
+        "ActNewInteractionConfirmMessage"
+      ],
+      "total_funcoes": 2,
+      "parametros": [
+        "LNH_ID",
+        "ITI_TIPO"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Linhas de Transporte - Aba Parametros - Botao",
+      "destino": "Cliente",
+      "componentes": 10,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 3,
+        "TFlowLine": 4
+      },
+      "funcoes": [
+        "ebfFormOpenForm",
+        "ebfSetLocalVariable"
+      ],
+      "total_funcoes": 3,
+      "parametros": [
+        "pLinha",
+        "pLNH_CODIGO"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "LTI - Alterar consulta da grade de itinerario",
+      "destino": "Servidor",
+      "componentes": 20,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 1,
+        "TFlowExpression": 8,
+        "TFlowLine": 7,
+        "TFlowSubRoutine": 1
+      },
+      "funcoes": [
+        "ebfGetElementFromList",
+        "ebfSQLDynamicScrollQuery",
+        "ebfGridChangeResultSet",
+        "ebfSQLEOF"
+      ],
+      "total_funcoes": 5,
+      "parametros": [
+        "JSON"
+      ],
+      "variaveis": [
+        "SQL",
+        "ConsultaNomeArquivo"
+      ]
+    },
+    {
+      "nome": "LTI - Atualiza status do checkbox do trecho",
+      "destino": "Cliente",
+      "componentes": 12,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 4,
+        "TFlowLine": 5
+      },
+      "funcoes": [
+        "ebfGetJSONText",
+        "ebfCreateObjectJSON",
+        "ebfUpdateValueObjectJson",
+        "ebfSetSessionAttribute",
+        "ebfGetSessionAttribute"
+      ],
+      "total_funcoes": 6,
+      "parametros": [
+        "valor"
+      ],
+      "variaveis": [
+        "checkboxStatus"
+      ]
+    },
+    {
+      "nome": "LTI - Consulta marcadores mapa",
+      "destino": "Servidor",
+      "componentes": 13,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 3,
+        "TFlowLine": 6,
+        "TFlowDecision": 1
+      },
+      "funcoes": [
+        "ebfSQLExecuteQuery",
+        "ebfSQLField",
+        "ebfSQLEOF"
+      ],
+      "total_funcoes": 3,
+      "parametros": [
+        "pCodigoLinha",
+        "pSentido"
+      ],
+      "variaveis": [
+        "vConsulta",
+        "vRetorno"
+      ]
+    },
+    {
+      "nome": "LTI - Consultar se existe itinerario detalhado",
+      "destino": "Servidor",
+      "componentes": 12,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 2,
+        "TFlowDecision": 1,
+        "TFlowLine": 5
+      },
+      "funcoes": [
+        "ebfSQLClose",
+        "ebfSQLExecuteQuery",
+        "ebfSQLEOF"
+      ],
+      "total_funcoes": 3,
+      "parametros": [
+        "ITI_ID",
+        "Sentido",
+        "lat",
+        "lon"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "LTI - Criar rota no mapa",
+      "destino": "Cliente",
+      "componentes": 18,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowDecision": 1,
+        "TFlowLine": 8,
+        "TFlowExpression": 3,
+        "TFlowActivity": 1,
+        "TFlowSubRoutine": 1
+      },
+      "funcoes": [
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfMapsPolyline",
+        "ActNewErrorMessage",
+        "ebfSetClientFormVariable"
+      ],
+      "total_funcoes": 7,
+      "parametros": [
+        "Mapa",
+        "Coordenadas",
+        "Tipo",
+        "pSentido",
+        "pCodigoLinha"
+      ],
+      "variaveis": [
+        "Polyline",
+        "UrlImagem"
+      ]
+    },
+    {
+      "nome": "LTI - Definir ponto no mapa",
+      "destino": "Cliente",
+      "componentes": 18,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowDecision": 1,
+        "TFlowActivity": 1,
+        "TFlowLine": 8,
+        "TFlowExpression": 4
+      },
+      "funcoes": [
+        "isNullOrEmpty",
+        "ebfMapsCreateMarker",
+        "ebfSplit",
+        "ebfGetLocalVariable",
+        "ActNewErrorMessage",
+        "ebfGetElementFromList",
+        "toDouble",
+        "ebfReplace",
+        "toString",
+        "oprIf"
+      ],
+      "total_funcoes": 18,
+      "parametros": [
+        "Mapa",
+        "coordinates",
+        "name"
+      ],
+      "variaveis": [
+        "lon",
+        "lat",
+        "Marcador"
+      ]
+    },
+    {
+      "nome": "LTI - Guarda Url Ida e Volta no Banco",
+      "destino": "Servidor",
+      "componentes": 51,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowExpression": 4,
+        "TFlowDecision": 7,
+        "TFlowLine": 28,
+        "TFlowEnd": 1,
+        "TFlowConnector": 9
+      },
+      "funcoes": [
+        "isEqual",
+        "isNullOrEmpty",
+        "ebfListParamsCreate",
+        "ebfSQLEOF",
+        "ebfSQLDynamicQuery",
+        "ebfSQLField",
+        "ebfSQLExecuteUpdate"
+      ],
+      "total_funcoes": 15,
+      "parametros": [
+        "pURL",
+        "pCodigoLinha",
+        "pSentido"
+      ],
+      "variaveis": [
+        "vConsulta"
+      ]
+    },
+    {
+      "nome": "LTI - Guardar coordenadas da imagem",
+      "destino": "Servidor",
+      "componentes": 15,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 2,
+        "TFlowLine": 7,
+        "TFlowDecision": 2
+      },
+      "funcoes": [
+        "isEqual",
+        "ebfSQLExecuteUpdate"
+      ],
+      "total_funcoes": 4,
+      "parametros": [
+        "Coordenadas",
+        "Rota",
+        "Tipo"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "LTI - Monta consulta da grade do trecho",
+      "destino": "Servidor",
+      "componentes": 23,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowDecision": 2,
+        "TFlowLine": 9,
+        "TFlowActivity": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 7
+      },
+      "funcoes": [
+        "EbfMontarWherePorCheckboxOSM",
+        "ActErrorMessage",
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfListParamsCreate",
+        "ebfReplace",
+        "oprOr",
+        "oprIf"
+      ],
+      "total_funcoes": 12,
+      "parametros": [
+        "JSON"
+      ],
+      "variaveis": [
+        "SQL",
+        "JsonTexto"
+      ]
+    },
+    {
+      "nome": "LTI - Monta URL da imagem do mapa",
+      "destino": "Cliente",
+      "componentes": 21,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 1,
+        "TFlowExpression": 5,
+        "TFlowRemark": 1,
+        "TFlowLine": 10,
+        "TFlowSubRoutine": 1
+      },
+      "funcoes": [
+        "ebfAppend",
+        "isNullOrEmpty",
+        "ebfListLength",
+        "ebfConcat",
+        "ebfGetElementFromList",
+        "oprAdd",
+        "ebfReplace",
+        "isMinorOrEqual",
+        "oprIf"
+      ],
+      "total_funcoes": 10,
+      "parametros": [
+        "Coordenadas",
+        "cor",
+        "espessura",
+        "tamanho",
+        "tipoMapa",
+        "chaveGoogle",
+        "pSentido",
+        "pCodigoLinha"
+      ],
+      "variaveis": [
+        "Contador",
+        "CoordenadasUrl",
+        "Url",
+        "vMarcadores",
+        "vTabela"
+      ]
+    },
+    {
+      "nome": "LTI - Montar JSON tratado do OSM",
+      "destino": "Servidor",
+      "componentes": 65,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowExpression": 20,
+        "TFlowDecision": 5,
+        "TFlowLine": 33,
+        "TFlowEnd": 3,
+        "TFlowConnector": 2
+      },
+      "funcoes": [
+        "ebfGetJSONText",
+        "ebfRestFulCallService",
+        "isEqual",
+        "ebfCreateObjectJSON",
+        "ebfListParamsCreate",
+        "ebfGetValueObjectJson",
+        "EbfExtrairEnderecoOSM",
+        "ebfJSONParamsCreate"
+      ],
+      "total_funcoes": 23,
+      "parametros": [
+        "UrlApi"
+      ],
+      "variaveis": [
+        "JsonOSM",
+        "mapaTipo",
+        "Contador",
+        "ListaChaves",
+        "Endereco",
+        "ContadorTipos",
+        "ListaTipos",
+        "valorTipo",
+        "address",
+        "jsonTexto"
+      ]
+    },
+    {
+      "nome": "LTI - Obter e Guardar Itinerario",
+      "destino": "Servidor",
+      "componentes": 55,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowDecision": 6,
+        "TFlowExpression": 9,
+        "TFlowLine": 28,
+        "TFlowEnd": 2,
+        "TFlowConnector": 4,
+        "TFlowSubRoutine": 4
+      },
+      "funcoes": [
+        "ebfGetJSONText",
+        "isNullOrEmpty",
+        "ebfSQLExecuteUpdate",
+        "ebfSQLEOF",
+        "ebfGetValueObjectJson",
+        "ebfGetElementFromList",
+        "oprAdd",
+        "ebfSQLField",
+        "isMinorOrEqual",
+        "ebfReplace",
+        "ebfSQLExecuteQuery",
+        "ebfListLength"
+      ],
+      "total_funcoes": 33,
+      "parametros": [
+        "Itinerario",
+        "ITI_ID",
+        "Sentido",
+        "TIPO"
+      ],
+      "variaveis": [
+        "ITD_ID",
+        "ExisteItinerario",
+        "Contador",
+        "Bairro",
+        "EnderecoCepOsm",
+        "DadosBairro",
+        "URLApiNominatim",
+        "TabelaAPI",
+        "JsonTexto",
+        "DistanciaKM",
+        "Insert",
+        "Erro"
+      ]
+    },
+    {
+      "nome": "LTI - Obter informa&#x00E7;oes do itinerario",
+      "destino": "Servidor",
+      "componentes": 14,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowExpression": 3,
+        "TFlowDecision": 1,
+        "TFlowLine": 6
+      },
+      "funcoes": [
+        "ebfSQLClose",
+        "ebfSQLEOF",
+        "ebfResultSetToJSON",
+        "ebfListCreate",
+        "ebfSQLExecuteQuery"
+      ],
+      "total_funcoes": 5,
+      "parametros": [
+        "LNH_ID",
+        "TIPO"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "LTI - Renderiza JSON no mapa - Ao Entrar",
+      "destino": "Servidor",
+      "componentes": 55,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 4,
+        "TFlowExpression": 10,
+        "TFlowLine": 26,
+        "TFlowConnector": 6,
+        "TFlowSubRoutine": 6
+      },
+      "funcoes": [
+        "ebfMapToJson",
+        "isEqual",
+        "ebfConcat",
+        "ebfTrim",
+        "EbfKmlToJSON",
+        "ebfSplit",
+        "ebfGetValueObjectJson",
+        "ebfSQLCommitTransaction",
+        "ebfGetElementFromList",
+        "ebfGetSessionAttribute",
+        "oprAdd",
+        "ebfSQLOpenTransaction",
+        "ebfListCreate",
+        "isMinorOrEqual",
+        "ebfListLength"
+      ],
+      "total_funcoes": 18,
+      "parametros": [
+        "JSON",
+        "ITI_ID",
+        "SENTIDO",
+        "TIPO",
+        "LNH_ID",
+        "jsonCheckBox"
+      ],
+      "variaveis": [
+        "Mapa",
+        "Contador",
+        "coordinates",
+        "ListaCoordinates",
+        "CorLine",
+        "JsonRota",
+        "DistanciaKM"
+      ]
+    },
+    {
+      "nome": "LTI - Renderiza mapa",
+      "destino": "Cliente",
+      "componentes": 43,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowDecision": 3,
+        "TFlowExpression": 9,
+        "TFlowLine": 22,
+        "TFlowConnector": 4,
+        "TFlowSubRoutine": 2
+      },
+      "funcoes": [
+        "oprIf",
+        "isEqual",
+        "ebfTrim",
+        "EbfKmlToJSON",
+        "ebfSplit",
+        "ebfGetLocalVariable",
+        "ebfGetValueObjectJson",
+        "ebfGetElementFromList",
+        "oprAdd",
+        "ebfListCreate",
+        "isMinorOrEqual",
+        "ebfListLength"
+      ],
+      "total_funcoes": 16,
+      "parametros": [
+        "JSON",
+        "ITI_ID",
+        "SENTIDO",
+        "TIPO",
+        "LNH_ID",
+        "jsonCheckBox"
+      ],
+      "variaveis": [
+        "Mapa",
+        "Contador",
+        "coordinates",
+        "ListaCoordinates",
+        "CorLine",
+        "JsonRota"
+      ]
+    },
+    {
+      "nome": "LTI - Sentido",
+      "destino": "Cliente",
+      "componentes": 47,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowSubRoutine": 5,
+        "TFlowDecision": 4,
+        "TFlowEnd": 4,
+        "TFlowLine": 23,
+        "TFlowActivity": 1,
+        "TFlowExpression": 7,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "oprIf",
+        "isEqual",
+        "isNullOrEmpty",
+        "ebfConcat",
+        "ebfFormChangeComponentValue",
+        "ebfSetSessionAttribute",
+        "ebfGetValueObjectJson",
+        "ebfRefreshRecord",
+        "ebfGetElementFromList",
+        "ebfGetSessionAttribute",
+        "ebfGetClientFormVariable",
+        "ebfRemovePolyline",
+        "ActNewWarningMessage"
+      ],
+      "total_funcoes": 40,
+      "parametros": [
+        "IDA",
+        "VOLTA",
+        "OUTROS",
+        "MARCADO_IDA",
+        "TIPO",
+        "LNH_ID",
+        "NOME_COMPOENNTE",
+        "NomeArquivo"
+      ],
+      "variaveis": [
+        "POLYLINE",
+        "MAPA",
+        "DADOS_ITINERARIO",
+        "jsonCheckBox",
+        "executandoRegra"
+      ]
+    },
+    {
+      "nome": "LTI - Upload",
+      "destino": "Cliente",
+      "componentes": 14,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 1,
+        "TFlowLine": 6,
+        "TFlowDecision": 2,
+        "TFlowActivity": 2
+      },
+      "funcoes": [
+        "ebfFormIsInInsertMode",
+        "ActErrorMessage",
+        "isNullOrEmpty",
+        "ebfUploadFile2",
+        "ActNewErrorMessage"
+      ],
+      "total_funcoes": 5,
+      "parametros": [
+        "LNH_ID",
+        "TIPO"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Oficio de Notificacao - Emitir Oficio",
+      "destino": "Servidor",
+      "componentes": 14,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowActivity": 1,
+        "TFlowLine": 6,
+        "TFlowSubRoutine": 2,
+        "TFlowDecision": 1
+      },
+      "funcoes": [
+        "isNullOrEmpty",
+        "ebfListParamsCreate",
+        "ActNewErrorMessage",
+        "ebfMapCreateFromList",
+        "toLong"
+      ],
+      "total_funcoes": 5,
+      "parametros": [
+        "OFN_COD"
+      ],
+      "variaveis": []
+    },
+    {
+      "nome": "Oficio de Notificacao - Gera QRcode",
+      "destino": "Servidor",
+      "componentes": 21,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 6,
+        "TFlowLine": 10,
+        "TFlowDecision": 1,
+        "TFlowConnector": 1
+      },
+      "funcoes": [
+        "ebfURLEncoder",
+        "ebfConcat",
+        "ebfFileOpenToRead",
+        "ebfFileExists",
+        "ebfDateToday",
+        "ebfRequestGetContextPath",
+        "ebfGenerateQRCodeImage",
+        "ebfFileRemove",
+        "ebfFileTempDir",
+        "ebfFileReadAllToBytes",
+        "ebfSQLExecuteUpdate"
+      ],
+      "total_funcoes": 12,
+      "parametros": [
+        "codigoOficio"
+      ],
+      "variaveis": [
+        "rcode",
+        "caminho",
+        "url"
+      ]
+    },
+    {
+      "nome": "Oficio de Notificacao - Imprimir Oficio",
+      "destino": "Cliente",
+      "componentes": 10,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 2,
+        "TFlowLine": 4,
+        "TFlowSubRoutine": 1
+      },
+      "funcoes": [
+        "ebfCreateSpinner",
+        "ebfRuleSchedulerNoParent",
+        "ebfListParamsCreate"
+      ],
+      "total_funcoes": 3,
+      "parametros": [
+        "OFN_COD"
+      ],
+      "variaveis": [
+        "refSpinner"
+      ]
+    },
+    {
+      "nome": "OSO - Obtem OSO atual",
+      "destino": "Servidor",
+      "componentes": 10,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowExpression": 3,
+        "TFlowLine": 4
+      },
+      "funcoes": [
+        "ebfSQLExecuteQuery",
+        "ebfSQLField",
+        "ebfSQLClose"
+      ],
+      "total_funcoes": 3,
+      "parametros": [
+        "LNH_ID"
+      ],
+      "variaveis": [
+        "TABELA",
+        "codigoOso"
+      ]
+    },
+    {
+      "nome": "PXL - Depois de inserir",
+      "destino": "Cliente",
+      "componentes": 15,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 1,
+        "TFlowSubRoutine": 2,
+        "TFlowLine": 6,
+        "TFlowExpression": 4
+      },
+      "funcoes": [
+        "ebfGetElementFromList",
+        "ebfSQLGetFormField",
+        "ebfListParamsCreate",
+        "ebfGetValueObjectJson"
+      ],
+      "total_funcoes": 8,
+      "parametros": [],
+      "variaveis": [
+        "lat",
+        "lon",
+        "descricao",
+        "RetornoPonto"
+      ]
+    },
+    {
+      "nome": "Verificar data situacao - Gestao de autorizatario",
+      "destino": "Cliente",
+      "componentes": 23,
+      "tipos_componentes": {
+        "TFlowSubModel": 1,
+        "TFlowStart": 1,
+        "TFlowEnd": 2,
+        "TFlowDecision": 3,
+        "TFlowExpression": 2,
+        "TFlowActivity": 2,
+        "TFlowConnector": 3,
+        "TFlowLine": 9
+      },
+      "funcoes": [
+        "ebfDateYearDifference",
+        "isNullOrEmpty",
+        "toDate",
+        "ebfFormChangeComponentValue",
+        "isGreater",
+        "ActNewErrorMessage",
+        "ebfFormGetComponentValue",
+        "ebfDateToday"
+      ],
+      "total_funcoes": 9,
+      "parametros": [
+        "Data",
+        "Formulario",
+        "Limite_data_anterior"
+      ],
+      "variaveis": []
+    }
+  ]
+}

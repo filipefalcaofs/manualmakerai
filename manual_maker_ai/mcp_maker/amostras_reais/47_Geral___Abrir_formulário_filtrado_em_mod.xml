@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="47" NAME="Geral&#x20;-&#x20;Abrir&#x20;formul&#225;rio&#x20;filtrado&#x20;em&#x20;modo" COMPONENTNAME="FlowStart1" DESCRIPTION="Inicio" DEBUG="FALSE">
+<HEADER>
+<AUTHOR>Kaique</AUTHOR>
+<DATE>07/04/2025 14:50:37</DATE>
+<RANKING>10,0</RANKING>
+</HEADER>
+<PARAM TYPE="Formulário" SIZE="">Formul&#225;rio</PARAM>
+<PARAM TYPE="Letras" SIZE="50">Campo</PARAM>
+<PARAM TYPE="Letras" SIZE="50">Valor</PARAM>
+<PARAM TYPE="Inteiro" SIZE="50">Modo</PARAM>
+<DECLARERETURN TYPE="" SIZE=""/>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision2" DESCRIPTION="Est&#225;&#x20;em&#x20;modo&#x20;de&#x20;inser&#231;&#227;o?">
+<CONDITION>
+<FUNCTION NAME="Est&#225;&#x20;em&#x20;Modo&#x20;de&#x20;Inser&#231;&#227;o?" REALNAME="ebfFormIsInInsertMode">
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity2" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >Aten&#231;&#227;o!</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >Conclua&#x20;a&#x20;inser&#231;&#227;o&#x20;do&#x20;registro&#x20;para&#x20;clicar&#x20;no&#x20;bot&#227;o!</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<RULERETURN COMPONENTNAME="FlowEnd2" DESCRIPTION="Fim">
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision1" DESCRIPTION="Valor&#x20;&#233;&#x20;nulo&#x20;ou&#x20;vazio?">
+<CONDITION>
+<FUNCTION NAME="&#201;&#x20;Nulo&#x20;ou&#x20;Vazio" REALNAME="isNullOrEmpty">
+<PARAMS>
+<VARIABLE NAME="Campo"/>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity1" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >Erro</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >Selecione&#x20;um&#x20;registro&#x20;para&#x20;abri-lo.</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION COMPONENTNAME="FlowExpression3" DESCRIPTION="Guardar&#x20;c&#243;d&#x20;em&#x20;vari&#225;vel&#x20;de&#x20;sessao">
+<FUNCTION NAME="Definir&#x20;vari&#225;vel&#x20;da&#x20;sess&#227;o" REALNAME="ebfSetSessionAttribute">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >CodForm</CONSTANT>
+<FUNCTION NAME="C&#243;digo&#x20;do&#x20;Formul&#225;rio" REALNAME="ebfGetFormID">
+</FUNCTION>
+<CONSTANT TYPE="L&#243;gico" NULL="FALSE"  >false</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION COMPONENTNAME="FlowExpression2" DESCRIPTION="Guardar&#x20;modo&#x20;em&#x20;vari&#225;vel&#x20;de&#x20;sessao">
+<FUNCTION NAME="Definir&#x20;vari&#225;vel&#x20;da&#x20;sess&#227;o" REALNAME="ebfSetSessionAttribute">
+<PARAMS>
+<FUNCTION NAME="C&#243;digo&#x20;do&#x20;Formul&#225;rio" REALNAME="ebfGetFormID">
+</FUNCTION>
+<VARIABLE NAME="Modo"/>
+<CONSTANT TYPE="L&#243;gico" NULL="FALSE"  >false</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION COMPONENTNAME="FlowExpression1" DESCRIPTION="Abrir&#x20;formul&#225;rio">
+<FUNCTION NAME="Abrir&#x20;Formul&#225;rio&#x20;Filtro&#x20;e&#x20;Modo" REALNAME="ebfFormOpenFilterAndMode">
+<PARAMS>
+<VARIABLE NAME="Formul&#225;rio"/>
+<FUNCTION NAME="Concatena&#231;&#227;o" REALNAME="ebfConcat">
+<PARAMS>
+<VARIABLE NAME="Campo"/>
+<VARIABLE NAME="Valor"/>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="Modo"/>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<REFERENCE COMPONENTNAME="FlowEnd1"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</RULE>

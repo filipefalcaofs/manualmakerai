@@ -1,0 +1,115 @@
+---
+description: Fluxo mental para criar fluxos Maker — do requisito ao FRZ, pensando como dev senior
+globs: ["**/mcp_maker/**", "**/*.frz"]
+alwaysApply: false
+---
+
+# Gerador FRZ — Fluxo Mental de Dev Maker Senior
+
+Ao criar qualquer fluxo (regra servidor, regra cliente), seguir este fluxo mental.
+Para regras de qualidade (nomenclatura, performance, seguranca, decomposicao), consultar `maker-fluxos-boas-praticas.mdc`.
+
+---
+
+## 1. Entender o pedido como requisito de negocio
+
+Antes de montar qualquer spec, responder mentalmente:
+- **O que o usuario quer que aconteca?** (ex: calcular folha, validar CPF, gerar relatorio)
+- **Quais dados de entrada precisa?** → parametros
+- **O que deve retornar ou produzir?** → retorno ou efeito colateral
+- **Onde executa?** → servidor (SQL, arquivos, email) ou cliente (DOM, componentes, alert)
+- **E complexo o suficiente para decompor?** → se mais de 25 passos, projetar maestro + sub-rotinas
+
+---
+
+## 2. Projetar o fluxo como codigo
+
+### Pensar em blocos (usar `padroes_fluxo` do MCP)
+
+| Preciso... | Padrao |
+|---|---|
+| Ler dados do banco | `sql_select`: ExecuteQuery → Field (N) → Close |
+| Gravar/atualizar dados | `sql_execute`: ExecuteUpdate |
+| Iterar registros | `sql_loop`: ExecuteQuery → WHILE EOF → Field → Next → Close |
+| Validar campo obrigatorio | `null_guard`: isNullOrEmpty → erro se vazio |
+| Comparar valores com desvio | `equality_check`: isEqual → on_true / on_false |
+| Verificar duplicidade | `duplicity_check`: query COUNT → erro se > 0 |
+| Alterar componente na tela | `change_component`: ebfFormChangeComponentValue |
+| Mostrar/ocultar componente | `set_visibility`: ebfFormSetVisible |
+| Chamar outra regra | `callrule`: TFlowSubRoutine com params |
+| Montar JSON de resposta | `json_build`: CreateObjectJSON → SetValue |
+| Pedir confirmacao | `confirmation`: prompt → on_confirm |
+| Verificar modo navegacao | `browser_mode_guard`: retorna se em browse mode |
+
+### Para regras complexas: usar `projetar_regra` do MCP
+
+O tool `projetar_regra` aceita esses padroes diretamente no campo `passos` e:
+- Determina a camada (cliente/servidor) automaticamente
+- Gera a estrutura logica completa
+- Valida consistencia entre funcoes
+
+---
+
+## 3. Definir variaveis e parametros
+
+- **Parametros**: dados que vem de fora, prefixo `p` (pIdPessoa, pCpf)
+- **Variaveis**: dados intermediarios, prefixo por tipo (qryDados, jsonResult, vNome, lstItens)
+- Cada funcao que retorna valor precisa de uma variavel
+
+| Tipo | Uso |
+|---|---|
+| Letras | Texto/string |
+| Inteiro | Numero inteiro |
+| Fracionado | Numero decimal |
+| Logico | Booleano |
+| Variante | Tipo dinamico (query results, file handles, JSON) |
+| Tabela | Resultado de query SQL |
+| Data | Data |
+
+---
+
+## 4. Pipeline do MCP para gerar
+
+### Regra simples (< 15 passos)
+```
+1. buscar_funcao('termo') → descobrir funcoes
+2. detalhar_funcao('ebfNome') → verificar assinatura
+3. padroes_fluxo('sql') → composicao testada
+4. validar_fluxo(spec_json) → checar
+5. gerar_fluxo(spec_json, 'NomeFluxo.frz') → produzir
+```
+
+### Regra complexa (maestro + sub-rotinas)
+```
+1. Projetar maestro com 5-10 passos (callrule para cada bloco)
+2. Projetar cada sub-rotina separadamente
+3. Para cada: buscar_funcao → detalhar_funcao → validar_fluxo
+4. gerar_fluxo para cada regra (maestro + sub-rotinas)
+5. Vincular IDs de sub-rotinas nos callrule do maestro
+```
+
+### Regra com formulario
+```
+1. estrutura_frz → entender hierarquia XML
+2. spec_componentes → properties dos campos
+3. spec_design → layout CSS/Bootstrap
+4. Projetar regras vinculadas aos eventos
+5. gerar_tela_completa → FRZ com formulario + regras
+```
+
+---
+
+## 5. Dimensoes reais dos componentes DFM
+
+| Componente | Instancias | Width | Height |
+|---|---|---|---|
+| TFlowExpression | 8465 | 150 | 57 |
+| TFlowDecision | 3042 | 150 | 60 |
+| TFlowEnd | 3162 | 38 | 38 |
+| TFlowStart | 2371 | 38 | 38 |
+| TFlowSubRoutine | 1996 | 150 | 60 |
+| TFlowConnector | 1731 | 30 | 30 |
+| TFlowActivity | 1074 | 150 | 60 |
+| TFlowLine | 20903 | var | var |
+
+Gap vertical entre passos: ~18px. Step total = Height + gap = ~75px.

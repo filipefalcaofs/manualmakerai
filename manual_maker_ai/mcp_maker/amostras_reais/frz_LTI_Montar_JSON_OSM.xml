@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="1729" NAME="LTI&#x20;-&#x20;Montar&#x20;JSON&#x20;tratado&#x20;do&#x20;OSM" COMPONENTNAME="FlowStart1" DESCRIPTION="Inicio" DEBUG="FALSE">
+<HEADER>
+<AUTHOR>Filipe&#x20;S&#225;&#x20;Falc&#227;o</AUTHOR>
+<DATE>01/10/2025 16:00:32</DATE>
+<RANKING>0,0</RANKING>
+</HEADER>
+<PARAM TYPE="Letras" SIZE="50">UrlApi</PARAM>
+<VAR TYPE="Variante" SIZE="">JsonOSM</VAR>
+<VAR TYPE="Variante" SIZE="">mapaTipo</VAR>
+<VAR TYPE="Inteiro" SIZE="">Contador</VAR>
+<VAR TYPE="Inteiro" SIZE="">Tamanho&#x20;da&#x20;Lista</VAR>
+<VAR TYPE="Variante" SIZE="">ListaChaves</VAR>
+<VAR TYPE="Variante" SIZE="">Endereco</VAR>
+<VAR TYPE="Inteiro" SIZE="">ContadorTipos</VAR>
+<VAR TYPE="Inteiro" SIZE="">Tamanho&#x20;da&#x20;Lista&#x20;Tipos</VAR>
+<VAR TYPE="Variante" SIZE="">ListaTipos</VAR>
+<VAR TYPE="Letras" SIZE="50">valorTipo</VAR>
+<VAR TYPE="Variante" SIZE="">address</VAR>
+<VAR TYPE="Letras" SIZE="50">jsonTexto</VAR>
+<DECLARERETURN TYPE="Variante" SIZE=""/>
+<ACTION>
+<EXPRESSION RETURN="Contador">
+<CONSTANT TYPE="Inteiro">1</CONSTANT>
+</EXPRESSION>
+<EXPRESSION RETURN="ContadorTipos">
+<CONSTANT TYPE="Inteiro">1</CONSTANT>
+</EXPRESSION>
+<EXPRESSION RETURN="JsonOSM" COMPONENTNAME="FlowExpression11" DESCRIPTION="Obter&#x20;itiner&#225;rio&#x20;pelo&#x20;OSM">
+<FUNCTION NAME="REST - Consumir Webservice - 2.0" REALNAME="ebfRestFulCallService">
+<PARAMS>
+<VARIABLE NAME="UrlApi"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">GET</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">UTF-8</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision4" DESCRIPTION="code=200?">
+<CONDITION>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+		<PARAMS>
+			<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+				<PARAMS>
+					<VARIABLE NAME="JsonOSM"/>
+					<CONSTANT TYPE="Letras" NULL="FALSE">code</CONSTANT>
+				</PARAMS>
+			</FUNCTION>
+			<CONSTANT TYPE="Inteiro" NULL="FALSE">200</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION RETURN="JsonOSM" COMPONENTNAME="FlowExpression12" DESCRIPTION="Obter&#x20;resultado">
+<FUNCTION NAME="JSON - Criar Objeto" REALNAME="ebfCreateObjectJSON">
+<PARAMS>
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="JsonOSM"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">result</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="jsonTexto" COMPONENTNAME="FlowExpression18" DESCRIPTION="Obter&#x20;texto&#x20;do&#x20;json">
+<FUNCTION NAME="JSON - Obter Texto" REALNAME="ebfGetJSONText">
+<PARAMS>
+<VARIABLE NAME="JsonOSM"/>
+<CONSTANT TYPE="Inteiro" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="Endereco" COMPONENTNAME="FlowExpression19" DESCRIPTION="Cria&#x20;json&#x20;de&#x20;endereco">
+<FUNCTION NAME="JSON&#x20;-&#x20;Criar&#x20;Objeto" REALNAME="ebfCreateObjectJSON">
+<PARAMS>
+<FUNCTION NAME="Extrair&#x20;Endere&#231;o&#x20;de&#x20;JSON&#x20;da&#x20;API&#x20;do&#x20;OSM" REALNAME="EbfExtrairEnderecoOSM">
+<PARAMS>
+<VARIABLE NAME="jsonTexto"/>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<RULERETURN COMPONENTNAME="FlowEnd3" DESCRIPTION="Fim">
+<VARIABLE NAME="Endereco"/>
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION RETURN="Endereco" COMPONENTNAME="FlowExpression20" DESCRIPTION="Cria&#x20;json&#x20;de&#x20;endereco">
+<FUNCTION NAME="JSON&#x20;-&#x20;Criar&#x20;JSON&#x20;a&#x20;Partir&#x20;dos&#x20;Elementos" REALNAME="ebfJSONParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >logradouro</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >numero</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >bairro</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >cidade</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >estado</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >cep</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >pais</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >complemento</CONSTANT>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="JsonOSM"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >name</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >latitude</CONSTANT>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="JsonOSM"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >lat</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >longitude</CONSTANT>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="JsonOSM"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >lon</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="L&#243;gico" NULL="FALSE"  >true</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+<VARIABLE NAME="Endereco"/>
+</RULERETURN>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</RULE>

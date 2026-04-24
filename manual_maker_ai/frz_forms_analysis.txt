@@ -1,0 +1,868 @@
+====================================================================================================
+FORMULARIO: Template - Kanban
+  FRM_CODIGO: 54  |  FRM_GUID: {C911BDC1-2078-4197-922A-EFC539F4C4AE}
+  Dimensoes: 1049 x 526
+  Tabela: (nenhuma)
+  Campo Chave: (nenhum)
+  Total Componentes: 12
+  Tipos: {'W': 4, 'L': 4, 'P': 4}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: FALSE
+    Abas: FALSE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    BarraNavegacaoFixa: FALSE
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    FonteDeDados: (Conexão principal)
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+    AIGenerated: FALSE
+
+    Eventos no FormSettings:
+      Ao Entrar -> Executar Regra: Template - Kanban - Ao Entrar
+
+  ARVORE DE COMPONENTES:
+  |-- [P] colunaAFazer css="form-group"
+    |-- [W] afazer
+    |-- [L] TMAKERLABEL desc="A fazer"
+  |-- [P] colunaDesenvolvimento css="form-group"
+    |-- [W] desenvolvimento
+    |-- [L] TMAKERLABEL1 desc="Em Desenvolvimento"
+  |-- [P] colunaConcluido css="form-group"
+    |-- [W] concluido
+    |-- [L] TMAKERLABEL2 desc="Concluido"
+  |-- [P] colunaTestado css="form-group"
+    |-- [W] testado
+    |-- [L] TMAKERLABEL3 desc="Testado"
+
+  CLASSES CSS: form-group, inline:    top: 0px;
+    width: 100%;
+    height: 4%;
+    z-index: 4;    
+    borde, inline:    top: 0px;
+    width: 100%;
+    height: 4%;
+    z-index: 5;    
+    borde, inline:    top: 0px;
+    width: 100%;
+    height: 4%;
+z-index: 7;
+background-color:, inline:top: 0px;
+width: 100%;
+height: 4%;
+z-index: 6; background-color: rgb(0, 0, 25
+
+  EVENTOS E REGRAS (1):
+    FormSettings(F)(F).Ao Entrar -> Executar Regra: Template - Kanban - Ao Entrar
+
+  DESTAQUES: 4 Card(s) | 5 classes CSS | Sem tabela (formulario visual/template) | 1 eventos vinculados | Responsivo
+
+====================================================================================================
+FORMULARIO: Grupos do Sistema
+  FRM_CODIGO: 7149  |  FRM_GUID: {4D559289-EBAD-4F64-8D15-BD2DAFD05901}
+  Dimensoes: 600 x 487
+  Tabela: FR_SISTEMA
+  Campo Chave: sis_codigo
+  SQL Select: Select
+
+  FR_SISTEMA.SIS_CODIGO,
+
+  FR_SISTEMA.SIS_DESCRICAO,
+
+  FR_SISTEMA.SIS_CODIGO AS "Código do Sistema",
+
+  FR_SISTEMA.SIS_DESCRICAO AS "Descrição"
+
+From
+
+  FR_SISTEMA
+
+Where
+
+( 
+  Total Componentes: 4
+  Tipos: {'L': 1, 'E': 2, 'G': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWhite
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+
+  ARVORE DE COMPONENTES:
+  |-- [L] MakerLabel2 desc="Alterações nos grupos só terão efeito após a recarga geral do sistema" css="text-muted"
+  |-- [E] MakerEdit1 desc="Sigla do Sistema" campo=SIS_CODIGO
+  |-- [E] MakerEdit2 desc="Descrição" campo=SIS_DESCRICAO
+  |-- [G] MakerGrid1
+
+  CLASSES CSS: text-muted
+
+  DESTAQUES: 1 Grade(s) | 1 classes CSS | Responsivo | Com Abas
+
+====================================================================================================
+FORMULARIO: Sistema X Grupos
+  FRM_CODIGO: 7148  |  FRM_GUID: {44441485-1BCA-4821-A023-D05384C0D4AE}
+  Dimensoes: 546 x 191
+  Tabela: FR_GRUPO
+  Campo Chave: grp_codigo;sis_codigo
+  SQL Select: Select
+
+  FR_GRUPO.GRP_CODIGO,
+
+  FR_GRUPO.SIS_CODIGO,
+
+  FR_GRUPO.GRP_NOME
+
+From
+
+  FR_GRUPO
+
+/*WHERE_NEW*/
+
+/*ORDER_NEW*/
+  Total Componentes: 1
+  Tipos: {'E': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    Centralizado: True
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+
+  ARVORE DE COMPONENTES:
+  |-- [E] MakerEdit3 desc="Grupo" campo=GRP_NOME
+
+  DESTAQUES: Responsivo | Com Abas
+
+====================================================================================================
+FORMULARIO: Usuários X Sistemas X Grupos
+  FRM_CODIGO: 7151  |  FRM_GUID: {F5DA0BE3-C50E-49B3-BA67-A2182E38329F}
+  Dimensoes: 329 x 254
+  Tabela: FR_USUARIO_GRUPO
+  Campo Chave: grp_codigo;sis_codigo;usr_codigo
+  SQL Select: Select
+
+  FR_USUARIO_GRUPO.GRP_CODIGO,
+
+  FR_USUARIO_GRUPO.SIS_CODIGO,
+
+  FR_USUARIO_GRUPO.USR_CODIGO
+
+From
+
+  FR_USUARIO_GRUPO
+
+/*WHERE_NEW*/
+
+/*ORDER_NEW*/
+  Total Componentes: 1
+  Tipos: {'K': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+
+  ARVORE DE COMPONENTES:
+  |-- [K] MakerLookup1 desc="Grupo" campo=GRP_CODIGO
+
+  DESTAQUES: 1 Lookup(s) | Responsivo | Com Abas
+
+====================================================================================================
+FORMULARIO: Usuários X Sistemas
+  FRM_CODIGO: 7147  |  FRM_GUID: {095943CE-6FA4-4A3D-86C2-184D4F187776}
+  Dimensoes: 325 x 273
+  Tabela: FR_USUARIO_SISTEMA
+  Campo Chave: usr_codigo;sis_codigo
+  SQL Select: Select
+
+  FR_USUARIO_SISTEMA.USR_CODIGO,
+
+  FR_USUARIO_SISTEMA.SIS_CODIGO,
+
+  FR_USUARIO_SISTEMA.USS_ACESSO_EXTERNO,
+
+  FR_USUARIO_SISTEMA.USS_ADMINISTRADOR,
+
+  FR_USUARIO_SISTEMA.USS_ACESSA
+  Total Componentes: 4
+  Tipos: {'H': 3, 'K': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    Centralizado: True
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+
+  ARVORE DE COMPONENTES:
+  |-- [H] MakerCheckBox1 desc="Acesso Externo" campo=USS_ACESSO_EXTERNO
+  |-- [H] MakerCheckBox2 desc="Administrador" campo=USS_ADMINISTRADOR
+  |-- [H] MakerCheckBox3 desc="Acessar" campo=USS_ACESSAR
+  |-- [K] MakerLookup1 desc="Sistema" campo=SIS_CODIGO
+
+  DESTAQUES: 1 Lookup(s) | 3 HTML(s) | Responsivo | Com Abas
+
+====================================================================================================
+FORMULARIO: Formulário Usuários X Sistemas
+  FRM_CODIGO: 7150  |  FRM_GUID: {43AEED6B-15F1-45CC-9EAA-0D73B622BE71}
+  Dimensoes: 600 x 456
+  Tabela: FR_USUARIO_SISTEMA
+  Campo Chave: usr_codigo;sis_codigo
+  SQL Select: Select
+
+  FR_USUARIO_SISTEMA.USR_CODIGO,
+
+  FR_USUARIO_SISTEMA.SIS_CODIGO,
+
+  FR_SISTEMA.SIS_DESCRICAO,
+
+  FR_USUARIO.USR_NOME,
+
+  FR_USUARIO_SISTEMA.SIS_CODIGO As "Sistema",
+
+  FR_SISTEMA
+  Total Componentes: 3
+  Tipos: {'E': 2, 'G': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    Centralizado: True
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+
+  ARVORE DE COMPONENTES:
+  |-- [E] MakerEdit1 desc="Usuário" campo=USR_NOME
+  |-- [E] MakerEdit3 desc="Sistema" campo=SIS_DESCRICAO
+  |-- [G] MakerGrid1
+
+  DESTAQUES: 1 Grade(s) | Responsivo | Com Abas
+
+====================================================================================================
+FORMULARIO: Usuários
+  FRM_CODIGO: 7146  |  FRM_GUID: {E670B962-BBE6-4A56-A8AA-C404EC84250A}
+  Dimensoes: 700 x 694
+  Tabela: FR_USUARIO
+  Campo Chave: usr_codigo
+  SQL Select: Select
+
+  U.USR_CODIGO,
+
+  U.USR_LOGIN,
+
+  U.USR_SENHA,
+
+  U.USR_ADMINISTRADOR,
+
+  U.USR_TIPO_EXPIRACAO,
+
+  U.USR_DIAS_EXPIRACAO,
+
+  U.USR_IMAGEM_DIGITAL,
+
+  U.USR_FOTO,
+
+  U.USR_NOM
+  Total Componentes: 17
+  Tipos: {'B': 2, 'C': 1, 'E': 6, 'G': 1, 'P': 2, 'L': 2, 'I': 2, 'R': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+
+    Eventos no FormSettings:
+      Ao Navegar -> Executar SQL: 
+      Ao Navegar -> Executar JavaScript: 
+
+  ARVORE DE COMPONENTES:
+  |-- [B] MakerButton1 desc="Grupos aos quais pertence"
+  |-- [C] MakerComboBox1 desc="Adm. Geral" campo=USR_ADMINISTRADOR
+  |-- [E] MakerEdit1 desc="Senha" campo=USR_SENHA
+  |-- [E] MakerEdit2 desc="Login" campo=USR_LOGIN
+  |-- [E] MakerEdit4 desc="Dias para expiração" campo=USR_DIAS_EXPIRACAO
+  |-- [E] MakerEdit5 desc="Nome do Usuário" campo=USR_NOME
+  |-- [E] MakerEdit6 desc="E-mail" campo=USR_EMAIL
+  |-- [E] MakerEdit8 desc="Data de Referência" campo=USR_INICIO_EXPIRACAO
+  |-- [G] MakerGrid1
+  |-- [P] MakerContainer2
+    |-- [L] MakerLabel1 desc="Foto"
+    |-- [I] MakerImage2 desc="USR_FOTO" campo=USR_FOTO
+  |-- [P] MakerContainer1
+    |-- [L] MakerLabel2 desc="Impressão Digital"
+    |-- [I] MakerImage1 desc="USR_IMAGEM_DIGITAL" campo=USR_IMAGEM_DIGITAL
+  |-- [R] MakerRadioGroup1 desc="Limite de Senha" campo=USR_TIPO_EXPIRACAO
+      >> evento: Ao Modificar -> Executar SQL: Executar SQL
+      >> evento: Ao Modificar -> Abrir Formulario: Abrir Formulario
+  |-- [B] MakerButton4 desc="Grupos do Sistema" css="btn-secondary"
+
+  CLASSES CSS: btn-secondary
+
+  EVENTOS E REGRAS (4):
+    MakerRadioGroup1(R).Ao Modificar -> Executar SQL: 
+    MakerRadioGroup1(R).Ao Modificar -> Abrir Formulario: 
+    FormSettings(F)(F).Ao Navegar -> Executar SQL: 
+    FormSettings(F)(F).Ao Navegar -> Executar JavaScript: 
+
+  DESTAQUES: 1 Grade(s) | 1 Combo(s) | 1 classes CSS | 4 eventos vinculados | Responsivo | Com Abas
+
+====================================================================================================
+FORMULARIO: Template - Dashboard
+  FRM_CODIGO: 37  |  FRM_GUID: {F47921EE-E94A-4413-A7C2-291D1ABEBE34}
+  Dimensoes: 1031 x 632
+  Tabela: (nenhuma)
+  Campo Chave: (nenhum)
+  Total Componentes: 12
+  Tipos: {'S': 6, 'A': 6}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: FALSE
+    Abas: FALSE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    BarraNavegacaoFixa: FALSE
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    FonteDeDados: (Conexão principal)
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+    AIGenerated: FALSE
+
+  ARVORE DE COMPONENTES:
+  |-- [S] Z03ACB3758538461786F7169A43C00B8C
+  |-- [S] Z9108BF25A93A40E2A895A2C5228A061A
+  |-- [S] Z63F919DD98CC471C889D29464EB54452
+  |-- [A] TMAKERCHART
+  |-- [A] TMAKERCHART3
+  |-- [A] TMAKERCHART5
+  |-- [S] ZAF1A9487E9A04EDE8BF4E919B2363B0C
+  |-- [A] TMAKERCHART4
+  |-- [S] ZC8A08D436D794B998210327C568C28AF
+  |-- [A] TMAKERCHART1
+  |-- [S] ZC52A66FA2BDA42B19945A5F4E338D9E1
+  |-- [A] TMAKERCHART6
+
+  DESTAQUES: Sem tabela (formulario visual/template) | Responsivo
+
+====================================================================================================
+FORMULARIO: Template - Formulário Principal
+  FRM_CODIGO: 20  |  FRM_GUID: {3671E509-1CC7-4087-A86B-6E97D9570925}
+  Dimensoes: 1025 x 547
+  Tabela: (nenhuma)
+  Campo Chave: (nenhum)
+  Total Componentes: 8
+  Tipos: {'P': 3, 'I': 1, 'W': 3, 'B': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: FALSE
+    Abas: FALSE
+    AbaLocalizar: FALSE
+    Apresentacao: 0
+    BarraDeRolagem: False
+    BarraNavegacaoFixa: FALSE
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: FALSE
+    EntrarComoPesquisa: FALSE
+    FonteDeDados: (Conexão principal)
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+    AIGenerated: FALSE
+
+    Eventos no FormSettings:
+      Ao Entrar -> Executar Regra: Template - Formulário Principal - Ao Entrar
+
+  ARVORE DE COMPONENTES:
+  |-- [P] Navbar css="form-group webrun-text-template-bg-primary m-0 p-0 d-flex flex-row flex-nowrap align-items-center position-relative
+"
+    |-- [I] Logo css="form-group fixed-height text-center d-none d-sm-flex position-relative m-0"
+    |-- [P] UserInfo css="form-group p-0 m-0 d-flex flex-row-reverse align-items-center flex-fill position-relative
+"
+    |-- [B] MenuButton css="btn-link"
+        >> evento: Ao Clicar -> Executar Regra: Template - Formulário Principal - Alternar Menu
+  |-- [W] Menu
+      >> evento: Ao Clicar -> Executar Regra: Template - Formulário Principal - Ao Clicar no Menu entrada=[Identificador=;Descrição=;Tipo=]
+      >> evento: Ao Soltar Atalho -> Executar Regra: Template - Formulário Principal - Atalhos - Ao Soltar Atalho entrada=[Referência=]
+  |-- [P] AbaContainer css="form-group p-0 m-0"
+    |-- [W] Aba
+    |-- [W] Chat
+
+  CLASSES CSS: btn-link, form-group fixed-height text-center d-none d-sm-flex position-relative m-0, form-group p-0 m-0, form-group p-0 m-0 d-flex flex-row-reverse align-items-center flex-fill position-relative
+, form-group webrun-text-template-bg-primary m-0 p-0 d-flex flex-row flex-nowrap align-items-center position-relative
+
+
+  EVENTOS E REGRAS (4):
+    Menu(W).Ao Clicar -> Executar Regra: Template - Formulário Principal - Ao Clicar no Menu
+      Entrada: Identificador=;Descrição=;Tipo=
+    Menu(W).Ao Soltar Atalho -> Executar Regra: Template - Formulário Principal - Atalhos - Ao Soltar Atalho
+      Entrada: Referência=
+    MenuButton(B).Ao Clicar -> Executar Regra: Template - Formulário Principal - Alternar Menu
+    FormSettings(F)(F).Ao Entrar -> Executar Regra: Template - Formulário Principal - Ao Entrar
+
+  DESTAQUES: 3 Card(s) | 5 classes CSS | Sem tabela (formulario visual/template) | 4 eventos vinculados | Responsivo
+
+====================================================================================================
+FORMULARIO: Template - Formulário de Login
+  FRM_CODIGO: 19  |  FRM_GUID: {BF4D777E-C74A-471E-9850-DD077B578876}
+  Dimensoes: 895 x 619
+  Tabela: (nenhuma)
+  Campo Chave: (nenhum)
+  Total Componentes: 27
+  Tipos: {'C': 1, 'P': 8, 'E': 4, 'B': 5, 'L': 6, 'I': 3}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: FALSE
+    Abas: FALSE
+    AbaLocalizar: FALSE
+    Apresentacao: 0
+    BarraDeRolagem: False
+    BarraNavegacaoFixa: FALSE
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: FALSE
+    EntrarComoPesquisa: FALSE
+    FonteDeDados: (Conexão principal)
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+    AIGenerated: FALSE
+
+    Eventos no FormSettings:
+      Ao Entrar -> Executar Regra: Template - Login - Ao Entrar
+
+  ARVORE DE COMPONENTES:
+  |-- [P] logincontainer css="card border overflow-hidden p-3 p-sm-0 shadow bg-body"
+    |-- [P] maincontainer
+      |-- [C] connection
+      |-- [E] username
+      |-- [B] loginbutton desc="Entrar" css="btn-dark position-absolute"
+          >> evento: Ao Clicar -> Executar Regra: Template - Login - Validar Captcha entrada=[usuario={username};senha={password};conexao={connection};cap]
+      |-- [L] MakerLabel1 desc="Login" css="text-bg-body"
+      |-- [P] passwordContainer
+        |-- [E] password
+            >> evento: Ao Pressionar Tecla -> Executar Regra: Template - Login - Ao Pressionar Tecla entrada=[Alt=;Ctrl=;Shift=;Código da Tecla=;Caractere da Tecla=]
+        |-- [L] forgotPassword desc="Esqueci Minha Senha" css="text-muted"
+            >> evento: Ao Clicar -> Executar Regra: Template - Login - Acionar Mudança de Página entrada=[botaoRetorno=;nomeContainerEntrada='recoverycontainer';nomeC]
+      |-- [B] certifybutton desc="<i class="fa-solid fa-id-card"></i>  Usar certificado digital" css="btn-dark position-absolute"
+          >> evento: Ao Clicar -> Executar Regra: Template - Login - Entrar com Certificado
+      |-- [P] captchaContainer css="form-group d-flex
+"
+        |-- [E] captchaInput
+            >> evento: Ao Pressionar Tecla -> Executar Regra: Template - Login - Ao Pressionar Tecla entrada=[Alt=;Ctrl=;Shift=;Código da Tecla=;Caractere da Tecla=]
+        |-- [B] recreateCaptcha desc="<i class="fa-solid fa-rotate"></i>"
+            >> evento: Ao Clicar -> Executar Regra: Template - Login - Criar Captcha
+        |-- [I] captcha
+    |-- [P] loginhighlight css="form-group webrun-template-bg-primary d-none d-sm-flex align-items-center justify-content-center
+"
+      |-- [I] logo css="position-relative"
+    |-- [L] signature desc="Powered by Maker AI" css="text-muted"
+  |-- [P] logincontainer1 css="card border overflow-hidden p-3 p-sm-0 shadow bg-body"
+    |-- [P] loginhighlight1 css="form-group webrun-template-bg-primary d-none d-sm-flex align-items-center justify-content-center
+"
+      |-- [I] logo1 css="position-relative"
+    |-- [L] MakerLabel6 desc="Powered by Maker AI" css="text-muted"
+    |-- [P] recoverycontainer css="form-group d-none
+"
+      |-- [L] MakerLabel5 desc="Recuperar Senha" css="text-bg-body"
+      |-- [B] recoveryBtn desc="Recuperar Acesso" css="btn-dark"
+          >> evento: Ao Clicar -> Executar Regra: Template - Login - Recuperar Acesso - Chamada entrada=[email={recoveryemail}]
+      |-- [E] recoveryemail
+      |-- [B] returnbtn desc="<i class="fa-solid fa-chevron-left"></i>" css="btn"
+          >> evento: Ao Clicar -> Executar Regra: Template - Login - Acionar Mudança de Página entrada=[botaoRetorno=;nomeContainerEntrada='maincontainer';nomeConta]
+  |-- [L] TMAKERLABEL desc="Essa aba deve ser usada apenas como referência e para customização do container de recuperação de senha. Qualquer customização só terá efeito se feita na aba "Principal""
+
+  CLASSES CSS: btn, btn-dark, btn-dark position-absolute, card border overflow-hidden p-3 p-sm-0 shadow bg-body, form-group d-flex
+, form-group d-none
+, form-group webrun-template-bg-primary d-none d-sm-flex align-items-center justify-content-center
+, position-relative, text-bg-body, text-muted
+
+  EVENTOS E REGRAS (9):
+    password(E).Ao Pressionar Tecla -> Executar Regra: Template - Login - Ao Pressionar Tecla
+      Entrada: Alt=;Ctrl=;Shift=;Código da Tecla=;Caractere da Tecla=
+    loginbutton(B).Ao Clicar -> Executar Regra: Template - Login - Validar Captcha
+      Entrada: usuario={username};senha={password};conexao={connection};captcha={captchaInput}
+    forgotPassword(L).Ao Clicar -> Executar Regra: Template - Login - Acionar Mudança de Página
+      Entrada: botaoRetorno=;nomeContainerEntrada='recoverycontainer';nomeContainerSaida='maincontainer'
+    recoveryBtn(B).Ao Clicar -> Executar Regra: Template - Login - Recuperar Acesso - Chamada
+      Entrada: email={recoveryemail}
+    returnbtn(B).Ao Clicar -> Executar Regra: Template - Login - Acionar Mudança de Página
+      Entrada: botaoRetorno=;nomeContainerEntrada='maincontainer';nomeContainerSaida='recoverycontainer'
+    certifybutton(B).Ao Clicar -> Executar Regra: Template - Login - Entrar com Certificado
+    captchaInput(E).Ao Pressionar Tecla -> Executar Regra: Template - Login - Ao Pressionar Tecla
+      Entrada: Alt=;Ctrl=;Shift=;Código da Tecla=;Caractere da Tecla=
+    recreateCaptcha(B).Ao Clicar -> Executar Regra: Template - Login - Criar Captcha
+    FormSettings(F)(F).Ao Entrar -> Executar Regra: Template - Login - Ao Entrar
+
+  DESTAQUES: 1 Combo(s) | 10 classes CSS | Sem tabela (formulario visual/template) | 9 eventos vinculados | Responsivo
+
+====================================================================================================
+FORMULARIO: Conjunto de Dados
+  FRM_CODIGO: 7152  |  FRM_GUID: {389DF0FD-20C2-4C6F-B8D4-BCD3321C177E}
+  Dimensoes: 600 x 526
+  Tabela: dataset
+  Campo Chave: dat_id
+  SQL Select: Select
+  dataset.dat_id,
+  dataset.dat_nome,
+  dataset.dat_conteudo_json,
+  dataset.dat_data_criacao,
+  dataset.dat_data_atualizacao
+From
+  dataset
+/*WHERE_NEW*/
+/*ORDER_NEW*/
+  Total Componentes: 4
+  Tipos: {'E': 3, 'M': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    BarraNavegacaoFixa: FALSE
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+    AIGenerated: TRUE
+    AIPrompt: -- Tabela para armazenar os dados de teste (JSON)
+CREATE TABLE datasets (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    json_content JSONB NOT NULL DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabela para armazenar a estrutura dos relatórios
+CREATE TABLE templates (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    html_content TEXT NOT NULL DEFAULT '',
+    header_content TEXT,
+    footer_content TEXT,
+    dataset_id UUID REFERENCES datasets(id) ON DELETE SET NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+  ARVORE DE COMPONENTES:
+  |-- [E] DAT_NOME desc="Nome" campo=dat_nome
+  |-- [M] DAT_CONTEUDO_JSON desc="Conteúdo JSON" campo=dat_conteudo_json
+  |-- [E] DAT_DATA_CRIACAO desc="Data Criacao" campo=dat_data_criacao
+  |-- [E] DAT_DATA_ATUALIZACAO desc="Ultima Atualizacao" campo=dat_data_atualizacao
+
+  DESTAQUES: 1 Memo(s) | Responsivo | Com Abas | Gerado por IA
+
+====================================================================================================
+FORMULARIO: Template de Relatório
+  FRM_CODIGO: 7153  |  FRM_GUID: {DFDD5439-20B4-4B74-BEA6-97E9AA789121}
+  Dimensoes: 700 x 719
+  Tabela: template
+  Campo Chave: tem_id
+  SQL Select: Select
+  template.tem_id,
+  template.tem_nome,
+  template.tem_conteudo_html,
+  template.tem_conteudo_cabecalho,
+  template.tem_conteudo_rodape,
+  template.tem_dataset_id,
+  template.tem_data_cr
+  Total Componentes: 7
+  Tipos: {'E': 3, 'M': 3, 'K': 1}
+
+  CONFIGURACOES DO FORMULARIO (tipo F):
+    Responsivo: TRUE
+    Navegacao: TRUE
+    Abas: TRUE
+    AbaLocalizar: TRUE
+    Apresentacao: 0
+    BarraDeRolagem: True
+    BarraNavegacaoFixa: FALSE
+    Centralizado: False
+    CentralizadoVertical: False
+    Cor: clWindow
+    EditarAoDuploClicar: TRUE
+    EntrarComoPesquisa: FALSE
+    AbaLocalizarPermitirImportarDados: TRUE
+    AbaLocalizarPermitirOrdenarGrade: TRUE
+    AbaLocalizarPermitirRelatorioHtml: TRUE
+    AbaLocalizarPermitirRelatorioListagem: TRUE
+    BotaoFechar: True
+    BotaoMaximizar: False
+    BotaoMinimizar: True
+    AIGenerated: TRUE
+    AIPrompt: -- Tabela para armazenar os dados de teste (JSON)
+CREATE TABLE datasets (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    json_content JSONB NOT NULL DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabela para armazenar a estrutura dos relatórios
+CREATE TABLE templates (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    html_content TEXT NOT NULL DEFAULT '',
+    header_content TEXT,
+    footer_content TEXT,
+    dataset_id UUID REFERENCES datasets(id) ON DELETE SET NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+  ARVORE DE COMPONENTES:
+  |-- [E] TEM_NOME desc="Nome" campo=tem_nome
+  |-- [M] TEM_CONTEUDO_HTML desc="Conteúdo HTML" campo=tem_conteudo_html
+  |-- [M] TEM_CONTEUDO_CABECALHO desc="Conteúdo Cabecalho" campo=tem_conteudo_cabecalho
+  |-- [M] TEM_CONTEUDO_RODAPE desc="Conteúdo Rodape" campo=tem_conteudo_rodape
+  |-- [K] TEM_DATASET_ID desc="Conjunto Dados" campo=tem_dataset_id
+  |-- [E] TEM_DATA_CRIACAO desc="Data Criacao" campo=tem_data_criacao
+  |-- [E] TEM_DATA_ATUALIZACAO desc="Ultima Atualizacao" campo=tem_data_atualizacao
+
+  DESTAQUES: 1 Lookup(s) | 3 Memo(s) | Responsivo | Com Abas | Gerado por IA
+
+====================================================================================================
+RESUMO GLOBAL
+====================================================================================================
+
+Total de formularios: 12
+
+Componentes por tipo (global):
+  E (MakerEdit (campo texto)): 21
+  P (MakerPanel/Container): 17
+  L (MakerLabel): 13
+  B (MakerButton): 8
+  W (MakerCard): 7
+  I (MakerImage): 6
+  S (MakerSeparator): 6
+  A (MakerAdvancedLabel): 6
+  M (MakerMemo): 4
+  G (MakerGrid): 3
+  K (MakerLookup): 3
+  H (MakerHTML): 3
+  C (MakerCombo): 2
+  R (MakerRadio): 1
+
+Todas as classes CSS usadas (21):
+  btn
+  btn-dark
+  btn-dark position-absolute
+  btn-link
+  btn-secondary
+  card border overflow-hidden p-3 p-sm-0 shadow bg-body
+  form-group
+  form-group d-flex
+
+  form-group d-none
+
+  form-group fixed-height text-center d-none d-sm-flex position-relative m-0
+  form-group p-0 m-0
+  form-group p-0 m-0 d-flex flex-row-reverse align-items-center flex-fill position-relative
+
+  form-group webrun-template-bg-primary d-none d-sm-flex align-items-center justify-content-center
+
+  form-group webrun-text-template-bg-primary m-0 p-0 d-flex flex-row flex-nowrap align-items-center position-relative
+
+  inline:    top: 0px;
+    width: 100%;
+    height: 4%;
+    z-index: 4;    
+    borde
+  inline:    top: 0px;
+    width: 100%;
+    height: 4%;
+    z-index: 5;    
+    borde
+  inline:    top: 0px;
+    width: 100%;
+    height: 4%;
+z-index: 7;
+background-color:
+  inline:top: 0px;
+width: 100%;
+height: 4%;
+z-index: 6; background-color: rgb(0, 0, 25
+  position-relative
+  text-bg-body
+  text-muted
+
+Todas as mascaras usadas (0):
+
+Mapeamento Eventos -> Regras (18):
+  FormSettings(F)(F).Ao Entrar -> Executar Regra: Template - Kanban - Ao Entrar
+  MakerRadioGroup1(R).Ao Modificar -> Executar SQL: 
+  MakerRadioGroup1(R).Ao Modificar -> Abrir Formulario: 
+  FormSettings(F)(F).Ao Navegar -> Executar SQL: 
+  FormSettings(F)(F).Ao Navegar -> Executar JavaScript: 
+  Menu(W).Ao Clicar -> Executar Regra: Template - Formulário Principal - Ao Clicar no Menu
+  Menu(W).Ao Soltar Atalho -> Executar Regra: Template - Formulário Principal - Atalhos - Ao Soltar Atalho
+  MenuButton(B).Ao Clicar -> Executar Regra: Template - Formulário Principal - Alternar Menu
+  FormSettings(F)(F).Ao Entrar -> Executar Regra: Template - Formulário Principal - Ao Entrar
+  password(E).Ao Pressionar Tecla -> Executar Regra: Template - Login - Ao Pressionar Tecla
+  loginbutton(B).Ao Clicar -> Executar Regra: Template - Login - Validar Captcha
+  forgotPassword(L).Ao Clicar -> Executar Regra: Template - Login - Acionar Mudança de Página
+  recoveryBtn(B).Ao Clicar -> Executar Regra: Template - Login - Recuperar Acesso - Chamada
+  returnbtn(B).Ao Clicar -> Executar Regra: Template - Login - Acionar Mudança de Página
+  certifybutton(B).Ao Clicar -> Executar Regra: Template - Login - Entrar com Certificado
+  captchaInput(E).Ao Pressionar Tecla -> Executar Regra: Template - Login - Ao Pressionar Tecla
+  recreateCaptcha(B).Ao Clicar -> Executar Regra: Template - Login - Criar Captcha
+  FormSettings(F)(F).Ao Entrar -> Executar Regra: Template - Login - Ao Entrar
+
+Hierarquia de Containers (quem contem quem):
+
+  [Template - Kanban]:
+    colunaAFazer -> afazer(W), TMAKERLABEL(L)
+    colunaDesenvolvimento -> desenvolvimento(W), TMAKERLABEL1(L)
+    colunaConcluido -> concluido(W), TMAKERLABEL2(L)
+    colunaTestado -> testado(W), TMAKERLABEL3(L)
+
+  [Usuários]:
+    MakerContainer2 -> MakerLabel1(L), MakerImage2(I)
+    MakerContainer1 -> MakerLabel2(L), MakerImage1(I)
+
+  [Template - Formulário Principal]:
+    Navbar -> Logo(I), UserInfo(P), MenuButton(B)
+    AbaContainer -> Aba(W), Chat(W)
+
+  [Template - Formulário de Login]:
+    maincontainer -> connection(C), username(E), loginbutton(B), MakerLabel1(L), passwordContainer(P), certifybutton(B), captchaContainer(P)
+    passwordContainer -> password(E), forgotPassword(L)
+    logincontainer -> maincontainer(P), loginhighlight(P), signature(L)
+    recoverycontainer -> MakerLabel5(L), recoveryBtn(B), recoveryemail(E), returnbtn(B)
+    logincontainer1 -> loginhighlight1(P), MakerLabel6(L), recoverycontainer(P)
+    loginhighlight1 -> logo1(I)
+    loginhighlight -> logo(I)
+    captchaContainer -> captchaInput(E), recreateCaptcha(B), captcha(I)

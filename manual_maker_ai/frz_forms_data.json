@@ -1,0 +1,2537 @@
+[
+  {
+    "FRM_CODIGO": "54",
+    "FRM_GUID": "{C911BDC1-2078-4197-922A-EFC539F4C4AE}",
+    "FRM_DESCRICAO": "Template - Kanban",
+    "FRM_TAMANHO": "1049",
+    "FRM_ALTURA": "526",
+    "FNT_TABELA": "",
+    "FNT_CAMPOCHAVE": "",
+    "FNT_SQLSELECT": "",
+    "components": [
+      {
+        "COM_CODIGO": "1135634",
+        "COM_TIPO": "W",
+        "name": "afazer",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "colunaAFazer",
+          "Tamanho": "254",
+          "Altura": "800",
+          "PosicaoX": "0",
+          "PosicaoY": "38",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135635",
+        "COM_TIPO": "W",
+        "name": "desenvolvimento",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "colunaDesenvolvimento",
+          "Tamanho": "254",
+          "Altura": "800",
+          "PosicaoX": "0",
+          "PosicaoY": "38",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135636",
+        "COM_TIPO": "W",
+        "name": "concluido",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "colunaConcluido",
+          "Tamanho": "254",
+          "Altura": "800",
+          "PosicaoX": "0",
+          "PosicaoY": "38",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135637",
+        "COM_TIPO": "W",
+        "name": "testado",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "colunaTestado",
+          "Tamanho": "254",
+          "Altura": "800",
+          "PosicaoX": "0",
+          "PosicaoY": "38",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135638",
+        "COM_TIPO": "L",
+        "name": "TMAKERLABEL",
+        "key_properties": {
+          "Descricao": "A fazer",
+          "Aba": "01-Cadastro",
+          "Container": "colunaAFazer",
+          "Tamanho": "242",
+          "Altura": "35",
+          "PosicaoX": "6",
+          "PosicaoY": "0",
+          "EstiloCss": "    top: 0px;\r\n    width: 100%;\r\n    height: 4%;\r\n    z-index: 4;    \r\n    border-radius: 0.75rem 0.75rem 0 0;\r\n    background: linear-gradient(0deg, rgba(204, 0, 0, 1) 24%, rgba(255, 102, 102, 1) 100%);\r\n",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,12,1000,clWhite"
+        }
+      },
+      {
+        "COM_CODIGO": "1135639",
+        "COM_TIPO": "L",
+        "name": "TMAKERLABEL1",
+        "key_properties": {
+          "Descricao": "Em Desenvolvimento",
+          "Aba": "01-Cadastro",
+          "Container": "colunaDesenvolvimento",
+          "Tamanho": "242",
+          "Altura": "35",
+          "PosicaoX": "6",
+          "PosicaoY": "0",
+          "EstiloCss": "    top: 0px;\r\n    width: 100%;\r\n    height: 4%;\r\n    z-index: 5;    \r\n    border-radius: 0.75rem 0.75rem 0 0;\r\n    background: linear-gradient(0deg, rgba(0,153,69,1) 24%, rgba(138,255,157,1) 100%);                  \r\n",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,12,1000,clWhite"
+        }
+      },
+      {
+        "COM_CODIGO": "1135640",
+        "COM_TIPO": "L",
+        "name": "TMAKERLABEL2",
+        "key_properties": {
+          "Descricao": "Concluido",
+          "Aba": "01-Cadastro",
+          "Container": "colunaConcluido",
+          "Tamanho": "242",
+          "Altura": "35",
+          "PosicaoX": "6",
+          "PosicaoY": "0",
+          "EstiloCss": "top: 0px;\r\nwidth: 100%;\r\nheight: 4%;\r\nz-index: 6; background-color: rgb(0, 0, 255) !important;\r\nborder-radius: 0.75rem 0.75rem 0 0;\r\nbackground: linear-gradient(0deg, rgba(0, 102, 204, 1) 24%, rgba(102, 204, 255, 1) 100%);\r\n",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,12,1000,clWhite"
+        }
+      },
+      {
+        "COM_CODIGO": "1135641",
+        "COM_TIPO": "L",
+        "name": "TMAKERLABEL3",
+        "key_properties": {
+          "Descricao": "Testado",
+          "Aba": "01-Cadastro",
+          "Container": "colunaTestado",
+          "Tamanho": "242",
+          "Altura": "35",
+          "PosicaoX": "6",
+          "PosicaoY": "0",
+          "EstiloCss": "    top: 0px;\r\n    width: 100%;\r\n    height: 4%;\r\nz-index: 7;\r\nbackground-color: rgb(0, 0, 0) !important;\r\nborder-radius: 0.75rem 0.75rem 0 0;\r\nbackground: linear-gradient(0deg, rgba(0, 0, 0, 1) 24%, rgba(102, 102, 102, 1) 100%);\r\n",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,12,1000,clWhite"
+        }
+      },
+      {
+        "COM_CODIGO": "1135642",
+        "COM_TIPO": "P",
+        "name": "colunaAFazer",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "form-group",
+          "Tamanho": "254",
+          "Altura": "841",
+          "PosicaoX": "3",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135643",
+        "COM_TIPO": "P",
+        "name": "colunaDesenvolvimento",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "form-group",
+          "Tamanho": "254",
+          "Altura": "841",
+          "PosicaoX": "265",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135644",
+        "COM_TIPO": "P",
+        "name": "colunaConcluido",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "form-group",
+          "Tamanho": "254",
+          "Altura": "841",
+          "PosicaoX": "524",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135645",
+        "COM_TIPO": "P",
+        "name": "colunaTestado",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "form-group",
+          "Tamanho": "254",
+          "Altura": "841",
+          "PosicaoX": "782",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135646",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {
+          "FonteDeDados": "(Conexão principal)"
+        },
+        "all_properties": {
+          "AIGenerated": "FALSE",
+          "AIPrompt": "",
+          "AbaLocalizar": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "FALSE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "True",
+          "BarraNavegacaoFixa": "FALSE",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWindow",
+          "EditarAoDuploClicar": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "(Conexão principal)",
+          "FormularioLocalizar": "0",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "Navegacao": "FALSE",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "20/02/2025 08:28:09",
+          "UltimoUsuario": "master",
+          "ACC_CONDICAO": ""
+        },
+        "events": [
+          {
+            "name": "Ao Entrar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Kanban - Ao Entrar",
+                "Entrada": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7149",
+    "FRM_GUID": "{4D559289-EBAD-4F64-8D15-BD2DAFD05901}",
+    "FRM_DESCRICAO": "Grupos do Sistema",
+    "FRM_TAMANHO": "600",
+    "FRM_ALTURA": "487",
+    "FNT_TABELA": "FR_SISTEMA",
+    "FNT_CAMPOCHAVE": "sis_codigo",
+    "FNT_SQLSELECT": "Select\r\n\r\n  FR_SISTEMA.SIS_CODIGO,\r\n\r\n  FR_SISTEMA.SIS_DESCRICAO,\r\n\r\n  FR_SISTEMA.SIS_CODIGO AS \"Código do Sistema\",\r\n\r\n  FR_SISTEMA.SIS_DESCRICAO AS \"Descrição\"\r\n\r\nFrom\r\n\r\n  FR_SISTEMA\r\n\r\nWhere\r\n\r\n( ",
+    "components": [
+      {
+        "COM_CODIGO": "1135647",
+        "COM_TIPO": "L",
+        "name": "MakerLabel2",
+        "key_properties": {
+          "Descricao": "Alterações nos grupos só terão efeito após a recarga geral do sistema",
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "text-muted",
+          "Tamanho": "556",
+          "Altura": "23",
+          "PosicaoX": "23",
+          "PosicaoY": "346",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135648",
+        "COM_TIPO": "E",
+        "name": "MakerEdit1",
+        "key_properties": {
+          "Campo": "SIS_CODIGO",
+          "Descricao": "Sigla do Sistema",
+          "Aba": "01-Cadastro",
+          "Tamanho": "111",
+          "Altura": "33",
+          "PosicaoX": "21",
+          "PosicaoY": "40",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135649",
+        "COM_TIPO": "E",
+        "name": "MakerEdit2",
+        "key_properties": {
+          "Campo": "SIS_DESCRICAO",
+          "Descricao": "Descrição",
+          "Aba": "01-Cadastro",
+          "Tamanho": "433",
+          "Altura": "33",
+          "PosicaoX": "146",
+          "PosicaoY": "40",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135650",
+        "COM_TIPO": "G",
+        "name": "MakerGrid1",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "557",
+          "Altura": "249",
+          "PosicaoX": "22",
+          "PosicaoY": "88",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "Arial,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135651",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "AbaLocalizar": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "TRUE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "True",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWhite",
+          "EditarAoDuploClicar": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "",
+          "FormularioLocalizar": "0",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "Navegacao": "TRUE",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "22/01/2020 16:17:01",
+          "UltimoUsuario": "danilo"
+        }
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7148",
+    "FRM_GUID": "{44441485-1BCA-4821-A023-D05384C0D4AE}",
+    "FRM_DESCRICAO": "Sistema X Grupos",
+    "FRM_TAMANHO": "546",
+    "FRM_ALTURA": "191",
+    "FNT_TABELA": "FR_GRUPO",
+    "FNT_CAMPOCHAVE": "grp_codigo;sis_codigo",
+    "FNT_SQLSELECT": "Select\r\n\r\n  FR_GRUPO.GRP_CODIGO,\r\n\r\n  FR_GRUPO.SIS_CODIGO,\r\n\r\n  FR_GRUPO.GRP_NOME\r\n\r\nFrom\r\n\r\n  FR_GRUPO\r\n\r\n/*WHERE_NEW*/\r\n\r\n/*ORDER_NEW*/",
+    "components": [
+      {
+        "COM_CODIGO": "1135652",
+        "COM_TIPO": "E",
+        "name": "MakerEdit3",
+        "key_properties": {
+          "Campo": "GRP_NOME",
+          "Descricao": "Grupo",
+          "Aba": "01-Cadastro",
+          "Tamanho": "506",
+          "Altura": "33",
+          "PosicaoX": "20",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135653",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "AbaLocalizar": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "TRUE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "True",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "True",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWindow",
+          "EditarAoDuploClicar": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "",
+          "FormularioLocalizar": "0",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "Navegacao": "TRUE",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "08/06/2020 07:56:40",
+          "UltimoUsuario": "danilo"
+        }
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7151",
+    "FRM_GUID": "{F5DA0BE3-C50E-49B3-BA67-A2182E38329F}",
+    "FRM_DESCRICAO": "Usuários X Sistemas X Grupos",
+    "FRM_TAMANHO": "329",
+    "FRM_ALTURA": "254",
+    "FNT_TABELA": "FR_USUARIO_GRUPO",
+    "FNT_CAMPOCHAVE": "grp_codigo;sis_codigo;usr_codigo",
+    "FNT_SQLSELECT": "Select\r\n\r\n  FR_USUARIO_GRUPO.GRP_CODIGO,\r\n\r\n  FR_USUARIO_GRUPO.SIS_CODIGO,\r\n\r\n  FR_USUARIO_GRUPO.USR_CODIGO\r\n\r\nFrom\r\n\r\n  FR_USUARIO_GRUPO\r\n\r\n/*WHERE_NEW*/\r\n\r\n/*ORDER_NEW*/",
+    "components": [
+      {
+        "COM_CODIGO": "1135654",
+        "COM_TIPO": "K",
+        "name": "MakerLookup1",
+        "key_properties": {
+          "Campo": "GRP_CODIGO",
+          "Descricao": "Grupo",
+          "Aba": "01-Cadastro",
+          "SQL": "Select\r\n  FR_GRUPO.GRP_CODIGO,\r\n  FR_GRUPO.GRP_NOME,\r\n  FR_GRUPO.SIS_CODIGO\r\nFrom\r\n  FR_GRUPO\r\nWhere\r\n(FR_GRUPO.SIS_CODIGO = :SIS_CODIGO)\r\n/*WHERE_ADD*/\r\n/*ORDER_NEW*/",
+          "Tamanho": "267",
+          "Altura": "33",
+          "PosicaoX": "19",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135655",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "AbaLocalizar": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "TRUE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "True",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWindow",
+          "EditarAoDuploClicar": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "",
+          "FormularioLocalizar": "0",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "Navegacao": "TRUE",
+          "Popup": "TRUE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "08/06/2020 07:57:21",
+          "UltimoUsuario": "danilo"
+        }
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7147",
+    "FRM_GUID": "{095943CE-6FA4-4A3D-86C2-184D4F187776}",
+    "FRM_DESCRICAO": "Usuários X Sistemas",
+    "FRM_TAMANHO": "325",
+    "FRM_ALTURA": "273",
+    "FNT_TABELA": "FR_USUARIO_SISTEMA",
+    "FNT_CAMPOCHAVE": "usr_codigo;sis_codigo",
+    "FNT_SQLSELECT": "Select\r\n\r\n  FR_USUARIO_SISTEMA.USR_CODIGO,\r\n\r\n  FR_USUARIO_SISTEMA.SIS_CODIGO,\r\n\r\n  FR_USUARIO_SISTEMA.USS_ACESSO_EXTERNO,\r\n\r\n  FR_USUARIO_SISTEMA.USS_ADMINISTRADOR,\r\n\r\n  FR_USUARIO_SISTEMA.USS_ACESSA",
+    "components": [
+      {
+        "COM_CODIGO": "1135656",
+        "COM_TIPO": "H",
+        "name": "MakerCheckBox1",
+        "key_properties": {
+          "Campo": "USS_ACESSO_EXTERNO",
+          "Descricao": "Acesso Externo",
+          "Aba": "01-Cadastro",
+          "Tamanho": "289",
+          "Altura": "22",
+          "PosicaoX": "13",
+          "PosicaoY": "131",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "Arial,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135657",
+        "COM_TIPO": "H",
+        "name": "MakerCheckBox2",
+        "key_properties": {
+          "Campo": "USS_ADMINISTRADOR",
+          "Descricao": "Administrador",
+          "Aba": "01-Cadastro",
+          "Tamanho": "289",
+          "Altura": "22",
+          "PosicaoX": "13",
+          "PosicaoY": "107",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "Arial,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135658",
+        "COM_TIPO": "H",
+        "name": "MakerCheckBox3",
+        "key_properties": {
+          "Campo": "USS_ACESSAR",
+          "Descricao": "Acessar",
+          "Aba": "01-Cadastro",
+          "Tamanho": "289",
+          "Altura": "22",
+          "PosicaoX": "13",
+          "PosicaoY": "83",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "Arial,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135659",
+        "COM_TIPO": "K",
+        "name": "MakerLookup1",
+        "key_properties": {
+          "Campo": "SIS_CODIGO",
+          "Descricao": "Sistema",
+          "Aba": "01-Cadastro",
+          "SQL": "Select\r\n  FR_SISTEMA.SIS_CODIGO,\r\n  FR_SISTEMA.SIS_DESCRICAO\r\nFrom\r\n  FR_SISTEMA\r\nWhere\r\n  (((Select FR_USUARIO.USR_ADMINISTRADOR From FR_USUARIO Where (FR_USUARIO.USR_CODIGO = :MAKER_CODIGO_USUARIO)) = 'S') Or\r\n  (FR_SISTEMA.SIS_CODIGO In (Select FR_USUARIO_SISTEMA.SIS_CODIGO From FR_USUARIO_SISTEMA Where (FR_USUARIO_SISTEMA.USR_CODIGO = :MAKER_CODIGO_USUARIO) And (FR_USUARIO_SISTEMA.USS_ADMINISTRADOR = 'S')))\r\n)\r\n/*WHERE_ADD*/\r\nOrder By\r\n  FR_SISTEMA.SIS_DESCRICAO\r\n/*ORDER_ADD*/\r\n",
+          "Tamanho": "265",
+          "Altura": "33",
+          "PosicaoX": "16",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135660",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "AbaLocalizar": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "TRUE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "True",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "True",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWindow",
+          "EditarAoDuploClicar": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "",
+          "FormularioLocalizar": "0",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "Navegacao": "TRUE",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "08/06/2020 07:57:06",
+          "UltimoUsuario": "danilo"
+        }
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7150",
+    "FRM_GUID": "{43AEED6B-15F1-45CC-9EAA-0D73B622BE71}",
+    "FRM_DESCRICAO": "Formulário Usuários X Sistemas",
+    "FRM_TAMANHO": "600",
+    "FRM_ALTURA": "456",
+    "FNT_TABELA": "FR_USUARIO_SISTEMA",
+    "FNT_CAMPOCHAVE": "usr_codigo;sis_codigo",
+    "FNT_SQLSELECT": "Select\r\n\r\n  FR_USUARIO_SISTEMA.USR_CODIGO,\r\n\r\n  FR_USUARIO_SISTEMA.SIS_CODIGO,\r\n\r\n  FR_SISTEMA.SIS_DESCRICAO,\r\n\r\n  FR_USUARIO.USR_NOME,\r\n\r\n  FR_USUARIO_SISTEMA.SIS_CODIGO As \"Sistema\",\r\n\r\n  FR_SISTEMA",
+    "components": [
+      {
+        "COM_CODIGO": "1135661",
+        "COM_TIPO": "E",
+        "name": "MakerEdit1",
+        "key_properties": {
+          "Campo": "USR_NOME",
+          "Descricao": "Usuário",
+          "Aba": "01-Cadastro",
+          "Tamanho": "556",
+          "Altura": "33",
+          "PosicaoX": "22",
+          "PosicaoY": "43",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135662",
+        "COM_TIPO": "E",
+        "name": "MakerEdit3",
+        "key_properties": {
+          "Campo": "SIS_DESCRICAO",
+          "Descricao": "Sistema",
+          "Aba": "01-Cadastro",
+          "Tamanho": "556",
+          "Altura": "33",
+          "PosicaoX": "22",
+          "PosicaoY": "107",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135663",
+        "COM_TIPO": "G",
+        "name": "MakerGrid1",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "556",
+          "Altura": "169",
+          "PosicaoX": "22",
+          "PosicaoY": "160",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "Arial,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135664",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "AbaLocalizar": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "TRUE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "True",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "True",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWindow",
+          "EditarAoDuploClicar": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "",
+          "FormularioLocalizar": "0",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "Navegacao": "TRUE",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "08/06/2020 07:56:27",
+          "UltimoUsuario": "danilo"
+        }
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7146",
+    "FRM_GUID": "{E670B962-BBE6-4A56-A8AA-C404EC84250A}",
+    "FRM_DESCRICAO": "Usuários",
+    "FRM_TAMANHO": "700",
+    "FRM_ALTURA": "694",
+    "FNT_TABELA": "FR_USUARIO",
+    "FNT_CAMPOCHAVE": "usr_codigo",
+    "FNT_SQLSELECT": "Select\r\n\r\n  U.USR_CODIGO,\r\n\r\n  U.USR_LOGIN,\r\n\r\n  U.USR_SENHA,\r\n\r\n  U.USR_ADMINISTRADOR,\r\n\r\n  U.USR_TIPO_EXPIRACAO,\r\n\r\n  U.USR_DIAS_EXPIRACAO,\r\n\r\n  U.USR_IMAGEM_DIGITAL,\r\n\r\n  U.USR_FOTO,\r\n\r\n  U.USR_NOM",
+    "components": [
+      {
+        "COM_CODIGO": "1135704",
+        "COM_TIPO": "B",
+        "name": "MakerButton1",
+        "key_properties": {
+          "Descricao": "Grupos aos quais pertence",
+          "Aba": "01-Cadastro",
+          "Tamanho": "246",
+          "Altura": "33",
+          "PosicaoX": "19",
+          "PosicaoY": "348",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135705",
+        "COM_TIPO": "C",
+        "name": "MakerComboBox1",
+        "key_properties": {
+          "Campo": "USR_ADMINISTRADOR",
+          "Descricao": "Adm. Geral",
+          "Aba": "01-Cadastro",
+          "Tamanho": "128",
+          "Altura": "33",
+          "PosicaoX": "354",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135706",
+        "COM_TIPO": "E",
+        "name": "MakerEdit1",
+        "key_properties": {
+          "Campo": "USR_SENHA",
+          "Descricao": "Senha",
+          "Aba": "01-Cadastro",
+          "Tamanho": "171",
+          "Altura": "33",
+          "PosicaoX": "168",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135707",
+        "COM_TIPO": "E",
+        "name": "MakerEdit2",
+        "key_properties": {
+          "Campo": "USR_LOGIN",
+          "Descricao": "Login",
+          "Aba": "01-Cadastro",
+          "Tamanho": "134",
+          "Altura": "33",
+          "PosicaoX": "19",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135708",
+        "COM_TIPO": "E",
+        "name": "MakerEdit4",
+        "key_properties": {
+          "Campo": "USR_DIAS_EXPIRACAO",
+          "Descricao": "Dias para expiração",
+          "Aba": "01-Cadastro",
+          "Tamanho": "182",
+          "Altura": "33",
+          "PosicaoX": "299",
+          "PosicaoY": "226",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135709",
+        "COM_TIPO": "E",
+        "name": "MakerEdit5",
+        "key_properties": {
+          "Campo": "USR_NOME",
+          "Descricao": "Nome do Usuário",
+          "Aba": "01-Cadastro",
+          "Tamanho": "462",
+          "Altura": "33",
+          "PosicaoX": "19",
+          "PosicaoY": "99",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135710",
+        "COM_TIPO": "E",
+        "name": "MakerEdit6",
+        "key_properties": {
+          "Campo": "USR_EMAIL",
+          "Descricao": "E-mail",
+          "Aba": "01-Cadastro",
+          "Tamanho": "462",
+          "Altura": "33",
+          "PosicaoX": "19",
+          "PosicaoY": "162",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135711",
+        "COM_TIPO": "E",
+        "name": "MakerEdit8",
+        "key_properties": {
+          "Campo": "USR_INICIO_EXPIRACAO",
+          "Descricao": "Data de Referência",
+          "Aba": "01-Cadastro",
+          "Tamanho": "182",
+          "Altura": "33",
+          "PosicaoX": "299",
+          "PosicaoY": "298",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135712",
+        "COM_TIPO": "G",
+        "name": "MakerGrid1",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "662",
+          "Altura": "177",
+          "PosicaoX": "19",
+          "PosicaoY": "400",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135713",
+        "COM_TIPO": "P",
+        "name": "MakerContainer2",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "177",
+          "Altura": "177",
+          "PosicaoX": "503",
+          "PosicaoY": "16",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135714",
+        "COM_TIPO": "P",
+        "name": "MakerContainer1",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "177",
+          "Altura": "176",
+          "PosicaoX": "504",
+          "PosicaoY": "205",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135715",
+        "COM_TIPO": "L",
+        "name": "MakerLabel1",
+        "key_properties": {
+          "Descricao": "Foto",
+          "Aba": "01-Cadastro",
+          "Container": "MakerContainer2",
+          "Tamanho": "177",
+          "Altura": "25",
+          "PosicaoX": "0",
+          "PosicaoY": "1",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135716",
+        "COM_TIPO": "L",
+        "name": "MakerLabel2",
+        "key_properties": {
+          "Descricao": "Impressão Digital",
+          "Aba": "01-Cadastro",
+          "Container": "MakerContainer1",
+          "Tamanho": "177",
+          "Altura": "25",
+          "PosicaoX": "0",
+          "PosicaoY": "1",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135717",
+        "COM_TIPO": "I",
+        "name": "MakerImage1",
+        "key_properties": {
+          "Campo": "USR_IMAGEM_DIGITAL",
+          "Descricao": "USR_IMAGEM_DIGITAL",
+          "Aba": "01-Cadastro",
+          "Container": "MakerContainer1",
+          "Tamanho": "177",
+          "Altura": "150",
+          "PosicaoX": "0",
+          "PosicaoY": "27",
+          "Visivel": "True",
+          "Habilitado": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135718",
+        "COM_TIPO": "I",
+        "name": "MakerImage2",
+        "key_properties": {
+          "Campo": "USR_FOTO",
+          "Descricao": "USR_FOTO",
+          "Aba": "01-Cadastro",
+          "Container": "MakerContainer2",
+          "Tamanho": "177",
+          "Altura": "150",
+          "PosicaoX": "0",
+          "PosicaoY": "27",
+          "Visivel": "True",
+          "Habilitado": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135719",
+        "COM_TIPO": "R",
+        "name": "MakerRadioGroup1",
+        "key_properties": {
+          "Campo": "USR_TIPO_EXPIRACAO",
+          "Descricao": "Limite de Senha",
+          "Aba": "01-Cadastro",
+          "Tamanho": "262",
+          "Altura": "121",
+          "PosicaoX": "19",
+          "PosicaoY": "210",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Modificar",
+            "actions": [
+              {
+                "tipo_num": "3",
+                "tipo_desc": "Executar SQL",
+                "condicao": "",
+                "Lista de Objetos": "MakerEdit8=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E'\r\nMakerEdit4=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E'"
+              }
+            ]
+          },
+          {
+            "name": "Ao Modificar",
+            "actions": [
+              {
+                "tipo_num": "7",
+                "tipo_desc": "Abrir Formulario",
+                "condicao": "",
+                "Lista de Campos": "USR_INICIO_EXPIRACAO=\tUSR_TIPO_EXPIRACAO='N'\r\nUSR_DIAS_EXPIRACAO=\tUSR_TIPO_EXPIRACAO='N'"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135720",
+        "COM_TIPO": "B",
+        "name": "MakerButton4",
+        "key_properties": {
+          "Descricao": "Grupos do Sistema",
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "btn-secondary",
+          "Tamanho": "206",
+          "Altura": "33",
+          "PosicaoX": "275",
+          "PosicaoY": "348",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135721",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "AbaLocalizar": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "TRUE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "True",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWindow",
+          "EditarAoDuploClicar": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "",
+          "FormularioLocalizar": "0",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "Navegacao": "TRUE",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "08/06/2020 07:56:49",
+          "UltimoUsuario": "danilo",
+          "ACC_CONDICAO": ""
+        },
+        "events": [
+          {
+            "name": "Ao Navegar",
+            "actions": [
+              {
+                "tipo_num": "3",
+                "tipo_desc": "Executar SQL",
+                "condicao": "",
+                "Lista de Objetos": "MakerEdit8=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E'\r\nMakerEdit4=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E'"
+              }
+            ]
+          },
+          {
+            "name": "Ao Navegar",
+            "actions": [
+              {
+                "tipo_num": "6",
+                "tipo_desc": "Executar JavaScript",
+                "condicao": "",
+                "Lista de Objetos": "USR_INICIO_EXPIRACAO=\tUSR_TIPO_EXPIRACAO='N'\r\nUSR_DIAS_EXPIRACAO=\tUSR_TIPO_EXPIRACAO='N'"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "37",
+    "FRM_GUID": "{F47921EE-E94A-4413-A7C2-291D1ABEBE34}",
+    "FRM_DESCRICAO": "Template - Dashboard",
+    "FRM_TAMANHO": "1031",
+    "FRM_ALTURA": "632",
+    "FNT_TABELA": "",
+    "FNT_CAMPOCHAVE": "",
+    "FNT_SQLSELECT": "",
+    "components": [
+      {
+        "COM_CODIGO": "1135722",
+        "COM_TIPO": "S",
+        "name": "Z03ACB3758538461786F7169A43C00B8C",
+        "key_properties": {
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135723",
+        "COM_TIPO": "S",
+        "name": "Z9108BF25A93A40E2A895A2C5228A061A",
+        "key_properties": {
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135724",
+        "COM_TIPO": "S",
+        "name": "Z63F919DD98CC471C889D29464EB54452",
+        "key_properties": {
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135725",
+        "COM_TIPO": "A",
+        "name": "TMAKERCHART",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "327",
+          "Altura": "267",
+          "PosicaoX": "346",
+          "PosicaoY": "38"
+        }
+      },
+      {
+        "COM_CODIGO": "1135726",
+        "COM_TIPO": "A",
+        "name": "TMAKERCHART3",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "487",
+          "Altura": "211",
+          "PosicaoX": "18",
+          "PosicaoY": "310"
+        }
+      },
+      {
+        "COM_CODIGO": "1135727",
+        "COM_TIPO": "A",
+        "name": "TMAKERCHART5",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "991",
+          "Altura": "211",
+          "PosicaoX": "18",
+          "PosicaoY": "524"
+        }
+      },
+      {
+        "COM_CODIGO": "1135728",
+        "COM_TIPO": "S",
+        "name": "ZAF1A9487E9A04EDE8BF4E919B2363B0C",
+        "key_properties": {
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135729",
+        "COM_TIPO": "A",
+        "name": "TMAKERCHART4",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "487",
+          "Altura": "211",
+          "PosicaoX": "522",
+          "PosicaoY": "310"
+        }
+      },
+      {
+        "COM_CODIGO": "1135730",
+        "COM_TIPO": "S",
+        "name": "ZC8A08D436D794B998210327C568C28AF",
+        "key_properties": {
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135731",
+        "COM_TIPO": "A",
+        "name": "TMAKERCHART1",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "327",
+          "Altura": "267",
+          "PosicaoX": "18",
+          "PosicaoY": "38"
+        }
+      },
+      {
+        "COM_CODIGO": "1135732",
+        "COM_TIPO": "S",
+        "name": "ZC52A66FA2BDA42B19945A5F4E338D9E1",
+        "key_properties": {
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135733",
+        "COM_TIPO": "A",
+        "name": "TMAKERCHART6",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "327",
+          "Altura": "267",
+          "PosicaoX": "682",
+          "PosicaoY": "38"
+        }
+      },
+      {
+        "COM_CODIGO": "1135734",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {
+          "FonteDeDados": "(Conexão principal)"
+        },
+        "all_properties": {
+          "EntrarComoPesquisa": "FALSE",
+          "Ajuda": "",
+          "CampoVersao": "",
+          "Navegacao": "FALSE",
+          "EditarAoDuploClicar": "TRUE",
+          "Abas": "FALSE",
+          "AbaLocalizar": "TRUE",
+          "Cor": "clWindow",
+          "ClasseCss": "",
+          "FonteDeDados": "(Conexão principal)",
+          "Imagem": "",
+          "ExibicaoImagemFundo": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "BotaoFechar": "True",
+          "BarraDeRolagem": "True",
+          "Apresentacao": "0",
+          "Modal": "False",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "FormularioLocalizar": "0",
+          "BarraNavegacaoFixa": "FALSE",
+          "MensagemErroChavePrimaria": "",
+          "MensagemErroChaveEstrangeira": "",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "UltimaModificacao": "20/02/2025 11:56:38",
+          "UltimoUsuario": "master",
+          "AIGenerated": "FALSE",
+          "AIPrompt": ""
+        }
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "20",
+    "FRM_GUID": "{3671E509-1CC7-4087-A86B-6E97D9570925}",
+    "FRM_DESCRICAO": "Template - Formulário Principal",
+    "FRM_TAMANHO": "1025",
+    "FRM_ALTURA": "547",
+    "FNT_TABELA": "",
+    "FNT_CAMPOCHAVE": "",
+    "FNT_SQLSELECT": "",
+    "components": [
+      {
+        "COM_CODIGO": "1135754",
+        "COM_TIPO": "P",
+        "name": "Navbar",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "form-group webrun-text-template-bg-primary m-0 p-0 d-flex flex-row flex-nowrap align-items-center position-relative\r\n",
+          "Tamanho": "1024",
+          "Altura": "64",
+          "PosicaoX": "0",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135755",
+        "COM_TIPO": "I",
+        "name": "Logo",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "Navbar",
+          "NomeClasseCss": "form-group fixed-height text-center d-none d-sm-flex position-relative m-0",
+          "Tamanho": "177",
+          "Altura": "30",
+          "PosicaoX": "56",
+          "PosicaoY": "19",
+          "Visivel": "True",
+          "Habilitado": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135756",
+        "COM_TIPO": "W",
+        "name": "Menu",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Tamanho": "217",
+          "Altura": "353",
+          "PosicaoX": "0",
+          "PosicaoY": "64",
+          "Visivel": "True",
+          "Habilitado": "True"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Formulário Principal - Ao Clicar no Menu",
+                "Entrada": "Identificador=;Descrição=;Tipo="
+              }
+            ]
+          },
+          {
+            "name": "Ao Soltar Atalho",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Formulário Principal - Atalhos - Ao Soltar Atalho",
+                "Entrada": "Referência="
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135757",
+        "COM_TIPO": "P",
+        "name": "UserInfo",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "Navbar",
+          "NomeClasseCss": "form-group p-0 m-0 d-flex flex-row-reverse align-items-center flex-fill position-relative\r\n",
+          "Tamanho": "95",
+          "Altura": "64",
+          "PosicaoX": "929",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135758",
+        "COM_TIPO": "B",
+        "name": "MenuButton",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "Navbar",
+          "NomeClasseCss": "btn-link",
+          "Tamanho": "26",
+          "Altura": "26",
+          "PosicaoX": "16",
+          "PosicaoY": "19",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Entrada": "",
+                "Nome": "Template - Formulário Principal - Alternar Menu"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135759",
+        "COM_TIPO": "P",
+        "name": "AbaContainer",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "NomeClasseCss": "form-group p-0 m-0",
+          "Tamanho": "713",
+          "Altura": "353",
+          "PosicaoX": "216",
+          "PosicaoY": "64",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135760",
+        "COM_TIPO": "W",
+        "name": "Aba",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "AbaContainer",
+          "Tamanho": "657",
+          "Altura": "313",
+          "PosicaoX": "0",
+          "PosicaoY": "0",
+          "Visivel": "True",
+          "Habilitado": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135761",
+        "COM_TIPO": "W",
+        "name": "Chat",
+        "key_properties": {
+          "Aba": "01-Cadastro",
+          "Container": "AbaContainer",
+          "Tamanho": "105",
+          "Altura": "105",
+          "PosicaoX": "600",
+          "PosicaoY": "240",
+          "Visivel": "True",
+          "Habilitado": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135762",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {
+          "FonteDeDados": "(Conexão principal)"
+        },
+        "all_properties": {
+          "AIGenerated": "FALSE",
+          "AIPrompt": "",
+          "AbaLocalizar": "FALSE",
+          "AbaLocalizarPermitirFiltroAvancado": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioJson": "TRUE",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioPdf": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioXlsx": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "Abas": "FALSE",
+          "Ajuda": "",
+          "Apresentacao": "0",
+          "BarraDeRolagem": "False",
+          "BarraNavegacaoFixa": "FALSE",
+          "BotaoFechar": "True",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "CampoVersao": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "ClasseCss": "",
+          "Cor": "clWindow",
+          "EditarAoDuploClicar": "FALSE",
+          "EntrarComoPesquisa": "FALSE",
+          "ExibicaoImagemFundo": "",
+          "FonteDeDados": "(Conexão principal)",
+          "FormularioLocalizar": "0",
+          "IASuggestionEvents": "",
+          "Imagem": "",
+          "MensagemErroChaveEstrangeira": "",
+          "MensagemErroChavePrimaria": "",
+          "Modal": "False",
+          "ModoLegado": "FALSE",
+          "Navegacao": "FALSE",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "UltimaModificacao": "03/11/2025 12:00:35",
+          "UltimoUsuario": "master",
+          "ACC_CONDICAO": ""
+        },
+        "events": [
+          {
+            "name": "Ao Entrar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Formulário Principal - Ao Entrar",
+                "Entrada": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "19",
+    "FRM_GUID": "{BF4D777E-C74A-471E-9850-DD077B578876}",
+    "FRM_DESCRICAO": "Template - Formulário de Login",
+    "FRM_TAMANHO": "895",
+    "FRM_ALTURA": "619",
+    "FNT_TABELA": "",
+    "FNT_CAMPOCHAVE": "",
+    "FNT_SQLSELECT": "",
+    "components": [
+      {
+        "COM_CODIGO": "1135763",
+        "COM_TIPO": "C",
+        "name": "connection",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "maincontainer",
+          "Tamanho": "273",
+          "Altura": "44",
+          "PosicaoX": "8",
+          "PosicaoY": "256",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135764",
+        "COM_TIPO": "P",
+        "name": "logincontainer",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "NomeClasseCss": "card border overflow-hidden p-3 p-sm-0 shadow bg-body",
+          "Tamanho": "850",
+          "Altura": "472",
+          "PosicaoX": "24",
+          "PosicaoY": "16",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135765",
+        "COM_TIPO": "E",
+        "name": "username",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "maincontainer",
+          "Placeholder": "Login",
+          "Tamanho": "273",
+          "Altura": "40",
+          "PosicaoX": "8",
+          "PosicaoY": "66",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135766",
+        "COM_TIPO": "E",
+        "name": "password",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "passwordContainer",
+          "Placeholder": "Senha",
+          "Tamanho": "273",
+          "Altura": "40",
+          "PosicaoX": "0",
+          "PosicaoY": "0",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Pressionar Tecla",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Login - Ao Pressionar Tecla",
+                "Entrada": "Alt=;Ctrl=;Shift=;Código da Tecla=;Caractere da Tecla="
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135767",
+        "COM_TIPO": "B",
+        "name": "loginbutton",
+        "key_properties": {
+          "Descricao": "Entrar",
+          "Aba": "01-Principal",
+          "Container": "maincontainer",
+          "NomeClasseCss": "btn-dark position-absolute",
+          "Tamanho": "273",
+          "Altura": "40",
+          "PosicaoX": "8",
+          "PosicaoY": "308",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Entrada": "usuario={username};senha={password};conexao={connection};captcha={captchaInput}",
+                "Nome": "Template - Login - Validar Captcha"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135768",
+        "COM_TIPO": "L",
+        "name": "MakerLabel1",
+        "key_properties": {
+          "Descricao": "Login",
+          "Aba": "01-Principal",
+          "Container": "maincontainer",
+          "NomeClasseCss": "text-bg-body",
+          "Tamanho": "273",
+          "Altura": "41",
+          "PosicaoX": "8",
+          "PosicaoY": "8",
+          "Visivel": "True",
+          "Habilitado": "False",
+          "Fonte": "Segoe UI Semibold,20,1000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135769",
+        "COM_TIPO": "P",
+        "name": "passwordContainer",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "maincontainer",
+          "Tamanho": "273",
+          "Altura": "67",
+          "PosicaoX": "8",
+          "PosicaoY": "118",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135770",
+        "COM_TIPO": "L",
+        "name": "forgotPassword",
+        "key_properties": {
+          "Descricao": "Esqueci Minha Senha",
+          "Aba": "01-Principal",
+          "Container": "passwordContainer",
+          "NomeClasseCss": "text-muted",
+          "Tamanho": "273",
+          "Altura": "35",
+          "PosicaoX": "0",
+          "PosicaoY": "44",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Login - Acionar Mudança de Página",
+                "Entrada": "botaoRetorno=;nomeContainerEntrada='recoverycontainer';nomeContainerSaida='maincontainer'"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135771",
+        "COM_TIPO": "P",
+        "name": "maincontainer",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "logincontainer",
+          "Tamanho": "290",
+          "Altura": "417",
+          "PosicaoX": "15",
+          "PosicaoY": "16",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135772",
+        "COM_TIPO": "L",
+        "name": "MakerLabel5",
+        "key_properties": {
+          "Descricao": "Recuperar Senha",
+          "Aba": "02-Recuperar Senha",
+          "Container": "recoverycontainer",
+          "NomeClasseCss": "text-bg-body",
+          "Tamanho": "273",
+          "Altura": "41",
+          "PosicaoX": "8",
+          "PosicaoY": "72",
+          "Visivel": "True",
+          "Habilitado": "False",
+          "Fonte": "Segoe UI Semibold,20,1000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135773",
+        "COM_TIPO": "B",
+        "name": "recoveryBtn",
+        "key_properties": {
+          "Descricao": "Recuperar Acesso",
+          "Aba": "02-Recuperar Senha",
+          "Container": "recoverycontainer",
+          "NomeClasseCss": "btn-dark",
+          "Tamanho": "273",
+          "Altura": "40",
+          "PosicaoX": "9",
+          "PosicaoY": "198",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Login - Recuperar Acesso - Chamada",
+                "Entrada": "email={recoveryemail}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135774",
+        "COM_TIPO": "E",
+        "name": "recoveryemail",
+        "key_properties": {
+          "Aba": "02-Recuperar Senha",
+          "Container": "recoverycontainer",
+          "Placeholder": "Digite seu e-mail",
+          "Tamanho": "273",
+          "Altura": "40",
+          "PosicaoX": "8",
+          "PosicaoY": "138",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135775",
+        "COM_TIPO": "P",
+        "name": "loginhighlight1",
+        "key_properties": {
+          "Aba": "02-Recuperar Senha",
+          "Container": "logincontainer1",
+          "NomeClasseCss": "form-group webrun-template-bg-primary d-none d-sm-flex align-items-center justify-content-center\r\n",
+          "Tamanho": "521",
+          "Altura": "473",
+          "PosicaoX": "329",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135776",
+        "COM_TIPO": "I",
+        "name": "logo1",
+        "key_properties": {
+          "Aba": "02-Recuperar Senha",
+          "Container": "loginhighlight1",
+          "NomeClasseCss": "position-relative",
+          "Tamanho": "161",
+          "Altura": "81",
+          "PosicaoX": "184",
+          "PosicaoY": "200",
+          "Visivel": "True",
+          "Habilitado": "False"
+        }
+      },
+      {
+        "COM_CODIGO": "1135777",
+        "COM_TIPO": "L",
+        "name": "MakerLabel6",
+        "key_properties": {
+          "Descricao": "Powered by Maker AI",
+          "Aba": "02-Recuperar Senha",
+          "Container": "logincontainer1",
+          "NomeClasseCss": "text-muted",
+          "Tamanho": "273",
+          "Altura": "41",
+          "PosicaoX": "24",
+          "PosicaoY": "416",
+          "Visivel": "True",
+          "Habilitado": "False",
+          "Fonte": "Segoe UI Semibold,9,1000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135778",
+        "COM_TIPO": "B",
+        "name": "returnbtn",
+        "key_properties": {
+          "Descricao": "<i class=\"fa-solid fa-chevron-left\"></i>",
+          "Aba": "02-Recuperar Senha",
+          "Container": "recoverycontainer",
+          "NomeClasseCss": "btn",
+          "Tamanho": "40",
+          "Altura": "40",
+          "PosicaoX": "9",
+          "PosicaoY": "10",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Entrada": "botaoRetorno=;nomeContainerEntrada='maincontainer';nomeContainerSaida='recoverycontainer'",
+                "Nome": "Template - Login - Acionar Mudança de Página"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135779",
+        "COM_TIPO": "P",
+        "name": "recoverycontainer",
+        "key_properties": {
+          "Aba": "02-Recuperar Senha",
+          "Container": "logincontainer1",
+          "NomeClasseCss": "form-group d-none\r\n",
+          "Tamanho": "290",
+          "Altura": "305",
+          "PosicaoX": "15",
+          "PosicaoY": "16",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135780",
+        "COM_TIPO": "P",
+        "name": "logincontainer1",
+        "key_properties": {
+          "Aba": "02-Recuperar Senha",
+          "NomeClasseCss": "card border overflow-hidden p-3 p-sm-0 shadow bg-body",
+          "Tamanho": "850",
+          "Altura": "472",
+          "PosicaoX": "24",
+          "PosicaoY": "16",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135781",
+        "COM_TIPO": "L",
+        "name": "TMAKERLABEL",
+        "key_properties": {
+          "Descricao": "Essa aba deve ser usada apenas como referência e para customização do container de recuperação de senha. Qualquer customização só terá efeito se feita na aba \"Principal\"",
+          "Aba": "02-Recuperar Senha",
+          "Tamanho": "849",
+          "Altura": "35",
+          "PosicaoX": "24",
+          "PosicaoY": "496",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135782",
+        "COM_TIPO": "P",
+        "name": "loginhighlight",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "logincontainer",
+          "NomeClasseCss": "form-group webrun-template-bg-primary d-none d-sm-flex align-items-center justify-content-center\r\n",
+          "Tamanho": "521",
+          "Altura": "473",
+          "PosicaoX": "329",
+          "PosicaoY": "0",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135783",
+        "COM_TIPO": "I",
+        "name": "logo",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "loginhighlight",
+          "NomeClasseCss": "position-relative",
+          "Tamanho": "161",
+          "Altura": "81",
+          "PosicaoX": "185",
+          "PosicaoY": "194",
+          "Visivel": "True",
+          "Habilitado": "False"
+        }
+      },
+      {
+        "COM_CODIGO": "1135784",
+        "COM_TIPO": "L",
+        "name": "signature",
+        "key_properties": {
+          "Descricao": "Powered by Maker AI",
+          "Aba": "01-Principal",
+          "Container": "logincontainer",
+          "NomeClasseCss": "text-muted",
+          "Tamanho": "290",
+          "Altura": "41",
+          "PosicaoX": "15",
+          "PosicaoY": "424",
+          "Visivel": "True",
+          "Habilitado": "False",
+          "Fonte": "Segoe UI Semibold,9,1000,clWindowText"
+        }
+      },
+      {
+        "COM_CODIGO": "1135785",
+        "COM_TIPO": "B",
+        "name": "certifybutton",
+        "key_properties": {
+          "Descricao": "<i class=\"fa-solid fa-id-card\"></i>  Usar certificado digital",
+          "Aba": "01-Principal",
+          "Container": "maincontainer",
+          "NomeClasseCss": "btn-dark position-absolute",
+          "Tamanho": "273",
+          "Altura": "40",
+          "PosicaoX": "8",
+          "PosicaoY": "360",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Login - Entrar com Certificado",
+                "Entrada": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135786",
+        "COM_TIPO": "P",
+        "name": "captchaContainer",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "maincontainer",
+          "NomeClasseCss": "form-group d-flex\r\n",
+          "Tamanho": "273",
+          "Altura": "51",
+          "PosicaoX": "8",
+          "PosicaoY": "191",
+          "Visivel": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135787",
+        "COM_TIPO": "E",
+        "name": "captchaInput",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "captchaContainer",
+          "Placeholder": "Insira os caracteres",
+          "Tamanho": "108",
+          "Altura": "34",
+          "PosicaoX": "160",
+          "PosicaoY": "9",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Pressionar Tecla",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Nome": "Template - Login - Ao Pressionar Tecla",
+                "Entrada": "Alt=;Ctrl=;Shift=;Código da Tecla=;Caractere da Tecla="
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135788",
+        "COM_TIPO": "B",
+        "name": "recreateCaptcha",
+        "key_properties": {
+          "Descricao": "<i class=\"fa-solid fa-rotate\"></i>",
+          "Aba": "01-Principal",
+          "Container": "captchaContainer",
+          "Tamanho": "34",
+          "Altura": "34",
+          "PosicaoX": "120",
+          "PosicaoY": "9",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText"
+        },
+        "events": [
+          {
+            "name": "Ao Clicar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Entrada": "",
+                "Nome": "Template - Login - Criar Captcha"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "COM_CODIGO": "1135789",
+        "COM_TIPO": "I",
+        "name": "captcha",
+        "key_properties": {
+          "Aba": "01-Principal",
+          "Container": "captchaContainer",
+          "Tamanho": "109",
+          "Altura": "34",
+          "PosicaoX": "4",
+          "PosicaoY": "9",
+          "Visivel": "True",
+          "Habilitado": "True"
+        }
+      },
+      {
+        "COM_CODIGO": "1135790",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {
+          "FonteDeDados": "(Conexão principal)"
+        },
+        "all_properties": {
+          "Ajuda": "",
+          "CampoVersao": "",
+          "Navegacao": "FALSE",
+          "EditarAoDuploClicar": "FALSE",
+          "Abas": "FALSE",
+          "EntrarComoPesquisa": "FALSE",
+          "AbaLocalizar": "FALSE",
+          "Cor": "clWindow",
+          "ClasseCss": "",
+          "FonteDeDados": "(Conexão principal)",
+          "Imagem": "",
+          "ExibicaoImagemFundo": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "BotaoFechar": "True",
+          "BarraDeRolagem": "False",
+          "Apresentacao": "0",
+          "Modal": "False",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "FormularioLocalizar": "0",
+          "BarraNavegacaoFixa": "FALSE",
+          "AIGenerated": "FALSE",
+          "AIPrompt": "",
+          "MensagemErroChavePrimaria": "",
+          "MensagemErroChaveEstrangeira": "",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioPdf": "TRUE",
+          "AbaLocalizarPermitirRelatorioJson": "TRUE",
+          "AbaLocalizarPermitirRelatorioXlsx": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirFiltroAvancado": "TRUE",
+          "UltimaModificacao": "18/09/2025 16:40:04",
+          "UltimoUsuario": "master",
+          "ACC_CONDICAO": ""
+        },
+        "events": [
+          {
+            "name": "Ao Entrar",
+            "actions": [
+              {
+                "tipo_num": "12",
+                "tipo_desc": "Executar Regra",
+                "condicao": "",
+                "Entrada": "",
+                "Nome": "Template - Login - Ao Entrar"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7152",
+    "FRM_GUID": "{389DF0FD-20C2-4C6F-B8D4-BCD3321C177E}",
+    "FRM_DESCRICAO": "Conjunto de Dados",
+    "FRM_TAMANHO": "600",
+    "FRM_ALTURA": "526",
+    "FNT_TABELA": "dataset",
+    "FNT_CAMPOCHAVE": "dat_id",
+    "FNT_SQLSELECT": "Select\r\n  dataset.dat_id,\r\n  dataset.dat_nome,\r\n  dataset.dat_conteudo_json,\r\n  dataset.dat_data_criacao,\r\n  dataset.dat_data_atualizacao\r\nFrom\r\n  dataset\r\n/*WHERE_NEW*/\r\n/*ORDER_NEW*/",
+    "components": [
+      {
+        "COM_CODIGO": "1135792",
+        "COM_TIPO": "E",
+        "name": "DAT_NOME",
+        "key_properties": {
+          "Campo": "dat_nome",
+          "Descricao": "Nome",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: Dados de Clientes",
+          "Tamanho": "400",
+          "Altura": "33",
+          "PosicaoX": "8",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Nome descritivo para o conjunto de dados."
+        }
+      },
+      {
+        "COM_CODIGO": "1135793",
+        "COM_TIPO": "M",
+        "name": "DAT_CONTEUDO_JSON",
+        "key_properties": {
+          "Campo": "dat_conteudo_json",
+          "Descricao": "Conteúdo JSON",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: {\"cliente\": \"João Silva\", \"idade\": 30}",
+          "Tamanho": "500",
+          "Altura": "100",
+          "PosicaoX": "8",
+          "PosicaoY": "101",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Conteúdo dos dados em formato JSON, usado nos relatórios."
+        }
+      },
+      {
+        "COM_CODIGO": "1135794",
+        "COM_TIPO": "E",
+        "name": "DAT_DATA_CRIACAO",
+        "key_properties": {
+          "Campo": "dat_data_criacao",
+          "Descricao": "Data Criacao",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: 2023-01-01 10:00:00",
+          "Tamanho": "160",
+          "Altura": "33",
+          "PosicaoX": "8",
+          "PosicaoY": "234",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Data e hora em que o registro do conjunto de dados foi criado."
+        }
+      },
+      {
+        "COM_CODIGO": "1135795",
+        "COM_TIPO": "E",
+        "name": "DAT_DATA_ATUALIZACAO",
+        "key_properties": {
+          "Campo": "dat_data_atualizacao",
+          "Descricao": "Ultima Atualizacao",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: 2023-01-01 10:30:00",
+          "Tamanho": "160",
+          "Altura": "33",
+          "PosicaoX": "176",
+          "PosicaoY": "234",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Data e hora da ultima atualização do registro do conjunto de dados."
+        }
+      },
+      {
+        "COM_CODIGO": "1135791",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "IASuggestionEvents": "",
+          "Ajuda": "Gerencia os conjuntos de dados que podem ser utilizados como fonte de informações para templates de relatórios, armazenando dados em formato JSON.",
+          "CampoVersao": "",
+          "Navegacao": "TRUE",
+          "EditarAoDuploClicar": "TRUE",
+          "Abas": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ModoLegado": "FALSE",
+          "AbaLocalizar": "TRUE",
+          "Cor": "clWindow",
+          "ClasseCss": "",
+          "FonteDeDados": "",
+          "Imagem": "",
+          "ExibicaoImagemFundo": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "BotaoFechar": "True",
+          "BarraDeRolagem": "True",
+          "Apresentacao": "0",
+          "Modal": "False",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "FormularioLocalizar": "0",
+          "BarraNavegacaoFixa": "FALSE",
+          "AIGenerated": "TRUE",
+          "AIPrompt": "-- Tabela para armazenar os dados de teste (JSON)\r\nCREATE TABLE datasets (\r\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\r\n    name VARCHAR(255) NOT NULL,\r\n    json_content JSONB NOT NULL DEFAULT '{}',\r\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\r\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\r\n);\r\n\r\n-- Tabela para armazenar a estrutura dos relatórios\r\nCREATE TABLE templates (\r\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\r\n    name VARCHAR(255) NOT NULL,\r\n    html_content TEXT NOT NULL DEFAULT '',\r\n    header_content TEXT,\r\n    footer_content TEXT,\r\n    dataset_id UUID REFERENCES datasets(id) ON DELETE SET NULL,\r\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\r\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\r\n);",
+          "MensagemErroChavePrimaria": "",
+          "MensagemErroChaveEstrangeira": "",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioPdf": "TRUE",
+          "AbaLocalizarPermitirRelatorioJson": "TRUE",
+          "AbaLocalizarPermitirRelatorioXlsx": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirFiltroAvancado": "TRUE",
+          "UltimaModificacao": "24/02/2026 14:28:29",
+          "UltimoUsuario": "master"
+        }
+      }
+    ]
+  },
+  {
+    "FRM_CODIGO": "7153",
+    "FRM_GUID": "{DFDD5439-20B4-4B74-BEA6-97E9AA789121}",
+    "FRM_DESCRICAO": "Template de Relatório",
+    "FRM_TAMANHO": "700",
+    "FRM_ALTURA": "719",
+    "FNT_TABELA": "template",
+    "FNT_CAMPOCHAVE": "tem_id",
+    "FNT_SQLSELECT": "Select\r\n  template.tem_id,\r\n  template.tem_nome,\r\n  template.tem_conteudo_html,\r\n  template.tem_conteudo_cabecalho,\r\n  template.tem_conteudo_rodape,\r\n  template.tem_dataset_id,\r\n  template.tem_data_cr",
+    "components": [
+      {
+        "COM_CODIGO": "1135797",
+        "COM_TIPO": "E",
+        "name": "TEM_NOME",
+        "key_properties": {
+          "Campo": "tem_nome",
+          "Descricao": "Nome",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: Relatório de Vendas Mensal",
+          "Tamanho": "400",
+          "Altura": "33",
+          "PosicaoX": "8",
+          "PosicaoY": "35",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Nome do template de relatório."
+        }
+      },
+      {
+        "COM_CODIGO": "1135798",
+        "COM_TIPO": "M",
+        "name": "TEM_CONTEUDO_HTML",
+        "key_properties": {
+          "Campo": "tem_conteudo_html",
+          "Descricao": "Conteúdo HTML",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: <html><body><h1>Relatório</h1></body></html>",
+          "Tamanho": "500",
+          "Altura": "100",
+          "PosicaoX": "8",
+          "PosicaoY": "101",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Conteúdo HTML principal do template do relatório."
+        }
+      },
+      {
+        "COM_CODIGO": "1135799",
+        "COM_TIPO": "M",
+        "name": "TEM_CONTEUDO_CABECALHO",
+        "key_properties": {
+          "Campo": "tem_conteudo_cabecalho",
+          "Descricao": "Conteúdo Cabecalho",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: <div>Logo da Empresa</div>",
+          "Tamanho": "500",
+          "Altura": "66",
+          "PosicaoX": "8",
+          "PosicaoY": "234",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Conteúdo HTML para o cabeçalho de cada página do relatório."
+        }
+      },
+      {
+        "COM_CODIGO": "1135800",
+        "COM_TIPO": "M",
+        "name": "TEM_CONTEUDO_RODAPE",
+        "key_properties": {
+          "Campo": "tem_conteudo_rodape",
+          "Descricao": "Conteúdo Rodape",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: <div>Pagina {page} de {pages}</div>",
+          "Tamanho": "500",
+          "Altura": "66",
+          "PosicaoX": "8",
+          "PosicaoY": "333",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Conteúdo HTML para o rodapé de cada página do relatório."
+        }
+      },
+      {
+        "COM_CODIGO": "1135801",
+        "COM_TIPO": "K",
+        "name": "TEM_DATASET_ID",
+        "key_properties": {
+          "Campo": "tem_dataset_id",
+          "Descricao": "Conjunto Dados",
+          "Aba": "01-Cadastro",
+          "SQL": "select \r\n  dataset.dat_id,\r\n  dataset.dat_nome\r\nfrom\r\n  dataset\r\n/*WHERE_NEW*/\r\n order by dataset.dat_nome \r\n/*ORDER_ADD*/",
+          "Placeholder": "Selecione o conjunto de dados",
+          "Tamanho": "274",
+          "Altura": "33",
+          "PosicaoX": "8",
+          "PosicaoY": "432",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Selecione o conjunto de dados que sera utilizado neste template."
+        }
+      },
+      {
+        "COM_CODIGO": "1135802",
+        "COM_TIPO": "E",
+        "name": "TEM_DATA_CRIACAO",
+        "key_properties": {
+          "Campo": "tem_data_criacao",
+          "Descricao": "Data Criacao",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: 2023-01-01 10:00:00",
+          "Tamanho": "160",
+          "Altura": "33",
+          "PosicaoX": "8",
+          "PosicaoY": "498",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Data e hora em que o template foi criado."
+        }
+      },
+      {
+        "COM_CODIGO": "1135803",
+        "COM_TIPO": "E",
+        "name": "TEM_DATA_ATUALIZACAO",
+        "key_properties": {
+          "Campo": "tem_data_atualizacao",
+          "Descricao": "Ultima Atualizacao",
+          "Aba": "01-Cadastro",
+          "Placeholder": "Ex: 2023-01-01 10:30:00",
+          "Tamanho": "160",
+          "Altura": "33",
+          "PosicaoX": "176",
+          "PosicaoY": "498",
+          "Visivel": "True",
+          "Habilitado": "True",
+          "Fonte": "MS Sans Serif,8,0000,clWindowText",
+          "Dica": "Data e hora da ultima atualização do template."
+        }
+      },
+      {
+        "COM_CODIGO": "1135796",
+        "COM_TIPO": "F",
+        "name": "",
+        "key_properties": {},
+        "all_properties": {
+          "IASuggestionEvents": "",
+          "Ajuda": "Cria e gerencia templates para a geração de relatórios personalizados, permitindo definir conteúdo HTML, cabeçalho, rodapé e associar um conjunto de dados.",
+          "CampoVersao": "",
+          "Navegacao": "TRUE",
+          "EditarAoDuploClicar": "TRUE",
+          "Abas": "TRUE",
+          "EntrarComoPesquisa": "FALSE",
+          "ModoLegado": "FALSE",
+          "AbaLocalizar": "TRUE",
+          "Cor": "clWindow",
+          "ClasseCss": "",
+          "FonteDeDados": "",
+          "Imagem": "",
+          "ExibicaoImagemFundo": "",
+          "Centralizado": "False",
+          "CentralizadoVertical": "False",
+          "BotaoMaximizar": "False",
+          "BotaoMinimizar": "True",
+          "BotaoFechar": "True",
+          "BarraDeRolagem": "True",
+          "Apresentacao": "0",
+          "Modal": "False",
+          "Popup": "FALSE",
+          "PreLoad": "FALSE",
+          "Responsivo": "TRUE",
+          "FormularioLocalizar": "0",
+          "BarraNavegacaoFixa": "FALSE",
+          "AIGenerated": "TRUE",
+          "AIPrompt": "-- Tabela para armazenar os dados de teste (JSON)\r\nCREATE TABLE datasets (\r\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\r\n    name VARCHAR(255) NOT NULL,\r\n    json_content JSONB NOT NULL DEFAULT '{}',\r\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\r\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\r\n);\r\n\r\n-- Tabela para armazenar a estrutura dos relatórios\r\nCREATE TABLE templates (\r\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\r\n    name VARCHAR(255) NOT NULL,\r\n    html_content TEXT NOT NULL DEFAULT '',\r\n    header_content TEXT,\r\n    footer_content TEXT,\r\n    dataset_id UUID REFERENCES datasets(id) ON DELETE SET NULL,\r\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\r\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\r\n);",
+          "MensagemErroChavePrimaria": "",
+          "MensagemErroChaveEstrangeira": "",
+          "AbaLocalizarPermitirRelatorioListagem": "TRUE",
+          "AbaLocalizarPermitirRelatorioHtml": "TRUE",
+          "AbaLocalizarPermitirRelatorioXml": "TRUE",
+          "AbaLocalizarPermitirRelatorioTxt": "TRUE",
+          "AbaLocalizarPermitirRelatorioPdf": "TRUE",
+          "AbaLocalizarPermitirRelatorioJson": "TRUE",
+          "AbaLocalizarPermitirRelatorioXlsx": "TRUE",
+          "AbaLocalizarPermitirOrdenarGrade": "TRUE",
+          "AbaLocalizarPermitirRemoverOrdenacaoGrade": "TRUE",
+          "AbaLocalizarPermitirImportarDados": "TRUE",
+          "AbaLocalizarPermitirFiltroAvancado": "TRUE",
+          "UltimaModificacao": "24/02/2026 14:28:31",
+          "UltimoUsuario": "master"
+        }
+      }
+    ]
+  }
+]

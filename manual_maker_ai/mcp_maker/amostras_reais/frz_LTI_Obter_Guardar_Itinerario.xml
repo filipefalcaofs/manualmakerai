@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="2323" NAME="LTI&#x20;-&#x20;Obter&#x20;e&#x20;Guardar&#x20;Itiner&#225;rio" COMPONENTNAME="FlowStart1" DESCRIPTION="Inicio" DEBUG="FALSE">
+<HEADER>
+<AUTHOR>Filipe&#x20;S&#225;&#x20;Falc&#227;o</AUTHOR>
+<DATE>08/10/2025 14:18:49</DATE>
+<RANKING>0,0</RANKING>
+</HEADER>
+<PARAM TYPE="Variante" SIZE="">Itinerario</PARAM>
+<PARAM TYPE="Inteiro" SIZE="">ITI_ID</PARAM>
+<PARAM TYPE="Letras" SIZE="50">Sentido</PARAM>
+<PARAM TYPE="Letras" SIZE="50">TIPO</PARAM>
+<VAR TYPE="Inteiro" SIZE="">ITD_ID</VAR>
+<VAR TYPE="Lógico" SIZE="">ExisteItinerario</VAR>
+<VAR TYPE="Inteiro" SIZE="">Contador</VAR>
+<VAR TYPE="Inteiro" SIZE="">Tamanho&#x20;da&#x20;Lista</VAR>
+<VAR TYPE="Letras" SIZE="50">Bairro</VAR>
+<VAR TYPE="Variante" SIZE="">EnderecoCepOsm</VAR>
+<VAR TYPE="Variante" SIZE="">DadosBairro</VAR>
+<VAR TYPE="Letras" SIZE="50">URLApiNominatim</VAR>
+<VAR TYPE="Tabela" SIZE="">TabelaAPI</VAR>
+<VAR TYPE="Letras" SIZE="50">JsonTexto</VAR>
+<VAR TYPE="Inteiro" SIZE="">DistanciaKM</VAR>
+<VAR TYPE="Letras" SIZE="50">Insert</VAR>
+<VAR TYPE="Letras" SIZE="50">Erro</VAR>
+<DECLARERETURN TYPE="" SIZE=""/>
+<ACTION>
+<EXPRESSION RETURN="Contador">
+<CONSTANT TYPE="Inteiro">1</CONSTANT>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision1" DESCRIPTION="Itiner&#225;rio&#x20;&#233;&#x20;nulo?">
+<CONDITION>
+<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+		<PARAMS>
+			<VARIABLE NAME="Itinerario"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<RULERETURN COMPONENTNAME="FlowEnd2" DESCRIPTION="Fim">
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION RETURN="TabelaAPI" COMPONENTNAME="FlowExpression11" DESCRIPTION="Obter&#x20;URL&#x20;da&#x20;api&#x20;API&#x20;Nominatim">
+<FUNCTION NAME="Abrir Consulta" REALNAME="ebfSQLExecuteQuery">
+<PARAMS>
+<CONSTANT TYPE="SQL Consulta" NULL="FALSE"><PSQL>
+<COMMAND>
+Select
+  SMB_CONFIGURACAO_API.API_COD,
+  SMB_CONFIGURACAO_API.API_DESCRICAO,
+  SMB_CONFIGURACAO_API.API_PRODUCAO,
+  SMB_CONFIGURACAO_API.API_ACAO,
+  SMB_CONFIGURACAO_API.API_URL_HOMOLOGACAO,
+  SMB_CONFIGURACAO_API.API_URL_PRODUCAO,
+  SMB_CONFIGURACAO_API.PGL_COD,
+  Case
+    When SMB_CONFIGURACAO_API.API_PRODUCAO =
+    'S' Then SMB_CONFIGURACAO_API.API_URL_PRODUCAO
+    Else SMB_CONFIGURACAO_API.API_URL_HOMOLOGACAO End As API_URL_USADA
+From
+  SMB_CONFIGURACAO_API
+Where
+  SMB_CONFIGURACAO_API.API_DESCRICAO = 'API Nominatim'
+
+
+/*WHERE_ADD*/
+/*ORDER_NEW*/
+</COMMAND>
+<PARAMS>
+</PARAMS>
+</PSQL></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision5" DESCRIPTION="Existe&#x20;API&#x20;cadastrada?">
+<CONDITION>
+<FUNCTION NAME="Existem Registros" REALNAME="ebfSQLEOF">
+		<PARAMS>
+			<VARIABLE NAME="TabelaAPI"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION RETURN="URLApiNominatim" COMPONENTNAME="FlowExpression13" DESCRIPTION="Pega&#x20;URL&#x20;cadastrada">
+<FUNCTION NAME="Campo" REALNAME="ebfSQLField">
+<PARAMS>
+<VARIABLE NAME="TabelaAPI"/>
+<CONSTANT TYPE="Campo" NULL="FALSE" INDEX="7">API_URL_USADA</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<REMARK COMPONENTNAME="FlowConnector8"></REMARK>
+<EXPRESSION RETURN="Tamanho&#x20;da&#x20;Lista" COMPONENTNAME="FlowExpression2" DESCRIPTION="Tamanho&#x20;da&#x20;lista">
+<FUNCTION NAME="Tamanho da Lista" REALNAME="ebfListLength">
+<PARAMS>
+<VARIABLE NAME="Itinerario"/>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<WHILE COMPONENTNAME="FlowDecision2" DESCRIPTION="Possui&#x20;elemento&#x20;?">
+<CONDITION>
+<FUNCTION NAME="Menor ou Igual" REALNAME="isMinorOrEqual">
+		<PARAMS>
+			<VARIABLE NAME="Contador"/>
+			<VARIABLE NAME="Tamanho da Lista"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<ACTION>
+<CALLRULE ID="1729" NAME="LTI&#x20;-&#x20;Montar&#x20;JSON&#x20;tratado&#x20;do&#x20;OSM" RETURN="EnderecoCepOsm" PARAMSCOUNT="1" COMPONENTNAME="FlowSubRoutine3" DESCRIPTION="LTI&#x20;-&#x20;Montar&#x20;JSON&#x20;tratado&#x20;do&#x20;OSM">
+<PARAMS>
+<FUNCTION NAME="Trocar Subsequência" REALNAME="ebfReplace">
+		<PARAMS>
+			<FUNCTION NAME="Trocar Subsequência" REALNAME="ebfReplace">
+				<PARAMS>
+					<VARIABLE NAME="URLApiNominatim"/>
+					<CONSTANT TYPE="Letras" NULL="FALSE">{lat}</CONSTANT>
+					<FUNCTION NAME="Trocar Subsequência" REALNAME="ebfReplace">
+						<PARAMS>
+							<FUNCTION NAME="Obter Objeto da Lista" REALNAME="ebfGetElementFromList">
+								<PARAMS>
+									<FUNCTION NAME="Obter Objeto da Lista" REALNAME="ebfGetElementFromList">
+										<PARAMS>
+											<VARIABLE NAME="Itinerario"/>
+											<VARIABLE NAME="Contador"/>
+										</PARAMS>
+									</FUNCTION>
+									<CONSTANT TYPE="Inteiro" NULL="FALSE">1</CONSTANT>
+								</PARAMS>
+							</FUNCTION>
+							<CONSTANT TYPE="Letras" NULL="FALSE">,</CONSTANT>
+							<CONSTANT TYPE="Letras" NULL="FALSE">.</CONSTANT>
+						</PARAMS>
+					</FUNCTION>
+				</PARAMS>
+			</FUNCTION>
+			<CONSTANT TYPE="Letras" NULL="FALSE">{lon}</CONSTANT>
+			<FUNCTION NAME="Trocar Subsequência" REALNAME="ebfReplace">
+				<PARAMS>
+					<FUNCTION NAME="Obter Objeto da Lista" REALNAME="ebfGetElementFromList">
+						<PARAMS>
+							<FUNCTION NAME="Obter Objeto da Lista" REALNAME="ebfGetElementFromList">
+								<PARAMS>
+									<VARIABLE NAME="Itinerario"/>
+									<VARIABLE NAME="Contador"/>
+								</PARAMS>
+							</FUNCTION>
+							<CONSTANT TYPE="Inteiro" NULL="FALSE">2</CONSTANT>
+						</PARAMS>
+					</FUNCTION>
+					<CONSTANT TYPE="Letras" NULL="FALSE">,</CONSTANT>
+					<CONSTANT TYPE="Letras" NULL="FALSE">.</CONSTANT>
+				</PARAMS>
+			</FUNCTION>
+		</PARAMS>
+	</FUNCTION>
+
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="1599" NAME="LTI&#x20;-&#x20;Consultar&#x20;se&#x20;existe&#x20;itiner&#225;rio&#x20;detalhado" RETURN="ExisteItinerario" PARAMSCOUNT="4" COMPONENTNAME="FlowSubRoutine5" DESCRIPTION="LTI&#x20;-&#x20;Consultar&#x20;se&#x20;existe&#x20;itiner&#225;rio&#x20;detalhado">
+<PARAMS>
+<VARIABLE NAME="ITI_ID"/>
+
+<VARIABLE NAME="Sentido"/>
+
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+		<PARAMS>
+			<VARIABLE NAME="EnderecoCepOsm"/>
+			<CONSTANT TYPE="Letras" NULL="FALSE">latitude</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+		<PARAMS>
+			<VARIABLE NAME="EnderecoCepOsm"/>
+			<CONSTANT TYPE="Letras" NULL="FALSE">longitude</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</PARAMS>
+</CALLRULE>
+<DECISION COMPONENTNAME="FlowDecision6" DESCRIPTION="Existe&#x20;itiner&#225;rio?">
+<CONDITION>
+<VARIABLE NAME="ExisteItinerario"/>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION RETURN="Contador" COMPONENTNAME="FlowExpression4" DESCRIPTION="Incrementa&#x20;o&#x20;contador">
+<FUNCTION NAME="Soma" REALNAME="oprAdd">
+<PARAMS>
+<VARIABLE NAME="Contador"/>
+<CONSTANT TYPE="Inteiro" NULL="FALSE">1</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<CALLRULE ID="1331" NAME="Geral&#x20;-&#x20;Obter&#x20;dados&#x20;do&#x20;bairro" RETURN="DadosBairro" PARAMSCOUNT="3" COMPONENTNAME="FlowSubRoutine1" DESCRIPTION="Geral&#x20;-&#x20;Obter&#x20;dados&#x20;do&#x20;bairro">
+<PARAMS>
+<CONSTANT TYPE="Inteiro" NULL="TRUE"></CONSTANT>
+
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+		<PARAMS>
+			<VARIABLE NAME="EnderecoCepOsm"/>
+			<CONSTANT TYPE="Letras" NULL="FALSE">bairro</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="Bairro" COMPONENTNAME="FlowExpression16" DESCRIPTION="Obter&#x20;nome&#x20;do&#x20;bairro">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<FUNCTION NAME="Obter Objeto da Lista" REALNAME="ebfGetElementFromList">
+<PARAMS>
+<VARIABLE NAME="DadosBairro"/>
+<CONSTANT TYPE="Inteiro" NULL="FALSE">1</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE">nome_bairro</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="JsonTexto" COMPONENTNAME="FlowExpression9" DESCRIPTION="Obter&#x20;texto&#x20;do&#x20;json">
+<FUNCTION NAME="JSON - Obter Texto" REALNAME="ebfGetJSONText">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Inteiro" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision7" DESCRIPTION="bairro&#x20;homologado&#x20;&#233;&#x20;nulo?">
+<CONDITION>
+<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+		<PARAMS>
+			<VARIABLE NAME="Bairro"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<REFERENCE COMPONENTNAME="FlowExpression4"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision3" DESCRIPTION="logradouro&#x20;&#233;&#x20;nulo&#x20;ou&#x20;vazio">
+<CONDITION>
+<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+		<PARAMS>
+			<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+				<PARAMS>
+					<VARIABLE NAME="EnderecoCepOsm"/>
+					<CONSTANT TYPE="Letras" NULL="FALSE">logradouro</CONSTANT>
+				</PARAMS>
+			</FUNCTION>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector3"></REMARK>
+<REFERENCE COMPONENTNAME="FlowExpression4"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION RETURN="ITD_ID" COMPONENTNAME="FlowExpression19" DESCRIPTION="&#x20;Criar&#x20;itiner&#225;rio&#x20;detalhado&#x20;(OSM)">
+<FUNCTION NAME="Executar Atualização" REALNAME="ebfSQLExecuteUpdate">
+<PARAMS>
+<CONSTANT TYPE="SQL Atualização" NULL="FALSE"><SQL TYPE="INSERT">
+<TABLE>SMB_ITINERARIO_DETALHE</TABLE>
+<SQLFIELD NAME="ITI_ID">
+<VARIABLE NAME="ITI_ID"/>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_SEQUENCIA">
+<VARIABLE NAME="Contador"/>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_LOGRADOURO">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">logradouro</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_NUMERO">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">numero</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_BAIRRO">
+<VARIABLE NAME="Bairro"/>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_MUNICIPIO">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">cidade</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_UF">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">estado</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_CEP">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">cep</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_PAIS">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">pais</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_LATITUDE">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">latitude</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_LONGITUDE">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="EnderecoCepOsm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">longitude</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_SENTIDO">
+<VARIABLE NAME="Sentido"/>
+</SQLFIELD>
+<SQLFIELD NAME="ITD_MD5_ARQUIVO">
+<CONSTANT TYPE="Letras" NULL="FALSE">OSM</CONSTANT>
+</SQLFIELD>
+</SQL>
+</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<REMARK COMPONENTNAME="FlowConnector1"></REMARK>
+<REFERENCE COMPONENTNAME="FlowConnector3"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</WHILE>
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION RETURN="URLApiNominatim" COMPONENTNAME="FlowExpression12" DESCRIPTION="Pega&#x20;URL&#x20;de&#x20;dev">
+<CONSTANT TYPE="Letras" NULL="FALSE">http://23.23.190.42:5088/reverse?lat={lat}&amp;lon={lon}&amp;format=json</CONSTANT>
+</EXPRESSION>
+<REMARK COMPONENTNAME="FlowConnector6"></REMARK>
+<REFERENCE COMPONENTNAME="FlowExpression2"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</RULE>

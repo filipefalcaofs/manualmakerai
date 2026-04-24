@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<fmaker version="2.3" maker_version="6.1.0.14"  xml:space="preserve">
+    <global>
+    </global>
+    <system SIS_CODIGO="PH1">
+        <property name="SIS_DESCRICAO">Sollux&#x0020;Charge&#x0020;-&#x0020;Zona&#x0020;Verde</property>
+        <property name="SIS_SQLDATALIMITE"></property>
+        <property name="SIS_SQLDADOSENTIDADE"></property>
+        <property name="IMG_CODIGO"></property>
+        <property name="IMG_CODIGO_ICONE"></property>
+        <form FRM_CODIGO="7146" FRM_GUID="{E670B962-BBE6-4A56-A8AA-C404EC84250A}">
+            <property name="IMG_INCLUIR">1</property>
+            <property name="IMG_ALTERAR">2</property>
+            <property name="IMG_EXCLUIR">8</property>
+            <property name="IMG_GRAVAR">12</property>
+            <property name="IMG_CANCELAR">13</property>
+            <property name="IMG_ATUALIZAR">7</property>
+            <property name="IMG_GRAVAR_MAIS">15</property>
+            <property name="IMG_LOG">16</property>
+            <property name="IMG_VALORES_PADRAO">17</property>
+            <property name="IMG_UTILITARIO">1</property>
+            <property name="IMG_SAIR">11</property>
+            <property name="IMG_IMPRIMIR">10</property>
+            <property name="IMG_AJUDA">14</property>
+            <property name="IMG_PROXIMO">5</property>
+            <property name="IMG_ULTIMO">6</property>
+            <property name="IMG_PRIMEIRO">3</property>
+            <property name="IMG_ANTERIOR">4</property>
+            <property name="FRM_DESCRICAO">Usu&#x00E1;rios</property>
+            <property name="FRM_POSICAOX">351</property>
+            <property name="FRM_POSICAOY">27</property>
+            <property name="FRM_TAMANHO">700</property>
+            <property name="FRM_ALTURA">694</property>
+            <property name="FRM_TIPO_CRIACAO">0</property>
+            <property name="FNT_CAMPOCHAVE">usr_codigo</property>
+            <property name="FNT_TABELA">FR_USUARIO</property>
+            <property name="FNT_SQLSELECT">Select&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_CODIGO&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_LOGIN&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_SENHA&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_ADMINISTRADOR&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_TIPO_EXPIRACAO&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_DIAS_EXPIRACAO&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_IMAGEM_DIGITAL&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_FOTO&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_NOME&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_EMAIL&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_DIGITAL&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_INICIO_EXPIRACAO&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_LOGIN&#x0020;As&#x0020;Login&#x002C;&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_NOME&#x0020;As&#x0020;Nome&#x000D;&#x000A;&#x000D;&#x000A;From&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;FR_USUARIO&#x0020;U&#x000D;&#x000A;&#x000D;&#x000A;Where&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;(((Select&#x0020;FU1&#x002E;USR_ADMINISTRADOR&#x0020;From&#x0020;FR_USUARIO&#x0020;FU1&#x0020;WHERE&#x0020;FU1&#x002E;USR_LOGIN&#x0020;&#x003D;&#x0020;&#x003A;MAKER_LOGIN_USUARIO)&#x0020;&#x003D;&#x0020;&#x0027;S&#x0027;)&#x0020;Or&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_CODIGO&#x0020;In&#x0020;(Select&#x0020;U2&#x002E;USR_CODIGO&#x0020;From&#x0020;FR_USUARIO&#x0020;FU&#x0020;Inner&#x0020;Join&#x0020;FR_USUARIO_SISTEMA&#x0020;U1&#x0020;On&#x0020;U1&#x002E;USR_CODIGO&#x0020;&#x003D;&#x0020;FU&#x002E;USR_CODIGO&#x0020;Inner&#x0020;Join&#x0020;FR_USUARIO_SISTEMA&#x0020;U2&#x0020;On&#x0020;U2&#x002E;SIS_CODIGO&#x0020;&#x003D;&#x0020;U1&#x002E;SIS_CODIGO&#x0020;Where&#x0020;FU&#x002E;USR_LOGIN&#x0020;&#x003D;&#x0020;&#x003A;MAKER_LOGIN_USUARIO&#x0020;AND&#x0020;U1&#x002E;USS_ADMINISTRADOR&#x0020;&#x003D;&#x0020;&#x0027;S&#x0027;)&#x0020;And&#x000D;&#x000A;&#x000D;&#x000A;&#x0020;&#x0020;U&#x002E;USR_ADMINISTRADOR&#x0020;&#x003D;&#x0020;&#x0027;N&#x0027;)&#x000D;&#x000A;&#x000D;&#x000A;&#x002F;&#x002A;WHERE_ADD&#x002A;&#x002F;&#x000D;&#x000A;&#x000D;&#x000A;&#x002F;&#x002A;ORDER_NEW&#x002A;&#x002F;</property>
+            <property name="FNT_SQLINSERT"></property>
+            <property name="FNT_SQLUPDATE">usr_codigo&#x000D;&#x000A;usr_login&#x000D;&#x000A;usr_administrador&#x000D;&#x000A;usr_tipo_expiracao&#x000D;&#x000A;usr_nome&#x000D;&#x000A;</property>
+            <property name="FNT_SQLDELETE"></property>
+            <property name="FNT_CAMPOINCREMENTO"></property>
+            <property name="FNT_CAMPOGRADE">login&#x003B;nome</property>
+            <property name="FNT_CAMPOPESQUISA">login&#x003B;nome</property>
+            <property name="FNT_SQLDEFAULT">usr_administrador&#x003D;N&#x000D;&#x000A;usr_codigo&#x003D;SQL(&#x0022;SELECT&#x0020;COALESCE(MAX(USR_CODIGO)&#x002C;0)&#x002B;1&#x0020;FROM&#x0020;FR_USUARIO&#x0022;)&#x000D;&#x000A;usr_senha&#x003D;&#x0027;softwell&#x0027;&#x000D;&#x000A;usr_tipo_expiracao&#x003D;N&#x000D;&#x000A;</property>
+            <property name="FNT_SQLMASCARA"></property>
+            <property name="REL_CODIGO"></property>
+            <component COM_CODIGO="1135704" COM_TIPO="B" name="MakerButton1">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Campo"></property>
+                <property name="Codigo">1135704</property>
+                <property name="CodigoForm">&#x007B;43AEED6B-15F1-45CC-9EAA-0D73B622BE71&#x007D;</property>
+                <property name="Container"></property>
+                <property name="Descricao">Grupos&#x0020;aos&#x0020;quais&#x0020;pertence</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="Habilitado">True</property>
+                <property name="Imagem"></property>
+                <property name="Nome">MakerButton1</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">9</property>
+                <property name="Parametros">FR_USUARIO_SISTEMA&#x002E;USR_CODIGO&#x003D;USR_CODIGO</property>
+                <property name="PosicaoX">19</property>
+                <property name="PosicaoY">348</property>
+                <property name="Tabela"></property>
+                <property name="Tabulacao">8</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">246</property>
+                <property name="Tipo"></property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1135705" COM_TIPO="C" name="MakerComboBox1">
+                <property name="Tabela"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135705</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Tipo">&#x0023;ApenasMasterGeral&#x003D;true</property>
+                <property name="Atributos"></property>
+                <property name="Campo">USR_ADMINISTRADOR</property>
+                <property name="Descricao">Adm&#x002E;&#x0020;Geral</property>
+                <property name="Tamanho">128</property>
+                <property name="PosicaoX">354</property>
+                <property name="PosicaoY">35</property>
+                <property name="Altura">33</property>
+                <property name="Nome">MakerComboBox1</property>
+                <property name="Tabulacao">2</property>
+                <property name="Tabular">True</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Lista">Sim&#x000D;&#x000A;N&#x00E3;o&#x000D;&#x000A;</property>
+                <property name="Valores">S&#x000D;&#x000A;N</property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Cor">-16777211</property>
+                <property name="Visivel">True</property>
+                <property name="Habilitado">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="LarguraExibicao">0</property>
+                <property name="Ordem">10</property>
+                <property name="Dica"></property>
+                <property name="Placeholder"></property>
+                <property name="EstiloCss"></property>
+                <property name="ValorInicial"></property>
+            </component>
+            <component COM_CODIGO="1135706" COM_TIPO="E" name="MakerEdit1">
+                <property name="Modelo">1</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135706</property>
+                <property name="Nome">MakerEdit1</property>
+                <property name="Ordem">11</property>
+                <property name="PosicaoX">168</property>
+                <property name="PosicaoY">35</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Senha</property>
+                <property name="Dica"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="Tamanho">171</property>
+                <property name="Visivel">True</property>
+                <property name="Tabulacao">1</property>
+                <property name="Tabular">True</property>
+                <property name="Campo">USR_SENHA</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="Conteudo">0</property>
+                <property name="Senha">False</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo">&#x0023;Password&#x003D;true</property>
+                <property name="AutoCompletar">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Placeholder"></property>
+                <property name="ValorInicial"></property>
+                <property name="EstiloCss"></property>
+            </component>
+            <component COM_CODIGO="1135707" COM_TIPO="E" name="MakerEdit2">
+                <property name="Modelo">1</property>
+                <property name="Tabela"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135707</property>
+                <property name="Nome">MakerEdit2</property>
+                <property name="Ordem">0</property>
+                <property name="PosicaoX">19</property>
+                <property name="PosicaoY">35</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Login</property>
+                <property name="Dica"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="Tamanho">134</property>
+                <property name="Visivel">True</property>
+                <property name="Tabulacao">0</property>
+                <property name="Tabular">True</property>
+                <property name="Campo">USR_LOGIN</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="Conteudo">0</property>
+                <property name="Senha">False</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Placeholder"></property>
+                <property name="ValorInicial"></property>
+                <property name="EstiloCss"></property>
+            </component>
+            <component COM_CODIGO="1135708" COM_TIPO="E" name="MakerEdit4">
+                <property name="Modelo">1</property>
+                <property name="Tabela"></property>
+                <property name="Tipo"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Placeholder"></property>
+                <property name="ValorInicial"></property>
+                <property name="EstiloCss"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135708</property>
+                <property name="Nome">MakerEdit4</property>
+                <property name="Ordem">2</property>
+                <property name="PosicaoX">299</property>
+                <property name="PosicaoY">226</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Dias&#x0020;para&#x0020;expira&#x00E7;&#x00E3;o</property>
+                <property name="Dica"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="Tamanho">182</property>
+                <property name="Visivel">True</property>
+                <property name="Tabulacao">6</property>
+                <property name="Tabular">True</property>
+                <property name="Campo">USR_DIAS_EXPIRACAO</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="Conteudo">0</property>
+                <property name="Senha">False</property>
+                <property name="TamanhoMaximo">0</property>
+            </component>
+            <component COM_CODIGO="1135709" COM_TIPO="E" name="MakerEdit5">
+                <property name="Modelo">1</property>
+                <property name="Tabela"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135709</property>
+                <property name="Nome">MakerEdit5</property>
+                <property name="Ordem">4</property>
+                <property name="PosicaoX">19</property>
+                <property name="PosicaoY">99</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Nome&#x0020;do&#x0020;Usu&#x00E1;rio</property>
+                <property name="Dica"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="Tamanho">462</property>
+                <property name="Visivel">True</property>
+                <property name="Tabulacao">3</property>
+                <property name="Tabular">True</property>
+                <property name="Campo">USR_NOME</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="Conteudo">0</property>
+                <property name="Senha">False</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Placeholder"></property>
+                <property name="ValorInicial"></property>
+                <property name="EstiloCss"></property>
+            </component>
+            <component COM_CODIGO="1135710" COM_TIPO="E" name="MakerEdit6">
+                <property name="Modelo">1</property>
+                <property name="Tabela"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135710</property>
+                <property name="Nome">MakerEdit6</property>
+                <property name="Ordem">5</property>
+                <property name="PosicaoX">19</property>
+                <property name="PosicaoY">162</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">E-mail</property>
+                <property name="Dica"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="Tamanho">462</property>
+                <property name="Visivel">True</property>
+                <property name="Tabulacao">4</property>
+                <property name="Tabular">True</property>
+                <property name="Campo">USR_EMAIL</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="Conteudo">0</property>
+                <property name="Senha">False</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Placeholder"></property>
+                <property name="ValorInicial"></property>
+                <property name="EstiloCss"></property>
+            </component>
+            <component COM_CODIGO="1135711" COM_TIPO="E" name="MakerEdit8">
+                <property name="Modelo">1</property>
+                <property name="Tabela"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135711</property>
+                <property name="Nome">MakerEdit8</property>
+                <property name="Ordem">6</property>
+                <property name="PosicaoX">299</property>
+                <property name="PosicaoY">298</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Data&#x0020;de&#x0020;Refer&#x00EA;ncia</property>
+                <property name="Dica"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Habilitado">True</property>
+                <property name="Tamanho">182</property>
+                <property name="Visivel">True</property>
+                <property name="Tabulacao">7</property>
+                <property name="Tabular">True</property>
+                <property name="Campo">USR_INICIO_EXPIRACAO</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Atributos"></property>
+                <property name="Conteudo">0</property>
+                <property name="Senha">False</property>
+                <property name="TamanhoMaximo">0</property>
+                <property name="Tipo"></property>
+                <property name="AutoCompletar">True</property>
+                <property name="LabelPosition">0</property>
+                <property name="Placeholder"></property>
+                <property name="ValorInicial"></property>
+                <property name="EstiloCss"></property>
+            </component>
+            <component COM_CODIGO="1135712" COM_TIPO="G" name="MakerGrid1">
+                <property name="Tipo"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135712</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Atributos"></property>
+                <property name="Descricao"></property>
+                <property name="Tamanho">662</property>
+                <property name="PosicaoX">19</property>
+                <property name="PosicaoY">400</property>
+                <property name="Altura">177</property>
+                <property name="Tabulacao">10</property>
+                <property name="Tabular">True</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Nome">MakerGrid1</property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="Cor">-16777211</property>
+                <property name="CodigoForm">&#x007B;095943CE-6FA4-4A3D-86C2-184D4F187776&#x007D;</property>
+                <property name="ChamaSubForm">False</property>
+                <property name="Parametros">FR_USUARIO_SISTEMA&#x002E;USR_CODIGO&#x003D;USR_CODIGO</property>
+                <property name="Colunas"></property>
+                <property name="Editavel">True</property>
+                <property name="CorCondicional"></property>
+                <property name="Visivel">True</property>
+                <property name="Habilitado">True</property>
+                <property name="Ordem">8</property>
+                <property name="Dica"></property>
+                <property name="Paginacao">0</property>
+                <property name="GridPai"></property>
+                <property name="ParametrosDosEventos"></property>
+                <property name="PermiteOrdenacao">False</property>
+                <property name="GradeHabilitarColunaNumerica">True</property>
+                <property name="GradeLarguraColunaNumerica">28</property>
+                <property name="ExecutarApenasDuploClicar">False</property>
+                <property name="GradeDesabilitarCustomizarUsuario">False</property>
+                <property name="GradeExecutarAoModificarAoPaginar">False</property>
+                <property name="CanFreezeColumns">True</property>
+                <property name="EnableGridExport">True</property>
+                <property name="PlaceHolder">N&#x00E3;o&#x0020;existem&#x0020;dados&#x0020;a&#x0020;serem&#x0020;exibidos</property>
+                <property name="SummaryProperties"></property>
+                <property name="EnableSimpleFilter">False</property>
+                <property name="FilterMode">0</property>
+                <property name="AlturaLinha">33</property>
+                <property name="AlturaCabecalho">38</property>
+                <property name="EstiloCss"></property>
+                <property name="CorCondicionalConteudo">False</property>
+            </component>
+            <component COM_CODIGO="1135713" COM_TIPO="P" name="MakerContainer2">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Alinhar">0</property>
+                <property name="Altura">177</property>
+                <property name="Codigo">1135713</property>
+                <property name="Container"></property>
+                <property name="Cor">-16777211</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="LarguraMaxima">0</property>
+                <property name="Nome">MakerContainer2</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">1</property>
+                <property name="PosicaoX">503</property>
+                <property name="PosicaoY">16</property>
+                <property name="Tamanho">177</property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1135714" COM_TIPO="P" name="MakerContainer1">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Alinhar">0</property>
+                <property name="Altura">176</property>
+                <property name="Codigo">1135714</property>
+                <property name="Container"></property>
+                <property name="Cor">-16777211</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="LarguraMaxima">0</property>
+                <property name="Nome">MakerContainer1</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">3</property>
+                <property name="PosicaoX">504</property>
+                <property name="PosicaoY">205</property>
+                <property name="Tamanho">177</property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1135715" COM_TIPO="L" name="MakerLabel1">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">25</property>
+                <property name="Campo"></property>
+                <property name="Codigo">1135715</property>
+                <property name="Container">MakerContainer2</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Foto</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="Habilitado">True</property>
+                <property name="HorzAlignment">center</property>
+                <property name="Nome">MakerLabel1</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">1</property>
+                <property name="PosicaoX">0</property>
+                <property name="PosicaoY">1</property>
+                <property name="QuebraAutomaticaDeLinha">False</property>
+                <property name="Tabela"></property>
+                <property name="Tamanho">177</property>
+                <property name="Tipo"></property>
+                <property name="ValorInicial"></property>
+                <property name="VertAlignment">middle</property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1135716" COM_TIPO="L" name="MakerLabel2">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">25</property>
+                <property name="Campo"></property>
+                <property name="Codigo">1135716</property>
+                <property name="Container">MakerContainer1</property>
+                <property name="Cor">-16777211</property>
+                <property name="Descricao">Impress&#x00E3;o&#x0020;Digital</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="Habilitado">True</property>
+                <property name="HorzAlignment">center</property>
+                <property name="Nome">MakerLabel2</property>
+                <property name="NomeClasseCss"></property>
+                <property name="Ordem">1</property>
+                <property name="PosicaoX">0</property>
+                <property name="PosicaoY">1</property>
+                <property name="QuebraAutomaticaDeLinha">False</property>
+                <property name="Tabela"></property>
+                <property name="Tamanho">177</property>
+                <property name="Tipo"></property>
+                <property name="ValorInicial"></property>
+                <property name="VertAlignment">middle</property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1135717" COM_TIPO="I" name="MakerImage1">
+                <property name="Tabela"></property>
+                <property name="Tabulacao">9</property>
+                <property name="Tabular">True</property>
+                <property name="Tipo"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container">MakerContainer1</property>
+                <property name="Codigo">1135717</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Campo">USR_IMAGEM_DIGITAL</property>
+                <property name="Descricao">USR_IMAGEM_DIGITAL</property>
+                <property name="Tamanho">177</property>
+                <property name="PosicaoX">0</property>
+                <property name="PosicaoY">27</property>
+                <property name="Nome">MakerImage1</property>
+                <property name="Altura">150</property>
+                <property name="GravarEmArquivo"></property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Visivel">True</property>
+                <property name="Habilitado">True</property>
+                <property name="LenteAumento">False</property>
+                <property name="Ordem">0</property>
+                <property name="CampoCodImpDigital">USR_DIGITAL</property>
+                <property name="Dica"></property>
+                <property name="Imagem"></property>
+                <property name="URL"></property>
+                <property name="Exibicao">Estender</property>
+                <property name="TipoExibicao">0</property>
+                <property name="AlturaZoom">0</property>
+                <property name="LarguraZoom">0</property>
+                <property name="EstiloCss"></property>
+                <property name="PosicaoDaImagem">Centralizado</property>
+                <property name="RedimensionarImagem"></property>
+            </component>
+            <component COM_CODIGO="1135718" COM_TIPO="I" name="MakerImage2">
+                <property name="Tabela"></property>
+                <property name="Tabulacao">10</property>
+                <property name="Tabular">True</property>
+                <property name="Tipo"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container">MakerContainer2</property>
+                <property name="Codigo">1135718</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Campo">USR_FOTO</property>
+                <property name="Descricao">USR_FOTO</property>
+                <property name="Tamanho">177</property>
+                <property name="PosicaoX">0</property>
+                <property name="PosicaoY">27</property>
+                <property name="Nome">MakerImage2</property>
+                <property name="Altura">150</property>
+                <property name="GravarEmArquivo"></property>
+                <property name="ApenasLeitura">False</property>
+                <property name="Visivel">True</property>
+                <property name="Habilitado">True</property>
+                <property name="LenteAumento">False</property>
+                <property name="Ordem">0</property>
+                <property name="CampoCodImpDigital"></property>
+                <property name="Dica"></property>
+                <property name="Imagem"></property>
+                <property name="URL"></property>
+                <property name="Exibicao">Estender</property>
+                <property name="TipoExibicao">0</property>
+                <property name="AlturaZoom">0</property>
+                <property name="LarguraZoom">0</property>
+                <property name="EstiloCss"></property>
+                <property name="PosicaoDaImagem">Centralizado</property>
+                <property name="RedimensionarImagem"></property>
+            </component>
+            <component COM_CODIGO="1135719" COM_TIPO="R" name="MakerRadioGroup1">
+                <property name="Tabela"></property>
+                <property name="NomeClasseCss"></property>
+                <property name="Container"></property>
+                <property name="Codigo">1135719</property>
+                <property name="Aba">01-Cadastro</property>
+                <property name="Campo">USR_TIPO_EXPIRACAO</property>
+                <property name="Descricao">Limite&#x0020;de&#x0020;Senha</property>
+                <property name="Tamanho">262</property>
+                <property name="PosicaoX">19</property>
+                <property name="PosicaoY">210</property>
+                <property name="Altura">121</property>
+                <property name="Nome">MakerRadioGroup1</property>
+                <property name="Tabulacao">5</property>
+                <property name="Tabular">False</property>
+                <property name="ApenasLeitura">False</property>
+                <property name="QtdeColunas">1</property>
+                <property name="Lista">Nunca&#x0020;expira&#x000D;&#x000A;Expira&#x0020;em&#x0020;determinado&#x0020;n&#x00FA;mero&#x0020;de&#x0020;dias&#x000D;&#x000A;Troca&#x0020;de&#x0020;senha&#x0020;a&#x0020;cada&#x0020;n&#x00FA;mero&#x0020;de&#x0020;dias&#x000D;&#x000A;</property>
+                <property name="Valores">N&#x000D;&#x000A;E&#x000D;&#x000A;T&#x000D;&#x000A;</property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="FonteDescricao"></property>
+                <property name="Cor">-16777211</property>
+                <property name="Visivel">True</property>
+                <property name="Habilitado">True</property>
+                <property name="Ordem">7</property>
+                <property name="Dica"></property>
+                <property name="Tipo"></property>
+                <property name="ModoClassico">False</property>
+                <property name="EstiloCss"></property>
+                <property name="ValorInicial"></property>
+                <event name="Ao Modificar">
+                    <action name="7">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Lista de Campos"><![CDATA[USR_INICIO_EXPIRACAO=	USR_TIPO_EXPIRACAO='N'
+USR_DIAS_EXPIRACAO=	USR_TIPO_EXPIRACAO='N']]></param>
+                    </action>
+                </event>
+                <event name="Ao Modificar">
+                    <action name="3">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Lista de Objetos"><![CDATA[MakerEdit8=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E'
+MakerEdit4=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E']]></param>
+                    </action>
+                </event>
+            </component>
+            <component COM_CODIGO="1135720" COM_TIPO="B" name="MakerButton4">
+                <property name="Aba">01-Cadastro</property>
+                <property name="Altura">33</property>
+                <property name="Codigo">1135720</property>
+                <property name="CodigoForm">&#x007B;4D559289-EBAD-4F64-8D15-BD2DAFD05901&#x007D;</property>
+                <property name="Container"></property>
+                <property name="Descricao">Grupos&#x0020;do&#x0020;Sistema</property>
+                <property name="Dica"></property>
+                <property name="EstiloCss"></property>
+                <property name="Fonte">MS&#x0020;Sans&#x0020;Serif&#x002C;8&#x002C;0000&#x002C;clWindowText</property>
+                <property name="Habilitado">True</property>
+                <property name="Imagem"></property>
+                <property name="Nome">MakerButton4</property>
+                <property name="NomeClasseCss">btn-secondary</property>
+                <property name="Ordem">12</property>
+                <property name="Parametros"></property>
+                <property name="PosicaoX">275</property>
+                <property name="PosicaoY">348</property>
+                <property name="Tabulacao">9</property>
+                <property name="Tabular">True</property>
+                <property name="Tamanho">206</property>
+                <property name="Visivel">True</property>
+            </component>
+            <component COM_CODIGO="1135721" COM_TIPO="F" name="">
+                <property name="IASuggestionEvents"></property>
+                <property name="Ajuda"></property>
+                <property name="CampoVersao"></property>
+                <property name="Navegacao">TRUE</property>
+                <property name="EditarAoDuploClicar">TRUE</property>
+                <property name="Abas">TRUE</property>
+                <property name="EntrarComoPesquisa">FALSE</property>
+                <property name="ModoLegado">FALSE</property>
+                <property name="AbaLocalizar">TRUE</property>
+                <property name="Cor">clWindow</property>
+                <property name="ClasseCss"></property>
+                <property name="FonteDeDados"></property>
+                <property name="Imagem"></property>
+                <property name="ExibicaoImagemFundo"></property>
+                <property name="Centralizado">False</property>
+                <property name="CentralizadoVertical">False</property>
+                <property name="BotaoMaximizar">False</property>
+                <property name="BotaoMinimizar">True</property>
+                <property name="BotaoFechar">True</property>
+                <property name="BarraDeRolagem">True</property>
+                <property name="Apresentacao">0</property>
+                <property name="Modal">False</property>
+                <property name="Popup">FALSE</property>
+                <property name="PreLoad">FALSE</property>
+                <property name="Responsivo">TRUE</property>
+                <property name="FormularioLocalizar">0</property>
+                <property name="BarraNavegacaoFixa">FALSE</property>
+                <property name="AIGenerated">FALSE</property>
+                <property name="AIPrompt"></property>
+                <property name="MensagemErroChavePrimaria"></property>
+                <property name="MensagemErroChaveEstrangeira"></property>
+                <property name="AbaLocalizarPermitirRelatorioListagem">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioHtml">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioXml">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioTxt">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioPdf">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioJson">TRUE</property>
+                <property name="AbaLocalizarPermitirRelatorioXlsx">TRUE</property>
+                <property name="AbaLocalizarPermitirOrdenarGrade">TRUE</property>
+                <property name="AbaLocalizarPermitirRemoverOrdenacaoGrade">TRUE</property>
+                <property name="AbaLocalizarPermitirImportarDados">TRUE</property>
+                <property name="AbaLocalizarPermitirFiltroAvancado">TRUE</property>
+                <property name="UltimaModificacao">31&#x002F;03&#x002F;2026&#x0020;15&#x003A;54&#x003A;37</property>
+                <property name="UltimoUsuario">master</property>
+                <event name="Antes de Deletar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Nome"><![CDATA[Validar Antes de Deletar]]></param>
+                        <param name="Entrada"><![CDATA[]]></param>
+                    </action>
+                </event>
+                <event name="Antes de Gravar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Nome"><![CDATA[Validar Alterações Antes de Salvar]]></param>
+                        <param name="Entrada"><![CDATA[]]></param>
+                    </action>
+                </event>
+                <event name="Antes de Inserir">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Nome"><![CDATA[Regra Antes de Inserir - Validar Login Único]]></param>
+                        <param name="Entrada"><![CDATA[LoginUsuario=]]></param>
+                    </action>
+                </event>
+                <event name="Ao Entrar">
+                    <action name="3">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Lista de Objetos"><![CDATA[MakerEdit8=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E'
+MakerEdit4=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E']]></param>
+                    </action>
+                </event>
+                <event name="Ao Entrar">
+                    <action name="6">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Lista de Objetos"><![CDATA[USR_INICIO_EXPIRACAO=	USR_TIPO_EXPIRACAO='N'
+USR_DIAS_EXPIRACAO=	USR_TIPO_EXPIRACAO='N']]></param>
+                    </action>
+                </event>
+                <event name="Ao Navegar">
+                    <action name="6">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Lista de Objetos"><![CDATA[USR_INICIO_EXPIRACAO=	USR_TIPO_EXPIRACAO='N'
+USR_DIAS_EXPIRACAO=	USR_TIPO_EXPIRACAO='N']]></param>
+                    </action>
+                </event>
+                <event name="Ao Navegar">
+                    <action name="3">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Lista de Objetos"><![CDATA[MakerEdit8=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E'
+MakerEdit4=USR_TIPO_EXPIRACAO='T' | USR_TIPO_EXPIRACAO='E']]></param>
+                    </action>
+                </event>
+                <event name="Ao Pressionar Tecla">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[LoginUsuario=]]></param>
+                        <param name="Nome"><![CDATA[Regra Antes de Inserir - Validar Login Único]]></param>
+                    </action>
+                </event>
+                <event name="Ao Receber Dados">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[LoginUsuario=]]></param>
+                        <param name="Nome"><![CDATA[Regra Antes de Inserir - Validar Login Único]]></param>
+                    </action>
+                </event>
+                <event name="Ao Sair">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Nome"><![CDATA[Regra Antes de Inserir - Validar Login Único]]></param>
+                        <param name="Entrada"><![CDATA[LoginUsuario=]]></param>
+                    </action>
+                </event>
+                <event name="Depois de Deletar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Nome"><![CDATA[Regra Antes de Inserir - Validar Login Único]]></param>
+                        <param name="Entrada"><![CDATA[LoginUsuario=]]></param>
+                    </action>
+                </event>
+                <event name="Depois de Gravar">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[LoginUsuario=]]></param>
+                        <param name="Nome"><![CDATA[Regra Antes de Inserir - Validar Login Único]]></param>
+                    </action>
+                </event>
+                <event name="Depois de Inserir">
+                    <action name="12">
+                        <property name="ACC_CONDICAO"></property>
+                        <param name="Entrada"><![CDATA[LoginUsuario=]]></param>
+                        <param name="Nome"><![CDATA[Regra Antes de Inserir - Validar Login Único]]></param>
+                    </action>
+                </event>
+            </component>
+        </form>
+        <tempo SESSION="FORMS">00:00</tempo>
+    </system>
+<tempo SESSION="ALL">00:00</tempo>
+<datageracao>31/03/2026 15:54</datageracao>
+</fmaker>

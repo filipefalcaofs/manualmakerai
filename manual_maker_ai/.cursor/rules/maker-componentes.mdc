@@ -1,0 +1,528 @@
+---
+description: Catalogo completo de componentes Maker (COM_TIPO) com todas as properties extraidas de FRZs reais
+alwaysApply: false
+---
+
+# Maker — Catalogo de Componentes
+
+Referencia completa de todos os tipos de componente (`COM_TIPO`) com suas properties obrigatorias. Dados extraidos de FRZs reais importados com sucesso no Maker 6.1.0.14.
+
+---
+
+## Estrutura XML de um componente
+
+```xml
+<component COM_CODIGO="ID_NUMERICO" COM_TIPO="TIPO" name="NomeComponente">
+    <property name="NomeProp">Valor</property>
+    <!-- ... -->
+    <event name="Nome do Evento">
+        <action name="12">
+            <property name="ACC_CONDICAO"></property>
+            <param name="Entrada"><![CDATA[param=campo]]></param>
+            <param name="Nome"><![CDATA[Nome do Fluxograma]]></param>
+        </action>
+    </event>
+</component>
+```
+
+- `COM_CODIGO`: ID numerico unico (inteiro sequencial)
+- `COM_TIPO`: letra que define o tipo (ver tabela abaixo)
+- `name`: identificador programatico (ex: `MakerEdit1`). Para tipo `F`, name e sempre vazio (`""`)
+
+---
+
+## Tabela de tipos
+
+| COM_TIPO | Classe | Descricao |
+|---|---|---|
+| `F` | Form Settings | Config geral do formulario (CSS, navegacao, eventos globais) |
+| `E` | MakerEdit | Campo de texto/entrada |
+| `C` | MakerComboBox | Combo de selecao com lista estatica |
+| `K` | MakerLookup | Campo de busca com SQL dinamico |
+| `L` | MakerLabel | Rotulo de texto (aceita HTML) |
+| `P` | MakerContainer | Painel/agrupador (cards, headers, secoes) |
+| `G` | MakerGrid | Grade de dados (tabela) |
+| `B` | MakerButton | Botao de acao |
+| `M` | MakerMemo | Campo de texto multilinha |
+| `H` | MakerCheckBox | Caixa de selecao |
+| `R` | MakerRadioGroup | Grupo de radio buttons |
+| `I` | MakerImage | Imagem/foto |
+| `A` | MakerAttachment | Anexo de arquivo |
+
+---
+
+## F — Form Settings (44 properties)
+
+O componente `F` tem `name=""` (vazio) e concentra configuracoes globais do formulario.
+
+```xml
+<component COM_CODIGO="ID" COM_TIPO="F" name="">
+```
+
+### Properties
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `IASuggestionEvents` | string | `""` | JSON com sugestoes de eventos para IA |
+| `Ajuda` | string | `""` | Texto de ajuda |
+| `CampoVersao` | string | `""` | Campo de controle de versao |
+| `Navegacao` | bool | `TRUE` | Mostrar barra de navegacao |
+| `EditarAoDuploClicar` | bool | `TRUE` | Entrar em edicao ao duplo-clicar |
+| `Abas` | bool | `TRUE` | Exibir abas |
+| `EntrarComoPesquisa` | bool | `FALSE` | Abrir direto na pesquisa |
+| `ModoLegado` | bool | `FALSE` | Compatibilidade legada |
+| `AbaLocalizar` | bool | `TRUE` | Aba de pesquisa |
+| `Cor` | string | `clWindow` | Cor de fundo |
+| `ClasseCss` | string | `""` | **CSS global do formulario** (estilos customizados) |
+| `FonteDeDados` | string | `""` | Data source alternativo |
+| `Imagem` | string | `""` | Imagem de fundo |
+| `ExibicaoImagemFundo` | string | `""` | Modo de exibicao do fundo |
+| `Centralizado` | bool | `False` | Centralizar horizontal |
+| `CentralizadoVertical` | bool | `False` | Centralizar vertical |
+| `BotaoMaximizar` | bool | `False` | Botao maximizar |
+| `BotaoMinimizar` | bool | `True` | Botao minimizar |
+| `BotaoFechar` | bool | `True` | Botao fechar |
+| `BarraDeRolagem` | bool | `True` | Scroll |
+| `Apresentacao` | int | `0` | Modo de apresentacao |
+| `Modal` | bool | `False` | Abrir como modal |
+| `Popup` | bool | `FALSE` | Modo popup |
+| `PreLoad` | bool | `FALSE` | Pre-carregar |
+| `Responsivo` | bool | `TRUE` | Layout responsivo |
+| `FormularioLocalizar` | int | `0` | Form de localizacao |
+| `BarraNavegacaoFixa` | bool | `FALSE` | Navbar fixa |
+| `AIGenerated` | bool | `FALSE` | Gerado por IA |
+| `AIPrompt` | string | `""` | Prompt usado na geracao IA |
+| `MensagemErroChavePrimaria` | string | `""` | Msg erro PK customizada |
+| `MensagemErroChaveEstrangeira` | string | `""` | Msg erro FK customizada |
+| `AbaLocalizarPermitirRelatorioListagem` | bool | `TRUE` | Exportar listagem |
+| `AbaLocalizarPermitirRelatorioHtml` | bool | `TRUE` | Exportar HTML |
+| `AbaLocalizarPermitirRelatorioXml` | bool | `TRUE` | Exportar XML |
+| `AbaLocalizarPermitirRelatorioTxt` | bool | `TRUE` | Exportar TXT |
+| `AbaLocalizarPermitirRelatorioPdf` | bool | `TRUE` | Exportar PDF |
+| `AbaLocalizarPermitirRelatorioJson` | bool | `TRUE` | Exportar JSON |
+| `AbaLocalizarPermitirRelatorioXlsx` | bool | `TRUE` | Exportar XLSX |
+| `AbaLocalizarPermitirOrdenarGrade` | bool | `TRUE` | Ordenar grade |
+| `AbaLocalizarPermitirRemoverOrdenacaoGrade` | bool | `TRUE` | Remover ordenacao |
+| `AbaLocalizarPermitirImportarDados` | bool | `TRUE` | Importar dados |
+| `AbaLocalizarPermitirFiltroAvancado` | bool | `TRUE` | Filtro avancado |
+| `UltimaModificacao` | datetime | atual | Data da ultima modificacao |
+| `UltimoUsuario` | string | `master` | Ultimo usuario que editou |
+
+### Eventos do Form (F)
+
+| Evento | Quando dispara |
+|---|---|
+| `Antes de Inserir` | Antes do modo de inclusao |
+| `Antes de Gravar` | Antes de salvar (INSERT/UPDATE) |
+| `Antes de Deletar` | Antes de excluir |
+| `Depois de Inserir` | Apos incluir |
+| `Depois de Gravar` | Apos salvar com sucesso |
+| `Depois de Deletar` | Apos excluir |
+| `Ao Entrar` | Formulario aberto/carregado |
+| `Ao Navegar` | Navegacao entre registros |
+| `Ao Sair` | Ao fechar formulario |
+| `Ao Pressionar Tecla` | Tecla pressionada |
+| `Ao Receber Dados` | Dados recebidos do servidor |
+
+---
+
+## E — MakerEdit (32-33 properties)
+
+Campo de texto/entrada. Suporta mascaras, senha, autocompletar.
+
+### Properties
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `Aba` | string | | Nome da aba (ex: `01-Cadastro`) |
+| `Altura` | int | `33` | Altura em pixels |
+| `ApenasLeitura` | bool | `False` | Campo readonly |
+| `Atributos` | string | `""` | Atributos extras |
+| `AutoCompletar` | bool | `True` | Autocompletar habilitado |
+| `Campo` | string | | Nome do campo no banco |
+| `Codigo` | int | | COM_CODIGO (mesmo valor) |
+| `Container` | string | `""` | Nome do container pai (vazio = raiz da aba) |
+| `Conteudo` | int | `0` | Tipo de conteudo (`0` = texto, `2` = data) |
+| `Cor` | int | `-16777211` | Cor de fundo |
+| `Descricao` | string | | Label visivel ao usuario |
+| `Dica` | string | `""` | Tooltip |
+| `EstiloCss` | string | `""` | CSS inline |
+| `Fonte` | string | `MS Sans Serif,8,0000,clWindowText` | Fonte |
+| `FonteDescricao` | string | `""` | Fonte da descricao |
+| `Habilitado` | bool | `True` | Editavel |
+| `LabelPosition` | int | `0` | Posicao do label (`0`=acima, `1`=esquerda) |
+| `Modelo` | int | `1` | Modelo visual |
+| `Nome` | string | | Identificador (ex: `MakerEdit1`) |
+| `NomeClasseCss` | string | `""` | Classes CSS |
+| `OnClick` | string | `""` | (interno, deixar vazio) |
+| `Ordem` | int | | Ordem de renderizacao |
+| `Placeholder` | string | `""` | Texto placeholder |
+| `PosicaoX` | int | | Posicao X em pixels |
+| `PosicaoY` | int | | Posicao Y em pixels |
+| `Senha` | bool | `False` | Campo de senha |
+| `Tabela` | string | `""` | Tabela alternativa |
+| `Tabulacao` | int | | Ordem de tabulacao |
+| `Tabular` | bool | `True` | Incluir na tabulacao |
+| `Tamanho` | int | | Largura em pixels |
+| `TamanhoMaximo` | int | `0` | Max caracteres (`0` = sem limite) |
+| `Tipo` | string | `""` | Mascara/tipo: `CPF`, `CNPJ`, `DATA (ANO 4)`, vazio = texto |
+| `ValorInicial` | string | `""` | Valor default |
+| `Visivel` | bool | `True` | Visivel |
+
+### Tipos de mascara (property Tipo)
+
+| Valor | Descricao |
+|---|---|
+| (vazio) | Texto livre |
+| `CPF` | Mascara CPF (###.###.###-##) |
+| `CNPJ` | Mascara CNPJ |
+| `DATA (ANO 4)` | Campo de data (dd/mm/aaaa) |
+| `HORA` | Campo de hora |
+| `TELEFONE` | Mascara telefone |
+| `CEP` | Mascara CEP |
+| `MOEDA` | Valor monetario |
+
+### Eventos do Edit
+
+| Evento | Descricao |
+|---|---|
+| `Ao Modificar` | Valor alterado pelo usuario |
+| `Ao Clicar` | Clique no campo |
+
+---
+
+## C — MakerComboBox (31 properties)
+
+Combo de selecao com lista estatica (nao consulta banco).
+
+### Properties
+
+Herda todas do Edit EXCETO: `AutoCompletar`, `Conteudo`, `Modelo`, `Senha`, `TamanhoMaximo`.
+
+Properties EXCLUSIVAS:
+
+| Property | Tipo | Descricao |
+|---|---|---|
+| `Lista` | string | Itens visiveis separados por `\r\n` |
+| `Valores` | string | Valores internos separados por `\r\n` (correspondencia 1:1 com Lista) |
+| `LarguraExibicao` | int | Largura da area de exibicao (`0` = automatico) |
+
+### Exemplo
+
+```xml
+<property name="Lista">Masculino&#x000D;&#x000A;Feminino&#x000D;&#x000A;Outro</property>
+<property name="Valores">M&#x000D;&#x000A;F&#x000D;&#x000A;O</property>
+```
+
+### Eventos do ComboBox
+
+| Evento | Descricao |
+|---|---|
+| `Ao Modificar` | Selecao alterada |
+
+---
+
+## K — MakerLookup (41 properties)
+
+Campo de busca com SQL dinamico. Permite pesquisar registros de outra tabela.
+
+### Properties exclusivas (alem das comuns)
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `SQL` | string | | Query SQL para popular a busca |
+| `CampoChave` | string | | Campo de valor (ID) retornado |
+| `CampoLista` | string | | Campo exibido ao usuario |
+| `BuscaIncremental` | bool | `False` | Busca enquanto digita |
+| `ChamaSubForm` | bool | `False` | Abrir formulario auxiliar ao clicar lupa |
+| `CodigoForm` | string | | GUID do formulario de detalhe |
+| `FonteDeDados` | string | `""` | Data source alternativo |
+| `PermitirInclusao` | bool | `False` | Permitir cadastrar direto do lookup |
+| `Paginacao` | int | `0` | Registros por pagina (`0` = sem paginacao) |
+| `TipoFiltroInicial` | int | `0` | Modo do filtro (`2` = contem) |
+| `Estilo` | string | `""` | Estilo visual |
+| `Mascara` | string | `""` | Mascara de exibicao |
+| `LarguraExibicao` | int | `0` | Largura da area de exibicao |
+
+### Eventos do Lookup
+
+| Evento | Descricao |
+|---|---|
+| `Ao Modificar` | Valor selecionado alterado |
+
+---
+
+## L — MakerLabel (22-24 properties)
+
+Rotulo de texto. Aceita HTML na property `Descricao` (Font Awesome, divs, spans, etc.).
+
+### Properties
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `Aba` | string | | Nome da aba |
+| `Altura` | int | | Altura em pixels |
+| `Campo` | string | `""` | Campo vinculado (opcional, para labels dinamicos) |
+| `Codigo` | int | | COM_CODIGO |
+| `Container` | string | `""` | Container pai |
+| `Cor` | int | `-16777211` | Cor |
+| `Descricao` | string | | **Texto ou HTML** do label |
+| `Dica` | string | `""` | Tooltip |
+| `EstiloCss` | string | `""` | CSS inline |
+| `Fonte` | string | | Fonte |
+| `Habilitado` | bool | `True` | Habilitado |
+| `HorzAlignment` | int | `0` | Alinhamento horizontal (`0`=esquerda, `1`=centro, `2`=direita) |
+| `Nome` | string | | Identificador |
+| `NomeClasseCss` | string | `""` | Classes CSS |
+| `Ordem` | int | | Ordem |
+| `PosicaoX` | int | | Posicao X |
+| `PosicaoY` | int | | Posicao Y |
+| `QuebraAutomaticaDeLinha` | bool | `True` | Word wrap |
+| `Tabela` | string | `""` | Tabela (opcional) |
+| `Tamanho` | int | | Largura |
+| `Tipo` | string | `""` | Tipo (opcional) |
+| `ValorInicial` | string | `""` | Valor inicial |
+| `VertAlignment` | int | `0` | Alinhamento vertical |
+| `Visivel` | bool | `True` | Visivel |
+
+### HTML em Labels
+
+Labels aceitam HTML completo na `Descricao`. Padrao para titulos de card:
+
+```html
+<div class="text-primary card-heading-premium">
+  <i class="fas fa-icon"></i> <span>Titulo</span>
+</div>
+```
+
+---
+
+## P — MakerContainer (16 properties)
+
+Painel/agrupador. Usado para cards, headers, secoes, colunas.
+
+### Properties
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `Aba` | string | | Nome da aba |
+| `Alinhar` | int | `0` | Tipo de alinhamento (`0`=nenhum, `1`=top, `2`=bottom, `3`=left, `4`=right, `5`=client) |
+| `Altura` | int | | Altura em pixels |
+| `Codigo` | int | | COM_CODIGO |
+| `Container` | string | `""` | Container pai (vazio = raiz da aba) |
+| `Cor` | int | `-16777211` | Cor de fundo |
+| `Dica` | string | `""` | Tooltip |
+| `EstiloCss` | string | `""` | CSS inline |
+| `LarguraMaxima` | int | `0` | Largura maxima (`0` = sem limite) |
+| `Nome` | string | | Identificador (ex: `MakerContainer1`) |
+| `NomeClasseCss` | string | `""` | **Classes CSS** (ex: `form-group card`, `form-group card-header`) |
+| `Ordem` | int | | Ordem |
+| `PosicaoX` | int | | Posicao X |
+| `PosicaoY` | int | | Posicao Y |
+| `Tamanho` | int | | Largura |
+| `Visivel` | bool | `True` | Visivel |
+
+### Padrao de card Bootstrap
+
+```
+MakerContainerN     (NomeClasseCss = "form-group card")
+  MakerContainerN+1 (NomeClasseCss = "form-group card-header", Container = MakerContainerN)
+    MakerLabelN      (Descricao = HTML com icone, Container = MakerContainerN+1)
+  Campos...          (Container = MakerContainerN)
+```
+
+---
+
+## G — MakerGrid (45-46 properties)
+
+Grade de dados. Suporta mestre-detalhe, edicao inline, paginacao, filtros.
+
+### Properties exclusivas
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `AlturaCabecalho` | int | `38` | Altura do cabecalho |
+| `AlturaLinha` | int | `33` | Altura de cada linha |
+| `ApenasLeitura` | bool | `False` | Grade somente leitura |
+| `CanFreezeColumns` | bool | `True` | Permitir congelar colunas |
+| `ChamaSubForm` | bool | `False` | Abrir form filho ao clicar |
+| `CodigoForm` | string | | GUID do form filho |
+| `Colunas` | string | `""` | Definicao de colunas visiveis |
+| `CorCondicional` | string | `""` | Regras de cor condicional |
+| `CorCondicionalConteudo` | bool | `False` | Aplicar cor ao conteudo |
+| `Editavel` | bool | `False` | Permitir edicao inline |
+| `EnableGridExport` | bool | `True` | Permitir exportacao |
+| `EnableSimpleFilter` | bool | `False` | Filtro simples |
+| `ExecutarApenasDuploClicar` | bool | `False` | Abrir detalhe so com duplo clique |
+| `FilterMode` | int | `0` | Modo de filtro |
+| `GradeDesabilitarCustomizarUsuario` | bool | `False` | Desabilitar customizacao |
+| `GradeExecutarAoModificarAoPaginar` | bool | `False` | Executar ao paginar |
+| `GradeHabilitarColunaNumerica` | bool | `True` | Coluna numerica |
+| `GradeLarguraColunaNumerica` | int | `28` | Largura da coluna numerica |
+| `GridPai` | string | `""` | Grade pai (para grades aninhadas) |
+| `Paginacao` | int | `0` | Registros por pagina (`0` = sem paginacao) |
+| `Parametros` | string | | Relacionamento mestre-detalhe: `tabela.campo_fk=campo_pk` |
+| `ParametrosDosEventos` | string | `""` | Parametros extras para eventos |
+| `PermiteOrdenacao` | bool | `False` | Permitir ordenar colunas |
+| `PlaceHolder` | string | | Mensagem quando vazio |
+| `SummaryProperties` | string | `""` | Propriedades de resumo |
+
+### Eventos da Grid
+
+| Evento | Descricao |
+|---|---|
+| `Ao Clicar` | Clique em linha da grade |
+| `OnDblClick` | Duplo clique |
+| `Ao Modificar` | Valor alterado (edicao inline) |
+
+---
+
+## B — MakerButton (21-24 properties)
+
+Botao de acao. Pode abrir formularios ou executar fluxogramas.
+
+### Properties
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `Aba` | string | | Nome da aba |
+| `Altura` | int | `33` | Altura |
+| `Campo` | string | `""` | Campo vinculado (opcional) |
+| `Codigo` | int | | COM_CODIGO |
+| `CodigoForm` | string | `""` | GUID de formulario para abrir ao clicar |
+| `Container` | string | `""` | Container pai |
+| `Descricao` | string | | Texto do botao |
+| `Dica` | string | `""` | Tooltip |
+| `EstiloCss` | string | `""` | CSS inline |
+| `Fonte` | string | | Fonte |
+| `Habilitado` | bool | `True` | Habilitado |
+| `Imagem` | string | `""` | Icone do botao |
+| `Nome` | string | | Identificador (ex: `MakerButton1`) |
+| `NomeClasseCss` | string | `""` | Classes CSS (ex: `btn-primary`, `btn-secondary`, `btn-danger`) |
+| `Ordem` | int | | Ordem |
+| `Parametros` | string | `""` | Parametros mestre-detalhe: `tabela.campo=campo` |
+| `PosicaoX` | int | | Posicao X |
+| `PosicaoY` | int | | Posicao Y |
+| `Tabela` | string | `""` | Tabela (opcional) |
+| `Tabulacao` | int | | Ordem de tabulacao |
+| `Tabular` | bool | `True` | Incluir na tabulacao |
+| `Tamanho` | int | | Largura |
+| `Tipo` | string | `""` | Tipo (opcional) |
+| `Visivel` | bool | `True` | Visivel |
+
+### Modos de uso do Button
+
+**1. Abrir formulario:** Preencher `CodigoForm` com GUID e `Parametros` com filtro.
+
+```xml
+<property name="CodigoForm">{GUID-DO-FORM}</property>
+<property name="Parametros">tabela.campo_fk=campo_pk</property>
+```
+
+**2. Executar fluxograma:** Adicionar `<event name="Ao Clicar">` com action type 12.
+
+```xml
+<event name="Ao Clicar">
+    <action name="12">
+        <property name="ACC_CONDICAO"></property>
+        <param name="Entrada"><![CDATA[param1=campo1]]></param>
+        <param name="Nome"><![CDATA[Nome do Fluxograma]]></param>
+    </action>
+</event>
+```
+
+### Eventos do Button
+
+| Evento | Descricao |
+|---|---|
+| `Ao Clicar` | Clique no botao |
+
+---
+
+## M — MakerMemo (31 properties)
+
+Campo de texto multilinha.
+
+### Properties exclusivas
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `QuebraAutomaticaDeLinha` | bool | `True` | Word wrap |
+| `TextoRico` | bool | `False` | Editor rich text |
+| `TamanhoMaximo` | int | `0` | Max caracteres |
+
+Herda demais properties do Edit (sem `AutoCompletar`, `Conteudo`, `Modelo`, `Senha`).
+
+---
+
+## I — MakerImage (32 properties)
+
+Componente de imagem/foto.
+
+### Properties exclusivas
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `AlturaZoom` | int | `0` | Altura do zoom |
+| `CampoCodImpDigital` | string | `""` | Campo de impressao digital |
+| `Exibicao` | string | `Estender` | Modo: `Estender`, `Proporcional`, `Original` |
+| `GravarEmArquivo` | string | `""` | Gravar em arquivo |
+| `Imagem` | string | `""` | Imagem estatica |
+| `LarguraZoom` | int | `0` | Largura do zoom |
+| `LenteAumento` | bool | `False` | Lente de aumento |
+| `PosicaoDaImagem` | string | `Centralizado` | Posicao: `Centralizado`, `Esquerda`, `Direita` |
+| `RedimensionarImagem` | string | `""` | Redimensionar automaticamente |
+| `TipoExibicao` | int | `0` | Tipo de exibicao |
+| `URL` | string | `""` | URL da imagem |
+
+---
+
+## R — MakerRadioGroup (29 properties)
+
+Grupo de radio buttons.
+
+### Properties exclusivas
+
+| Property | Tipo | Default | Descricao |
+|---|---|---|---|
+| `Lista` | string | | Opcoes visiveis separadas por `\r\n` |
+| `Valores` | string | | Valores internos separados por `\r\n` |
+| `ModoClassico` | bool | `False` | Visual classico (radio tradicional) |
+| `QtdeColunas` | int | `1` | Quantidade de colunas para layout |
+
+### Eventos do RadioGroup
+
+| Evento | Descricao |
+|---|---|
+| `Ao Modificar` | Selecao alterada |
+
+---
+
+## H — MakerCheckBox (properties estimadas)
+
+Caixa de selecao booleana. Properties similares ao Edit com adicao de:
+
+| Property | Tipo | Descricao |
+|---|---|---|
+| `ValorMarcado` | string | Valor quando marcado (ex: `S`, `1`, `True`) |
+| `ValorDesmarcado` | string | Valor quando desmarcado (ex: `N`, `0`, `False`) |
+
+**NOTA:** Nao ha exemplo real de CheckBox nos FRZs disponiveis. Usar com cautela e validar importacao.
+
+---
+
+## A — MakerAttachment (properties estimadas)
+
+Anexo de arquivo. Properties similares ao Edit com adicao de propriedades de upload.
+
+**NOTA:** Nao ha exemplo real de Attachment nos FRZs disponiveis. Usar com cautela e validar importacao.
+
+---
+
+## Regras de geracao
+
+1. TODAS as properties listadas aqui devem ser incluidas ao gerar um componente. O Maker pode rejeitar FRZs com properties faltantes.
+2. A ordem das properties deve seguir a ordem encontrada nos FRZs reais (geralmente alfabetica por grupo).
+3. Valores com caracteres especiais DEVEM usar entidades XML (`&#x0020;` para espaco, etc.).
+4. O `Codigo` dentro das properties DEVE ser igual ao `COM_CODIGO` do `<component>`.
+5. O `Nome` dentro das properties DEVE ser igual ao `name` do `<component>`.

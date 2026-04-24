@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="58" NAME="GER&#x20;-&#x20;Tratativa&#x20;-&#x20;Datas&#x20;inicio&#x20;e&#x20;Fim" COMPONENTNAME="FlowStart1" DESCRIPTION="Inicio" DEBUG="FALSE">
+<HEADER>
+<AUTHOR>jordan</AUTHOR>
+<DATE>11/12/2023 14:33:12</DATE>
+<RANKING>6,0</RANKING>
+</HEADER>
+<PARAM TYPE="Data" SIZE="">Comp_dt_ini</PARAM>
+<PARAM TYPE="Data" SIZE="">Comp_dt_fim</PARAM>
+<PARAM TYPE="Componente" SIZE="">Comp_toClean</PARAM>
+<PARAM TYPE="Formulário" SIZE="">FORM</PARAM>
+<PARAM TYPE="Data" SIZE="">dt_ativacao</PARAM>
+<PARAM TYPE="Data" SIZE="">dt_desativacao</PARAM>
+<DECLARERETURN TYPE="" SIZE=""/>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision4" DESCRIPTION="Data&#x20;fim,&#x20;&#233;&#x20;menor&#x20;que&#x20;inicio?">
+<CONDITION>
+<FUNCTION NAME="Menor" REALNAME="isMinor">
+<PARAMS>
+<FUNCTION NAME="Para&#x20;Data" REALNAME="toDate">
+<PARAMS>
+<VARIABLE NAME="Comp_dt_fim"/>
+<CONSTANT TYPE="Data" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="Comp_dt_ini"/>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION COMPONENTNAME="FlowExpression2" DESCRIPTION="Limpar&#x20;componente">
+<FUNCTION NAME="Alterar&#x20;Valor&#x20;do&#x20;Componente" REALNAME="ebfFormChangeComponentValue">
+<PARAMS>
+<CONSTANT TYPE="Formul&#225;rio" NULL="FALSE"  GUID = "{70291062-0AA0-48AD-AB9F-FD3FE310D821}">{70291062-0AA0-48AD-AB9F-FD3FE310D821}</CONSTANT>
+<CONSTANT TYPE="Componente" NULL="FALSE"  GUID = "{70291062-0AA0-48AD-AB9F-FD3FE310D821}">TMAKEREDIT1</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity3" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Atenção!</CONSTANT>
+
+<CONSTANT TYPE="Letras" NULL="FALSE"  >A&#x20;&lt;strong&gt;data&#x20;fim&lt;/strong&gt;&#x20;n&#227;o&#x20;pode&#x20;ser&#x20;menor&#x20;que&#x20;a&#x20;&lt;strong&gt;data&#x20;de&#x20;in&#237;cio!&lt;/strong&gt;</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<REMARK COMPONENTNAME="FlowConnector3"></REMARK>
+<REMARK COMPONENTNAME="FlowConnector6"></REMARK>
+<REMARK COMPONENTNAME="FlowConnector2"></REMARK>
+<REMARK COMPONENTNAME="FlowConnector8"></REMARK>
+<REMARK COMPONENTNAME="FlowConnector1"></REMARK>
+<REMARK COMPONENTNAME="FlowConnector10"></REMARK>
+<REMARK COMPONENTNAME="FlowConnector5"></REMARK>
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision7" DESCRIPTION="Data&#x20;fim,&#x20;&#233;&#x20;maior&#x20;que&#x20;inicio?">
+<CONDITION>
+<FUNCTION NAME="Maior" REALNAME="isGreater">
+<PARAMS>
+<FUNCTION NAME="Para&#x20;Data" REALNAME="toDate">
+<PARAMS>
+<VARIABLE NAME="FORM"/>
+<VARIABLE NAME="Comp_dt_fim"/>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="Comp_dt_ini"/>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<REFERENCE COMPONENTNAME="FlowConnector6"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision13" DESCRIPTION="Data&#x20;maior&#x20;que&#x20;Hoje">
+<CONDITION>
+<FUNCTION NAME="Maior" REALNAME="isGreater">
+<PARAMS>
+<FUNCTION NAME="Para&#x20;Data" REALNAME="toDate">
+<PARAMS>
+<VARIABLE NAME="Comp_dt_ini"/>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Hoje" REALNAME="ebfDateToday">
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION COMPONENTNAME="FlowExpression1" DESCRIPTION="Limpar&#x20;componente">
+<FUNCTION NAME="Alterar&#x20;Valor&#x20;do&#x20;Componente" REALNAME="ebfFormChangeComponentValue">
+<PARAMS>
+<CONSTANT TYPE="Formul&#225;rio" NULL="FALSE"  GUID = "{70291062-0AA0-48AD-AB9F-FD3FE310D821}">{70291062-0AA0-48AD-AB9F-FD3FE310D821}</CONSTANT>
+<CONSTANT TYPE="Componente" NULL="FALSE"  GUID = "{70291062-0AA0-48AD-AB9F-FD3FE310D821}">edtDataInicio</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity2" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Atenção!</CONSTANT>
+
+<CONSTANT TYPE="Letras" NULL="FALSE"  >A&#x20;&lt;strong&gt;data&#x20;de&#x20;in&#237;cio&lt;/strong&gt;&#x20;n&#227;o&#x20;pode&#x20;ser&#x20;maior&#x20;que&#x20;&lt;b&gt;Hoje&lt;/b&gt;!</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<REFERENCE COMPONENTNAME="FlowConnector2"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision1" DESCRIPTION="Data&#x20;da&#x20;Ativa&#231;&#227;o&#x20;igual&#x20;data&#x20;de&#x20;hoje">
+<CONDITION>
+<FUNCTION NAME="Maior" REALNAME="isGreater">
+<PARAMS>
+<FUNCTION NAME="Para&#x20;Data" REALNAME="toDate">
+<PARAMS>
+<VARIABLE NAME="dt_ativacao"/>
+<CONSTANT TYPE="Letras" NULL="TRUE"  ></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Hoje" REALNAME="ebfDateToday">
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity1" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Atenção!</CONSTANT>
+
+<CONSTANT TYPE="Letras" NULL="FALSE"  >A&#x20;&lt;strong&gt;data&#x20;de&#x20;ativa&#231;&#227;o&lt;/strong&gt;&#x20;n&#227;o&#x20;pode&#x20;ser&#x20;maior&#x20;que&#x20;&lt;b&gt;Hoje&lt;/b&gt;!</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<REFERENCE COMPONENTNAME="FlowConnector1"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision6" DESCRIPTION="Data&#x20;de&#x20;desativa&#231;&#227;o&#x20;&#x20;menor&#x20;que&#x20;Data&#x20;ativa&#231;&#227;o?">
+<CONDITION>
+<FUNCTION NAME="Menor" REALNAME="isMinor">
+<PARAMS>
+<FUNCTION NAME="N&#227;o" REALNAME="oprNot">
+<PARAMS>
+<FUNCTION NAME="&#201;&#x20;Nulo&#x20;ou&#x20;Vazio" REALNAME="isNullOrEmpty">
+<PARAMS>
+<VARIABLE NAME="dt_desativacao"/>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="dt_ativacao"/>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity4" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Atenção!</CONSTANT>
+
+<CONSTANT TYPE="Letras" NULL="FALSE"  >A&#x20;&lt;strong&gt;data&#x20;da&#x20;desativa&#231;&#227;o&lt;/strong&gt;&#x20;n&#227;o&#x20;pode&#x20;ser&#x20;menor&#x20;que&#x20;a&#x20;&lt;strong&gt;data&#x20;de&#x20;ativa&#231;&#227;o!&lt;/strong&gt;</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<REFERENCE COMPONENTNAME="FlowConnector10"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REFERENCE COMPONENTNAME="FlowEnd1"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</RULE>

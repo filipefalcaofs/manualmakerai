@@ -1,0 +1,832 @@
+---
+description: Estrutura completa do formato FRZ (Maker/WebRun) para criação de telas e fluxogramas
+alwaysApply: false
+---
+
+# FRZ — Formato de Exportação do Maker (WebRun/fmaker)
+
+O arquivo `.frz` é um XML exportado pelo Maker (plataforma low-code WebRun). Ele contém a definição completa de telas (formulários), fluxogramas (regras de negócio) e seus vínculos. Este documento descreve como interpretar e gerar FRZs corretamente.
+
+---
+
+## Formato do Arquivo (OBRIGATORIO)
+
+O arquivo `.frz` DEVE ser gravado como **gzip com o nome interno "VERSAO"** no header. O Maker usa esse campo para identificar e validar o arquivo.
+
+### Requisitos do gzip
+
+- **Compressão gzip** com method deflate (`0x08`)
+- **Flag FNAME ativada** (`0x08`) — o campo FNAME do header gzip DEVE conter a string `VERSAO\0`
+- Se o FNAME não for "VERSAO", o Maker retorna o erro: "O Maker não pode determinar a versão deste arquivo de exportação."
+
+### Requisitos do conteudo XML (dentro do gzip)
+
+- **Encoding ISO-8859-1** — declarado no header XML e usado na gravação dos bytes
+- **Line terminators CRLF** (`\r\n`) — o Maker roda em ambiente Windows/Delphi
+- **Atributo `xml:space="preserve"`** obrigatório na tag `<fmaker>` — com dois espaços antes: `  xml:space="preserve"`
+
+### Exemplo de gravação em Python
+
+```python
+import gzip, zlib, struct, time
+
+def write_frz(xml_bytes: bytes, output_path: str):
+    mtime = int(time.time())
+    header = b"\x1f\x8b\x08\x08"                    # magic + method + flags(FNAME)
+    header += struct.pack("<I", mtime)                # modification time
+    header += b"\x00\x00"                             # extra flags + OS
+    header += b"VERSAO\x00"                           # FNAME obrigatorio
+
+    compressor = zlib.compressobj(9, zlib.DEFLATED, -15)
+    compressed = compressor.compress(xml_bytes) + compressor.flush()
+
+    crc = zlib.crc32(xml_bytes) & 0xFFFFFFFF
+    size = len(xml_bytes) & 0xFFFFFFFF
+
+    with open(output_path, "wb") as f:
+        f.write(header)
+        f.write(compressed)
+        f.write(struct.pack("<I", crc))
+        f.write(struct.pack("<I", size))
+```
+
+### Tags estruturais obrigatorias
+
+O XML deve conter as tags `<tempo>` e `<datageracao>` para ser aceito:
+
+```xml
+        </form>
+        <tempo SESSION="FORMS">00:01</tempo>
+    </system>
+<tempo SESSION="ALL">00:01</tempo>
+<datageracao>DD/MM/AAAA HH:MM</datageracao>
+</fmaker>
+```
+
+---
+
+## Estrutura Raiz
+
+```xml
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<fmaker version="2.3" maker_version="6.1.0.14" xml:space="preserve">
+    <global>
+        <rules>
+            <!-- Fluxogramas globais (independentes ou chamados por eventos) -->
+        </rules>
+    </global>
+    <system SIS_CODIGO="CODIGO_SISTEMA">
+        <form FRM_CODIGO="ID" FRM_GUID="{GUID}">
+            <!-- Definição da tela (formulário) -->
+        </form>
+    </system>
+    <tempo SESSION="ALL">00:01</tempo>
+    <datageracao>DD/MM/AAAA HH:MM</datageracao>
+</fmaker>
+```
+
+### Seções principais
+
+| Seção | Descrição |
+|---|---|
+| `<global><rules>` | Fluxogramas (regras). Podem ser independentes ou vinculados a eventos de tela. |
+| `<system><form>` | Definição de um formulário (tela), seus componentes, eventos e SQL. |
+| `<tempo>` | Metadado de tempo de geração. |
+| `<datageracao>` | Data/hora da exportação. |
+
+---
+
+## 1. Fluxogramas (Rules)
+
+Cada `<rule>` dentro de `<rules>` define um fluxograma completo. Os fluxogramas são a lógica de negócio do Maker.
+
+### Estrutura de uma Rule
+
+```xml
+<rule REG_NOME="Nome do Fluxograma" REG_COD="ID_NUMERICO">
+    <property name="REG_COD">ID_NUMERICO</property>
+    <property name="REG_NOME">Nome&#x0020;do&#x0020;Fluxograma</property>
+    <property name="REG_DESCRICAO">Descrição do que o fluxograma faz</property>
+    <property name="REG_PARAMS">param1,Tipo,Tamanho,;param2,Tipo,,</property>
+    <property name="REG_VARIAVEIS">var1,Tipo,,;var2,Tipo,,</property>
+    <property name="REG_PARAMS_OUT"></property>
+    <property name="REG_DESTINO">1</property>
+    <property name="REG_HASH">hash_md5</property>
+    <property name="REG_INTERFACE" binary-encoded="True"><![CDATA[...base64...]]></property>
+    <property name="REG_SCRIPT" binary-encoded="True"><![CDATA[...base64...]]></property>
+    <property name="CAT_PATH"><![CDATA[\Categoria\Subcategoria]]></property>
+</rule>
+```
+
+### Campos importantes da Rule
+
+| Campo | Descrição |
+|---|---|
+| `REG_COD` | ID numérico único do fluxograma |
+| `REG_NOME` | Nome legível (codificado com `&#x00XX;` para caracteres especiais) |
+| `REG_DESCRICAO` | Descrição textual do propósito do fluxograma |
+| `REG_PARAMS` | Parâmetros de entrada: `nome,Tipo,Tamanho,` separados por `;` |
+| `REG_VARIAVEIS` | Variáveis locais do fluxograma: `nome,Tipo,,` separados por `;` |
+| `REG_PARAMS_OUT` | Parâmetros de saída (retorno) |
+| `REG_DESTINO` | `1` = cliente, `2` = servidor |
+| `REG_INTERFACE` | Layout visual do fluxograma (base64 de formato Delphi DFM) |
+| `REG_SCRIPT` | Script compilado do fluxograma (base64 de XML de execução) |
+| `CAT_PATH` | Caminho da categoria organizacional (`\Uso%20Geral\Formulário%20Principal`) |
+
+### Tipos de dados dos parâmetros e variáveis
+
+| Tipo | Descrição |
+|---|---|
+| `Inteiro` | Número inteiro |
+| `Letras` | String (texto) |
+| `Variante` | Tipo dinâmico (variant) |
+| `Lógico` | Booleano |
+| `Formulário` | Referência a um formulário (por GUID) |
+| `Componente` | Referência a um componente na tela |
+
+### REG_INTERFACE — Layout Visual (base64 → DFM)
+
+Quando decodificado de base64, revela um formato DFM (Delphi Form) que descreve os componentes visuais do fluxograma:
+
+```
+object FlowSubModel1: TFlowSubModel
+  object FlowStart1: TFlowStart         // Início do fluxo
+    Left = 646
+    Top = 93
+    Description = 'Inicio'
+    InputParams = 'param1,Tipo,,'
+    Variables = 'var1,Tipo,,;var2,Tipo,,'
+    OutputNames = 'FlowLine1'
+  end
+  object flowExpression1: TFlowExpression  // Passo de expressão/função
+    Description = 'Descrição do passo'
+    Text = 'Nome da Função(param1, param2)'
+    ReturnVar = 'varRetorno'
+    InputNames = 'FlowLine1'
+    OutputNames = 'FlowLine2'
+    Expression = '<FUNCTION ...>...</FUNCTION>'
+  end
+  object flowDecision1: TFlowDecision    // Decisão (if/else)
+    Description = 'Verifica condição X'
+    InputNames = 'FlowLine2'
+    OutputNames = 'FlowLine3;FlowLine4'   // Sim;Não
+    Expression = '<FUNCTION ...>...</FUNCTION>'
+    Loop = False
+  end
+  object FlowSubRoutine1: TFlowSubRoutine  // Chamada a outro fluxograma
+    Description = 'Nome do Sub-Fluxograma'
+    Id = 122                              // REG_COD do fluxograma chamado
+    InputNames = 'FlowLine5'
+    OutputNames = 'FlowLine6'
+    ObjectName = 'Nome do Sub-Fluxograma'
+    RealName = 'CALLRULE'
+  end
+  object FlowEnd1: TFlowEnd             // Fim do fluxo
+    Description = 'Fim'
+    InputNames = 'FlowLine6'
+  end
+  object FlowLine1: TFlowLine           // Conector entre componentes
+    InputNames = 'FlowStart1'
+    OutputNames = 'flowExpression1'
+    Decision = False                     // True = saída "Sim" de decisão
+  end
+end
+```
+
+### Tipos de componentes do fluxograma
+
+| Classe | Função |
+|---|---|
+| `TFlowStart` | Início do fluxo. Define parâmetros e variáveis. |
+| `TFlowEnd` | Fim do fluxo. |
+| `TFlowExpression` | Executa uma expressão/função. Pode ter `ReturnVar`. |
+| `TFlowDecision` | Decisão condicional. Tem 2 saídas (Sim/Não via `OutputNames`). |
+| `TFlowSubRoutine` | Chamada a outro fluxograma (por `Id` = `REG_COD`). |
+| `TFlowLine` | Conector visual entre componentes. `Decision = True` marca saída "Sim". |
+| `TFlowAssignment` | Atribuição de variável. |
+| `TFlowLoop` | Loop/repetição. |
+
+### REG_SCRIPT — Lógica de Execução (base64 → XML)
+
+Quando decodificado, revela o XML de execução do fluxograma:
+
+```xml
+<RULE ID="110" NAME="Nome do Fluxograma" COMPONENTNAME="FlowStart1"
+      DESCRIPTION="Inicio" DEBUG="FALSE" AIGENERATED="TRUE">
+  <HEADER>
+    <AUTHOR>master</AUTHOR>
+    <DATE>28/01/2026 16:29:21</DATE>
+    <RANKING>10,0</RANKING>
+    <AIGENERATED>TRUE</AIGENERATED>
+    <AIPROMPT></AIPROMPT>
+    <CODE>...</CODE>
+  </HEADER>
+  <PARAM TYPE="Inteiro" SIZE="">nomeParam</PARAM>
+  <VAR TYPE="Letras" SIZE="">nomeVar</VAR>
+  <DECLARERETURN TYPE="" SIZE=""/>
+  <ACTION>
+    <EXPRESSION RETURN="varRetorno" COMPONENTNAME="flowExpression1"
+                DESCRIPTION="Descrição do passo">
+      <FUNCTION NAME="Nome Amigável" REALNAME="ebfNomeFuncaoInterna">
+        <PARAMS>
+          <VARIABLE NAME="param1"/>
+          <CONSTANT TYPE="Inteiro" NULL="FALSE">2</CONSTANT>
+        </PARAMS>
+      </FUNCTION>
+    </EXPRESSION>
+    <CALLRULE ID="122" NAME="Sub Fluxograma" RETURN="" PARAMSCOUNT="1"
+              COMPONENTNAME="FlowSubRoutine1" DESCRIPTION="Descrição">
+      <PARAMS>
+        <VARIABLE NAME="varParam"/>
+      </PARAMS>
+    </CALLRULE>
+    <RULERETURN COMPONENTNAME="FlowEnd2" DESCRIPTION="Fim">
+    </RULERETURN>
+  </ACTION>
+</RULE>
+```
+
+### Funções comuns no Expression/Script
+
+| Nome Amigável | REALNAME | Descrição |
+|---|---|---|
+| `Upload` | `ebfUploadFile2` | Upload de arquivo |
+| `Obter Objeto da Lista` | `ebfGetElementFromList` | Obtém item de lista por índice |
+| `Alterar Valor do Componente` | `ebfFormChangeComponentValue` | Muda valor de campo na tela |
+| `HTML - Obter Elemento pelo ID` | `ebfHtmlGetElementById` | Pega referência DOM por ID |
+| `HTML - Definir Conteúdo do Elemento` | `ebfHtmlInnerHtml` | Define innerHTML |
+| `HTML - Criar Elemento` | `ebfHtmlCreateHtmlElement` | Cria tag HTML |
+| `HTML - Definir Atributo a um Elemento` | `ebfHtmlSetAttribute` | Define atributo HTML |
+| `CSS - Definir Propriedade` | `ebfHtmlCssDefineStyle` | Define estilo CSS |
+| `JSON - Obter Valor` | `ebfGetValueObjectJson` | Extrai valor de JSON |
+| `Concatenação` | `ebfConcat` | Concatena strings |
+| `Inicia com?` | `ebfStartsWith` | Verifica prefixo de string |
+| `Igual` | `isEqual` | Comparação de igualdade |
+| `Ou` | `oprOr` | Operador lógico OR |
+| `Geral - Converte Base64 em Texto` | (CALLRULE) | Converte base64 para texto legível |
+
+---
+
+## 2. System e Formulários (Telas)
+
+### Propriedades do System
+
+O `<system>` pode ter properties opcionais antes do `<form>`:
+
+```xml
+<system SIS_CODIGO="CODIGO">
+    <property name="SIS_DESCRICAO">Nome&#x0020;do&#x0020;Sistema</property>
+    <property name="SIS_SQLDATALIMITE"></property>
+    <property name="SIS_SQLDADOSENTIDADE"></property>
+    <property name="IMG_CODIGO"></property>
+    <property name="IMG_CODIGO_ICONE"></property>
+    <form ...>
+```
+
+### Propriedades do Formulário
+
+O `<form>` tem um conjunto FIXO de properties que o Maker espera. Usar properties inventadas causa erro de importação.
+
+```xml
+<form FRM_CODIGO="7146" FRM_GUID="{GUID-UNICO}">
+    <!-- Icones dos botoes da toolbar -->
+    <property name="IMG_INCLUIR">1</property>
+    <property name="IMG_ALTERAR">2</property>
+    <property name="IMG_EXCLUIR">8</property>
+    <property name="IMG_GRAVAR">12</property>
+    <property name="IMG_CANCELAR">13</property>
+    <property name="IMG_ATUALIZAR">7</property>
+    <property name="IMG_GRAVAR_MAIS">15</property>
+    <property name="IMG_LOG">16</property>
+    <property name="IMG_VALORES_PADRAO">17</property>
+    <property name="IMG_UTILITARIO">1</property>
+    <property name="IMG_SAIR">11</property>
+    <property name="IMG_IMPRIMIR">10</property>
+    <property name="IMG_AJUDA">14</property>
+    <property name="IMG_PROXIMO">5</property>
+    <property name="IMG_ULTIMO">6</property>
+    <property name="IMG_PRIMEIRO">3</property>
+    <property name="IMG_ANTERIOR">4</property>
+    <!-- Definicoes do formulario -->
+    <property name="FRM_DESCRICAO">Nome da Tela</property>
+    <property name="FRM_POSICAOX">330</property>
+    <property name="FRM_POSICAOY">146</property>
+    <property name="FRM_TAMANHO">1191</property>
+    <property name="FRM_ALTURA">631</property>
+    <property name="FRM_TIPO_CRIACAO">0</property>
+    <!-- Fonte de dados -->
+    <property name="FNT_CAMPOCHAVE">CAMPO_PK</property>
+    <property name="FNT_TABELA">nome_tabela</property>
+    <property name="FNT_SQLSELECT">SELECT ... FROM ...</property>
+    <property name="FNT_SQLINSERT"></property>
+    <property name="FNT_SQLUPDATE">CAMPO1&#x000D;&#x000A;CAMPO2&#x000D;&#x000A;</property>
+    <property name="FNT_SQLDELETE"></property>
+    <property name="FNT_CAMPOINCREMENTO"></property>
+    <property name="FNT_CAMPOGRADE">campo1&#x003B;campo2</property>
+    <property name="FNT_CAMPOPESQUISA">campo1&#x003B;campo2</property>
+    <property name="FNT_SQLDEFAULT">campo&#x003D;SQL(&#x0022;SELECT ...&#x0022;)&#x000D;&#x000A;</property>
+    <property name="FNT_SQLMASCARA"></property>
+    <property name="REL_CODIGO"></property>
+    <!-- componentes -->
+</form>
+```
+
+IMPORTANTE: `FRM_TAMANHO` e `FRM_ALTURA` sao campos INTEIROS separados (largura e altura), nao um par.
+
+| Propriedade | Descrição |
+|---|---|
+| `FRM_CODIGO` | ID numérico do formulário |
+| `FRM_GUID` | GUID único para referência entre componentes |
+| `FRM_DESCRICAO` | Título/nome do formulário |
+| `FRM_TAMANHO` | Largura em pixels (inteiro) |
+| `FRM_ALTURA` | Altura em pixels (inteiro) |
+| `FRM_TIPO_CRIACAO` | Tipo de criação (`0` = padrão) |
+| `FNT_TABELA` | Tabela principal do banco de dados |
+| `FNT_CAMPOCHAVE` | Chave primária da tabela |
+| `FNT_SQLSELECT` | SQL de consulta principal |
+| `FNT_SQLINSERT` | SQL de INSERT (vazio = automático) |
+| `FNT_SQLUPDATE` | Lista de campos do UPDATE (um por linha) |
+| `FNT_SQLDELETE` | SQL de DELETE (vazio = automático) |
+| `FNT_CAMPOINCREMENTO` | Campo auto-incremento |
+| `FNT_CAMPOGRADE` | Campos da grade de pesquisa (separados por `;`) |
+| `FNT_CAMPOPESQUISA` | Campos de filtro (separados por `;`) |
+| `FNT_SQLDEFAULT` | Valores padrão ao inserir |
+| `FNT_SQLMASCARA` | Máscaras de campos |
+| `REL_CODIGO` | Código do relatório vinculado |
+| `IMG_*` | IDs dos ícones dos botões da toolbar |
+
+---
+
+## 3. Componentes (Elementos de Tela)
+
+Cada `<component>` dentro do `<form>` é um elemento visual.
+
+### Estrutura genérica
+
+```xml
+<component COM_CODIGO="ID" COM_TIPO="TIPO" name="NomeComponente">
+    <property name="Aba">01-NomeAba</property>
+    <property name="Altura">35</property>
+    <property name="Campo">NOME_CAMPO_BANCO</property>
+    <property name="Container">NomeContainerPai</property>
+    <property name="Descricao">Label visível</property>
+    <property name="Habilitado">True</property>
+    <property name="Nome">NomeComponente</property>
+    <property name="PosicaoX">16</property>
+    <property name="PosicaoY">83</property>
+    <property name="Tamanho">321</property>
+    <property name="Visivel">True</property>
+    <!-- propriedades específicas do tipo -->
+</component>
+```
+
+### Tipos de componente (`COM_TIPO`)
+
+| Código | Tipo | Descrição |
+|---|---|---|
+| `F` | Form | Configurações gerais do formulário (propriedades globais, CSS, eventos) |
+| `E` | Edit (MakerEdit) | Campo de texto/entrada |
+| `C` | ComboBox (MakerCombo) | Combo de seleção com lista estática |
+| `K` | Lookup (MakerLookup) | Campo de busca com SQL dinâmico |
+| `L` | Label (MakerLabel) | Rótulo de texto (aceita HTML na `Descricao`) |
+| `P` | Container (MakerContainer) | Painel/agrupador de componentes |
+| `G` | Grid (MakerGrid/TMAKERGRID) | Grade de dados |
+| `B` | Button (MakerButton) | Botão de ação |
+| `M` | Memo (MakerMemo) | Campo de texto multilinha |
+| `H` | CheckBox (MakerCheckBox) | Caixa de seleção |
+| `R` | RadioButton | Botão de opção |
+| `I` | Image (MakerImage) | Imagem |
+| `A` | Attachment | Anexo de arquivo |
+
+### Propriedades comuns a todos os componentes
+
+| Propriedade | Descrição |
+|---|---|
+| `COM_CODIGO` | ID numérico único |
+| `Nome` | Identificador programático (ex: `MakerEdit1`, `SGD_DATA_GERACAO`) |
+| `Aba` | Nome da aba onde o componente está (ex: `01-Cadastro`) |
+| `Campo` | Nome do campo no banco de dados vinculado |
+| `Container` | Nome do container pai (vazio = raiz da aba) |
+| `Descricao` | Label/título exibido ao usuário |
+| `Dica` | Tooltip exibido ao passar o mouse |
+| `PosicaoX` / `PosicaoY` | Posição em pixels dentro do container |
+| `Tamanho` | Largura em pixels |
+| `Altura` | Altura em pixels |
+| `Habilitado` | `True`/`False` — se o campo é editável |
+| `Visivel` | `True`/`False` — se o componente é exibido |
+| `Ordem` | Ordem de renderização dentro do container |
+| `Tabulacao` | Ordem de tabulação (Tab) |
+| `EstiloCss` | CSS inline aplicado ao componente |
+| `NomeClasseCss` | Classes CSS aplicadas (ex: `form-group card`) |
+| `ValorInicial` | Valor default do campo |
+| `ApenasLeitura` | `True`/`False` — campo readonly |
+| `Placeholder` | Texto placeholder do input |
+| `LabelPosition` | Posição do label (`0` = acima, `1` = esquerda, etc.) |
+
+### Propriedades específicas por tipo
+
+#### MakerEdit (`E`)
+- `Tipo` — Máscara/tipo do campo: `DATA (ANO 4)`, `CPF`, `CNPJ`, vazio = texto livre
+- `Senha` — `True`/`False` para campo de senha
+- `TamanhoMaximo` — Máximo de caracteres (`0` = sem limite)
+- `Conteudo` — Tipo de conteúdo (`2` = data, etc.)
+
+#### MakerLookup (`K`)
+- `SQL` — Consulta SQL para popular a busca
+- `CampoChave` — Campo de valor (ID)
+- `CampoLista` — Campo exibido ao usuário
+- `BuscaIncremental` — `True` para busca enquanto digita
+- `CodigoForm` — GUID do formulário de detalhe (abre ao clicar na lupa)
+- `ChamaSubForm` — `True` para abrir formulário auxiliar
+- `PermitirInclusao` — `True` para permitir cadastrar direto do lookup
+- `FonteDeDados` — Data source alternativo
+- `Paginacao` — Registros por página (`0` = sem paginação)
+- `TipoFiltroInicial` — Modo do filtro (`2` = contém)
+
+#### MakerCombo (`C`)
+- `Lista` — Itens estáticos separados por `\r\n`
+
+#### MakerGrid (`G`)
+- `Parametros` — Relacionamento mestre-detalhe (`tabela.campo=campo_pai`)
+- `CodigoForm` — GUID do formulário filho
+- `ChamaSubForm` — `True` para abrir detalhe
+- `Editavel` — `True` para permitir edição inline
+- `Paginacao` — Registros por página
+- `AlturaCabecalho` / `AlturaLinha` — Dimensões
+- `Colunas` — Definição de colunas visíveis
+- `PlaceHolder` — Mensagem quando vazio
+
+#### MakerContainer (`P`)
+- `Alinhar` — Tipo de alinhamento (`0` = nenhum)
+- `LarguraMaxima` — Largura máxima
+
+#### MakerLabel (`L`)
+- `Descricao` — Aceita HTML (ex: `<div class="text-primary"><i class="fas fa-file"></i> Título</div>`)
+- `HorzAlignment` / `VertAlignment` — Alinhamento do texto
+- `QuebraAutomaticaDeLinha` — Word wrap
+
+---
+
+## 4. Eventos e Vínculos com Fluxogramas
+
+Os eventos ficam dentro de `<component>` — tanto no componente tipo `F` (eventos do formulário) quanto em componentes individuais (botões, campos, etc.).
+
+### Estrutura de evento
+
+```xml
+<event name="Nome do Evento">
+    <action name="TIPO_ACAO">
+        <property name="ACC_CONDICAO"></property>
+        <param name="Entrada"><![CDATA[param1=campo_formulario]]></param>
+        <param name="Nome"><![CDATA[Nome do Fluxograma]]></param>
+    </action>
+</event>
+```
+
+IMPORTANTE: O `<action name="N">` e o TIPO DE ACAO, NAO o codigo da regra. A regra e referenciada PELO NOME no `<param name="Nome">`.
+
+### Tipos de ação (`action name`)
+
+| Tipo | Descrição | Parâmetros |
+|---|---|---|
+| `12` | Executar fluxograma/regra | `Nome` = nome da regra, `Entrada` = parâmetros |
+| `3` | Definir visibilidade de componentes | `Lista de Objetos` = condições |
+| `6` | Limpar/definir valores de campos | `Lista de Objetos` = mapeamento |
+| `7` | Ação sobre componente | (varia) |
+
+### Eventos do formulário (no componente tipo F)
+
+| Evento | Quando dispara |
+|---|---|
+| `Antes de Inserir` | Antes do modo de inclusão |
+| `Antes de Gravar` | Antes de salvar (INSERT/UPDATE) |
+| `Antes de Deletar` | Antes de excluir registro |
+| `Depois de Inserir` | Após incluir registro |
+| `Depois de Gravar` | Após salvar com sucesso |
+| `Depois de Deletar` | Após excluir registro |
+| `Ao Entrar` | Formulário é aberto/carregado |
+| `Ao Navegar` | Usuário navega entre registros |
+| `Ao Sair` | Ao fechar o formulário |
+| `Ao Pressionar Tecla` | Tecla pressionada |
+| `Ao Receber Dados` | Dados recebidos do servidor |
+
+### Eventos nos componentes individuais
+
+| Evento | Componentes | Descrição |
+|---|---|---|
+| `Ao Clicar` | B, G, E, L | Clique no componente |
+| `Ao Modificar` | E, C, R, K | Valor alterado |
+| `OnDblClick` | G | Duplo clique na grade |
+
+### Mapeamento de parâmetros (action type 12)
+
+No `<param name="Entrada">`, o formato é:
+
+```
+nome_param_fluxograma=nome_campo_formulario
+```
+
+Exemplo: `LoginUsuario=` passa o campo em branco. `id_documento=sgd_id` passa o valor do campo `sgd_id` para o parâmetro `id_documento`.
+
+Um evento pode ter MULTIPLAS actions (inclusive de tipos diferentes). Ex: "Ao Entrar" com action 12 (executar regra) + action 3 (visibilidade) + action 6 (limpar campos).
+
+---
+
+## 5. Propriedades do Form Settings (`COM_TIPO="F"`)
+
+O componente tipo `F` tem `name=""` (vazio) e concentra configurações gerais do formulário. A tag é: `<component COM_CODIGO="ID" COM_TIPO="F" name="">`.
+
+### Lista completa de properties
+
+| Propriedade | Valor padrão | Descrição |
+|---|---|---|
+| `IASuggestionEvents` | `""` | JSON com sugestões de eventos para IA |
+| `Ajuda` | `""` | Texto de ajuda |
+| `CampoVersao` | `""` | Campo de controle de versão |
+| `Navegacao` | `TRUE` | Mostrar barra de navegação |
+| `EditarAoDuploClicar` | `TRUE` | Entrar em edição ao duplo-clicar |
+| `Abas` | `TRUE` | Exibir abas |
+| `EntrarComoPesquisa` | `FALSE` | Abrir direto na aba de pesquisa |
+| `ModoLegado` | `FALSE` | Modo de compatibilidade legado |
+| `AbaLocalizar` | `TRUE` | Aba de pesquisa |
+| `Cor` | `clWindow` | Cor de fundo |
+| `ClasseCss` | `""` | CSS global do formulário |
+| `FonteDeDados` | `""` | Data source alternativo |
+| `Imagem` | `""` | Imagem de fundo |
+| `ExibicaoImagemFundo` | `""` | Modo de exibição da imagem de fundo |
+| `Centralizado` | `False` | Centralizar horizontalmente |
+| `CentralizadoVertical` | `False` | Centralizar verticalmente |
+| `BotaoMaximizar` | `False` | Botão maximizar |
+| `BotaoMinimizar` | `True` | Botão minimizar |
+| `BotaoFechar` | `True` | Botão fechar |
+| `BarraDeRolagem` | `True` | Scroll |
+| `Apresentacao` | `0` | Modo de apresentação |
+| `Modal` | `False` | Abrir como modal |
+| `Popup` | `FALSE` | Modo popup |
+| `PreLoad` | `FALSE` | Pré-carregar |
+| `Responsivo` | `TRUE` | Layout responsivo |
+| `FormularioLocalizar` | `0` | Formulário de localização |
+| `BarraNavegacaoFixa` | `FALSE` | Navbar fixa |
+| `AIGenerated` | `FALSE` | Gerado por IA |
+| `AIPrompt` | `""` | Prompt usado na geração por IA |
+| `MensagemErroChavePrimaria` | `""` | Mensagem de erro customizada |
+| `MensagemErroChaveEstrangeira` | `""` | Mensagem de erro FK customizada |
+| `AbaLocalizarPermitirRelatorioListagem` | `TRUE` | Permitir exportar como listagem |
+| `AbaLocalizarPermitirRelatorioHtml` | `TRUE` | Permitir exportar HTML |
+| `AbaLocalizarPermitirRelatorioXml` | `TRUE` | Permitir exportar XML |
+| `AbaLocalizarPermitirRelatorioTxt` | `TRUE` | Permitir exportar TXT |
+| `AbaLocalizarPermitirRelatorioPdf` | `TRUE` | Permitir exportar PDF |
+| `AbaLocalizarPermitirRelatorioJson` | `TRUE` | Permitir exportar JSON |
+| `AbaLocalizarPermitirRelatorioXlsx` | `TRUE` | Permitir exportar XLSX |
+| `AbaLocalizarPermitirOrdenarGrade` | `TRUE` | Permitir ordenar grade |
+| `AbaLocalizarPermitirRemoverOrdenacaoGrade` | `TRUE` | Permitir remover ordenação |
+| `AbaLocalizarPermitirImportarDados` | `TRUE` | Permitir importar dados |
+| `AbaLocalizarPermitirFiltroAvancado` | `TRUE` | Permitir filtro avançado |
+| `UltimaModificacao` | data atual | Data da última modificação |
+| `UltimoUsuario` | `master` | Último usuário que editou |
+
+---
+
+## 6. Codificação de Caracteres
+
+O FRZ usa encoding ISO-8859-1 com entidades XML para caracteres especiais:
+
+| Entidade | Caractere |
+|---|---|
+| `&#x0020;` | Espaço |
+| `&#x002C;` | Vírgula `,` |
+| `&#x002E;` | Ponto `.` |
+| `&#x003B;` | Ponto e vírgula `;` |
+| `&#x003D;` | Igual `=` |
+| `&#x0027;` | Aspas simples `'` |
+| `&#x0022;` | Aspas duplas `"` |
+| `&#x007B;` / `&#x007D;` | Chaves `{` `}` |
+| `&#x000D;&#x000A;` | Quebra de linha (CRLF) |
+| `&#x00E7;&#x00E3;` | `ção` |
+| `&#x00E1;` | `á` |
+| `&#x00E9;` | `é` |
+| `&#x00ED;` | `í` |
+| `&#x00F3;` | `ó` |
+| `&#x00FA;` | `ú` |
+| `&#x00C7;` | `Ç` |
+
+---
+
+## 7. Hierarquia de Containers (Layout)
+
+Os containers formam uma árvore de layout:
+
+```
+Aba "01-Cadastro"
+├── MakerContainer2 (card principal)
+│   ├── MakerContainer19 (card-header)
+│   │   └── MakerLabel20 ("Dados do Documento")
+│   ├── MakerEdit: SGD_DATA_GERACAO
+│   └── MakerLookup1: Registrado por
+├── MakerContainer5 (card)
+│   ├── MakerContainer20 (card-header)
+│   │   └── MakerLabel21 ("Classificação")
+│   ├── MakerCombo: SGD_CLASSIFICACAO
+│   └── MakerLookup: SGD_ID_TIPO_DOCUMENTO
+├── MakerContainer12 (card)
+│   ├── MakerContainer15 (card-header)
+│   │   └── MakerLabel25 ("Temporalidade")
+│   └── TMAKERGRID (grade de histórico)
+└── MakerContainer11 (pré-visualizador de arquivo)
+```
+
+O `Container` de cada componente aponta para o `Nome` do container pai. Container vazio (`""`) = raiz da aba.
+
+---
+
+## 8. Relacionamento Grade ↔ Formulário Filho
+
+Grids podem abrir formulários filhos:
+
+```xml
+<component COM_TIPO="G" name="TMAKERGRID">
+    <property name="CodigoForm">{GUID-DO-FORM-FILHO}</property>
+    <property name="ChamaSubForm">True</property>
+    <property name="Parametros">
+        tabela_filha.campo_fk=campo_pk_pai
+        tabela_filha.outro_campo_fk=outro_campo_pk
+    </property>
+</component>
+```
+
+Os `Parametros` definem o relacionamento mestre-detalhe no formato `tabela.campo_fk=campo_pk_do_pai`, um por linha.
+
+---
+
+## 9. Fluxos Independentes vs. Vinculados
+
+### Fluxograma independente
+- Existe em `<global><rules>` com `CAT_PATH` genérico
+- Pode ser chamado por outros fluxogramas via `TFlowSubRoutine` / `CALLRULE`
+
+### Fluxograma vinculado a evento de tela
+- Também fica em `<global><rules>` mas é referenciado por um `<event>` dentro de um componente
+- O `<action name="12">` (tipo = executar regra) referencia a rule PELO NOME no `<param name="Nome">`
+- O `<param name="Entrada">` mapeia os parâmetros
+- Exemplo: "Validar Alterações Antes de Salvar" é chamado pelo evento `Antes de Gravar` do componente F
+
+### Fluxograma vinculado a botão/clique
+- A rule fica em `<global><rules>`
+- O componente (botão, etc.) tem `<event name="Ao Clicar"><action name="12">...`
+- A regra é referenciada pelo nome, nao pelo codigo
+
+---
+
+## 10. ENTITY_SCHEMA — Definição de Tabelas (DDL)
+
+A seção `<ENTITY_SCHEMA>` dentro de `<global>` define a estrutura completa das tabelas do banco de dados. Substitui/complementa o `<tables>` (Data Dictionary antigo) com tipagem forte, chaves e defaults.
+
+### Estrutura
+
+```xml
+<global>
+    <ENTITY_SCHEMA>
+        <ENTITY NAME="NOME_TABELA" FRIENDLY_NAME="NOME_TABELA" FORM="nome_form_vinculado">
+            <ATTRIBUTE GENERATED="true" NAME="ID" FRIENDLY_NAME="ID" NULLABLE="false" TYPE="integer" LENGTH="32">
+                <DEFAULT></DEFAULT>
+                <MASK NAME=""></MASK>
+            </ATTRIBUTE>
+            <ATTRIBUTE GENERATED="false" NAME="NOME" FRIENDLY_NAME="NOME" NULLABLE="false" TYPE="string" LENGTH="150">
+                <DEFAULT></DEFAULT>
+                <MASK NAME=""></MASK>
+            </ATTRIBUTE>
+            <KEY NAME="TABELA_PKEY" UNIQUE="false" PRIMARY="true">
+                <ATTRIBUTE_NAME NAME="ID"/>
+            </KEY>
+        </ENTITY>
+    </ENTITY_SCHEMA>
+</global>
+```
+
+### Atributos de `<ENTITY>`
+
+| Atributo | Descrição |
+|---|---|
+| `NAME` | Nome da tabela no banco |
+| `FRIENDLY_NAME` | Nome amigável (geralmente igual ao NAME) |
+| `FORM` | Nome do formulário vinculado (lowercase, sem espaços) |
+
+### Atributos de `<ATTRIBUTE>`
+
+| Atributo | Descrição |
+|---|---|
+| `GENERATED` | `true` = auto-incremento/sequence, `false` = informado pelo usuário |
+| `NAME` | Nome da coluna |
+| `FRIENDLY_NAME` | Nome amigável |
+| `NULLABLE` | `true` = permite NULL, `false` = NOT NULL |
+| `TYPE` | Tipo: `integer`, `string`, `boolean`, `date`, `float`, `text` |
+| `LENGTH` | Tamanho (para integer=bits, para string=caracteres, `0`=ilimitado/text) |
+
+### Tags filhas de `<ATTRIBUTE>`
+
+| Tag | Descrição |
+|---|---|
+| `<DEFAULT>` | Valor default SQL (ex: `'A'`, `true`, `30`) |
+| `<MASK NAME="">` | Máscara de exibição (vazio = sem máscara) |
+
+### Atributos de `<KEY>`
+
+| Atributo | Descrição |
+|---|---|
+| `NAME` | Nome da constraint (convenção: `TABELA_PKEY`) |
+| `UNIQUE` | `true` = unique key, `false` = não unique |
+| `PRIMARY` | `true` = chave primária |
+
+### Tipos mapeados para SQL
+
+| TYPE | SQL Server | PostgreSQL |
+|---|---|---|
+| `integer` (LENGTH=32) | `INT` | `INTEGER` |
+| `integer` (LENGTH=64) | `BIGINT` | `BIGINT` |
+| `string` (LENGTH>0) | `VARCHAR(N)` | `VARCHAR(N)` |
+| `string` (LENGTH=0) | `TEXT` | `TEXT` |
+| `boolean` | `BIT` | `BOOLEAN` |
+| `date` | `DATE` | `DATE` |
+| `float` | `FLOAT` | `DOUBLE PRECISION` |
+| `text` | `TEXT` | `TEXT` |
+
+---
+
+## 11. Datapackets — Dados Iniciais (Seed/DML)
+
+A seção `<datapackets>` dentro de `<global>` contém dados pré-populados (seed data) para as tabelas definidas no ENTITY_SCHEMA. Cada `<DATA>` tem um GUID único e inclui metadata + dataset.
+
+### Estrutura
+
+```xml
+<global>
+    <datapackets>
+        <DATA ID="{GUID-UNICO}">
+            <METADATA>
+                <ENTITY NAME="NOME_TABELA" FRIENDLY_NAME="nome_tabela" FORM="nome_form">
+                    <ATTRIBUTE NAME="COLUNA1" FRIENDLY_NAME="coluna1" TYPE="integer" LENGTH="0"/>
+                    <ATTRIBUTE NAME="COLUNA2" FRIENDLY_NAME="coluna2" TYPE="string" LENGTH="150"/>
+                </ENTITY>
+            </METADATA>
+            <DATASET>
+                <ROW>
+                    <FIELD NAME="COLUNA1" ISNULL="false">1</FIELD>
+                    <FIELD NAME="COLUNA2" ISNULL="false">Valor texto</FIELD>
+                </ROW>
+                <ROW>
+                    <FIELD NAME="COLUNA1" ISNULL="false">2</FIELD>
+                    <FIELD NAME="COLUNA2" ISNULL="true"/>
+                </ROW>
+            </DATASET>
+        </DATA>
+    </datapackets>
+</global>
+```
+
+### Hierarquia
+
+| Tag | Descrição |
+|---|---|
+| `<datapackets>` | Container de todos os pacotes de dados |
+| `<DATA ID="GUID">` | Um pacote para uma entidade (GUID único) |
+| `<METADATA>` | Repetição simplificada do schema da entidade |
+| `<ENTITY>` | Entidade com seus atributos (dentro de METADATA) |
+| `<ATTRIBUTE>` | Coluna (NAME, FRIENDLY_NAME, TYPE, LENGTH) |
+| `<DATASET>` | Container das linhas de dados |
+| `<ROW>` | Uma linha/registro |
+| `<FIELD>` | Valor de uma coluna (`NAME`, `ISNULL`) |
+
+### Regras de valores nos `<FIELD>`
+
+| Tipo | Formato do valor |
+|---|---|
+| `integer` | Número inteiro: `1`, `42`, `100` |
+| `string` | Texto livre: `Valor qualquer` |
+| `boolean` | `-1` = true, `0` = false |
+| `date` | Formato `DD/MM/AAAA`: `01/01/2025` |
+| `float` | Decimal com ponto: `10.5` |
+| NULL | Tag auto-fechada: `<FIELD NAME="X" ISNULL="true"/>` |
+
+### Relação ENTITY_SCHEMA x Datapackets
+
+- O `<METADATA>` dentro do datapacket é uma versão simplificada do `<ENTITY>` no ENTITY_SCHEMA
+- O METADATA no datapacket não repete `GENERATED`, `NULLABLE`, `DEFAULT` nem `KEY`
+- O `FRIENDLY_NAME` no datapacket é lowercase
+- Cada `<DATA>` referencia uma entidade pelo `NAME`
+- Um datapacket pode existir sem `<DATASET>` (apenas metadata, sem dados)
+
+---
+
+## 12. Padrão de Nomes
+
+| Elemento | Convenção |
+|---|---|
+| Formulário | Nome descritivo: "Cadastro de Documentos" |
+| Campo/Edit | Nome do campo no banco: `SGD_DATA_GERACAO` |
+| Container | `MakerContainerN` (numérico sequencial) |
+| Label | `MakerLabelN` |
+| Lookup | `MakerLookupN` ou nome do campo |
+| Grid | `TMAKERGRID` ou `MakerGridN` |
+| Fluxograma | Nome descritivo: "Anexar Arquivos", "CDD - Ao Entrar" |
+| Variáveis | camelCase: `nomeArquivoDaGrade`, `elementoContainer` |
+| Parâmetros | camelCase: `idDocumentoAnexo`, `id_anexo` |

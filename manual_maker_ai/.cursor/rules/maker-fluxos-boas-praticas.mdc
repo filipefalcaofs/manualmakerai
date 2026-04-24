@@ -1,0 +1,631 @@
+---
+description: Boas praticas para fluxogramas Maker — legibilidade, performance, decomposicao, seguranca. Baseado em 2445 regras de producao
+globs: ["**/mcp_maker/**", "**/*.frz"]
+alwaysApply: false
+---
+
+# Fluxogramas Maker — Guia de Excelencia
+
+Baseado na analise de 2445 regras, 1186 funcoes e 876 formularios de um sistema em producao.
+
+---
+
+## 1. Principio Fundamental
+
+**O fluxograma e uma funcao composta. SQL resolve, fluxo orquestra.**
+
+Cada processamento e uma chamada de funcao com entrada, saida e proposito claro.
+Se voce nao consegue descrever o que um passo faz em uma frase curta, ele faz demais.
+
+---
+
+## 2. Legibilidade
+
+### Tamanho ideal de uma regra
+
+| Complexidade | Processamentos | Decisions | Sub-rotinas |
+|---|---|---|---|
+| Simples (validacao, calculo) | 3–8 | 0–2 | 0 |
+| Media (CRUD, cascata) | 8–15 | 2–5 | 1–3 |
+| Complexa (orquestracao) | 15–25 | 3–7 | 3–8 |
+
+Acima de 25 processamentos e sinal de que a regra deve ser decomposta.
+
+Exemplo real do sistema: "Validar Datas de Inicio e Fim" (regra 2592) tem 49 funcoes e 89 componentes — monolitica demais.
+Compare com "RCO - Validar datas" (regra 1755): 46 funcoes mas usa 5 sub-rotinas, distribuindo a complexidade.
+
+### Descricoes autoexplicativas
+
+Cada passo (Expression, Decision, SubRoutine) tem um campo `Description`. Usar como documentacao inline.
+
+**Ruim**:
+```
+Expression: "Passo 1"
+Decision: "Verificar"
+SubRoutine: "Chamar regra"
+```
+
+**Bom**:
+```
+Expression: "Obter CPF do formulario"
+Decision: "CPF esta vazio?"
+SubRoutine: "Validar formato CPF"
+```
+
+### Fluxo linear como padrao
+
+Preferir fluxo de cima para baixo com desvios minimos. Evitar:
+- Decisions aninhadas em mais de 3 niveis
+- Multiplos Connectors reconvergindo de pontos distantes
+- Caminhos SIM/NAO com complexidade equivalente (sinal de que deve ser dividido)
+
+### Agrupamento logico
+
+Organizar passos em blocos coesos, separados conceitualmente:
+
+```
+--- BLOCO 1: Validacao de entrada ---
+null_guard(pCpf, "CPF")
+null_guard(pNome, "Nome")
+
+--- BLOCO 2: Busca de dados ---
+sql_select("SELECT ... FROM PESSOA WHERE CPF = :pCpf")
+
+--- BLOCO 3: Processamento ---
+calcular / transformar
+
+--- BLOCO 4: Retorno ---
+json_build ou success_message
+```
+
+---
+
+## 3. Decomposicao de Regras Complexas
+
+### Quando dividir
+
+Dividir uma regra quando:
+- Tem mais de 25 processamentos
+- Tem logica reutilizavel por outras regras
+- Tem blocos independentes (validacao, busca, calculo, formatacao)
+- O fluxo visual nao cabe em uma tela sem scroll
+
+### Padrao Maestro + Sub-rotinas
+
+Para regras de negocio complexas, usar o padrao de orquestracao:
+
+```
+Regra Maestro (orquestra)
+  ├── Sub-rotina: Validar Entrada
+  ├── Sub-rotina: Buscar Dados
+  ├── Sub-rotina: Calcular X
+  ├── Sub-rotina: Calcular Y
+  ├── Decision: resultado OK?
+  │   ├── SIM → Sub-rotina: Gravar Resultado
+  │   └── NAO → Mensagem de erro
+  └── Retornar resultado
+```
+
+A regra maestro tem 5–10 passos. Cada sub-rotina tem 3–15 passos.
+O sistema real valida esse padrao: 1996 instancias de TFlowSubRoutine.
+
+### Contrato entre sub-rotinas
+
+Cada sub-rotina deve ter:
+1. **Parametros tipados** com prefixo `p` — o que precisa receber
+2. **Retorno claro** — o que devolve (JSON pra dados complexos, valor simples pra calculos)
+3. **Autonomia** — nao depender de estado global ou efeitos colaterais de outras regras
+
+```
+Sub-rotina: "Calcular INSS"
+  Params: pSalarioBruto (Fracionado), pMesReferencia (Data)
+  Retorno: Fracionado (valor do INSS)
+
+Sub-rotina: "Buscar Dados Funcionario"
+  Params: pIdFuncionario (Inteiro)
+  Retorno: Variante (JSON com dados)
+```
+
+### Granularidade: nem demais, nem de menos
+
+| Muito granular (ruim) | Ideal | Muito grosso (ruim) |
+|---|---|---|
+| "Obter campo CPF" (1 fn) | "Validar CPF antes de gravar" (5 fn) | "Processar tudo do cadastro" (40 fn) |
+| "Fazer SELECT" (1 fn) | "Buscar dados do veiculo" (4 fn) | "Gerar relatorio completo" (60 fn) |
+
+Regra pratica: uma sub-rotina deve resolver **um problema de negocio coeso**.
+
+---
+
+## 4. Performance
+
+### SQL resolve, fluxo orquestra
+
+Logica complexa vai no SQL (CTEs, CASE, JOINs). Fluxo encadeia funcoes — nao substitui SQL.
+
+**Ruim** (10 processamentos):
+```
+ExecuteQuery → Field(nome) → Field(cpf) → Decision(vazio?) → Concat → Concat → ...
+```
+
+**Bom** (3 processamentos):
+```
+ExecuteQuery(SQL com CTE e CASE que formata/calcula tudo) → Field(resultado) → Close
+```
+
+### Fechar recursos SEMPRE
+
+No sistema real: 712 ExecuteQuery vs 518 SQLClose = ~200 queries sem close.
+
+```
+REGRA: todo ExecuteQuery DEVE ter um SQLClose correspondente
+REGRA: todo FileOpenToWrite DEVE ter um FileClose correspondente
+```
+
+### Evitar queries dentro de loops
+
+**Ruim** (N+1 queries):
+```
+ExecuteQuery(listar_ids) → WHILE NOT EOF:
+    ExecuteQuery(buscar_detalhe_por_id)  ← N queries extras
+    SQLClose(detalhe)
+    SQLNext
+SQLClose
+```
+
+**Bom** (1 query):
+```
+ExecuteQuery(SQL com JOIN que traz tudo de uma vez) → processar → SQLClose
+```
+
+### oprIf vs Decision
+
+`oprIf` (428 usos reais) resolve condicionais simples inline, sem precisar de Decision:
+```
+oprIf(condicao, valorSeTrue, valorSeFalse) → resultado
+```
+
+Usar oprIf para atribuicoes condicionais. Usar Decision para desvios de fluxo.
+
+### Custo de processamentos
+
+Cada passo no fluxograma tem custo de execucao. Minimizar o numero de passos:
+
+| Abordagem | Passos | Preferir? |
+|---|---|---|
+| 5 Fields separados | 5 | NAO |
+| 1 SQL com CONCAT que monta tudo | 1 | SIM |
+| 3 Decisions aninhadas | 3+ | NAO |
+| 1 SQL com CASE WHEN | 1 | SIM |
+
+---
+
+## 5. Escolha Correta de Funcoes
+
+### Top 20 — ranking real do sistema
+
+Estas sao as funcoes mais usadas. Se voce esta usando funcoes que nao estao nesta lista, verifique se nao ha uma mais adequada.
+
+| # | Funcao | Usos | Para que |
+|---|---|---|---|
+| 1 | `ebfGetValueObjectJson` | 1532 | Ler valor de JSON |
+| 2 | `ebfListParamsCreate` | 1524 | Criar lista de parametros |
+| 3 | `isNullOrEmpty` | 1461 | Validar campo vazio |
+| 4 | `ebfSQLField` | 1138 | Ler campo de query |
+| 5 | `ebfConcat` | 1017 | Concatenar strings |
+| 6 | `ebfGetElementFromList` | 983 | Obter item de lista |
+| 7 | `isEqual` | 879 | Comparar igualdade |
+| 8 | `ebfFormChangeComponentValue` | 800 | Alterar valor na tela |
+| 9 | `ebfSQLExecuteQuery` | 712 | Executar SELECT |
+| 10 | `ebfDateToday` | 591 | Data atual |
+| 11 | `ebfSQLClose` | 518 | Fechar query |
+| 12 | `ActNewErrorMessage` | 516 | Mensagem de erro |
+| 13 | `ebfSQLExecuteUpdate` | 493 | INSERT/UPDATE/DELETE |
+| 14 | `ebfSQLEOF` | 473 | Verificar fim de query |
+| 15 | `oprIf` | 428 | If inline |
+| 16 | `ebfFormSetVisible` | 319 | Mostrar/esconder componente |
+| 17 | `toDate` | 316 | Converter para data |
+| 18 | `ebfReplace` | 306 | Substituir texto |
+| 19 | `ebfReplaceAll` | 254 | Substituir todas ocorrencias |
+| 20 | `ebfFormGetComponentValue` | 245 | Ler valor da tela |
+
+### Funcoes por dominio de problema
+
+| Preciso... | Funcao correta | NAO usar |
+|---|---|---|
+| Verificar vazio | `isNullOrEmpty` (1461x) | `isEqual(x, '')` |
+| Comparar valores | `isEqual` (879x) | `ebfConcat` com comparacao manual |
+| Formatar data | SQL `FORMAT` ou `CONVERT` | Multiplos `ebfConcat` com dia/mes/ano |
+| Calcular valores | SQL com expressoes | Cadeia de `oprAdd`, `oprMultiply` no fluxo |
+| Montar texto dinamico | `ebfConcat` para 2-3 partes, SQL para mais | Concat encadeado 10 vezes |
+| Troca de dados entre regras | JSON (`ebfCreateObjectJSON` + `ebfGetValueObjectJson`) | Multiplos parametros soltos |
+| Iterar registros | `sql_loop` (ExecuteQuery + EOF + Next) | Multiplas queries separadas |
+
+### NUNCA inventar funcoes
+
+Se `buscar_funcao` nao encontrou, a funcao nao existe. O catalogo tem 1186 funcoes.
+Usar sempre o MCP para verificar existencia e assinatura antes de usar.
+
+---
+
+## 6. Nomenclatura
+
+### Padrao por elemento
+
+| Elemento | Padrao | Exemplo |
+|---|---|---|
+| Regra (nome) | Verbo + Objeto + Contexto | "Validar CPF Antes de Gravar" |
+| Regra (categoria) | Modulo - Submodulo | `\Pessoa\Validacao` |
+| Processamento | camelCase descritivo | `obterDadosVeiculo`, `calcularINSS` |
+| Variavel | camelCase com prefixo de tipo | `qryVeiculos`, `jsonResultado`, `vNome` |
+| Parametro | prefixo p + camelCase | `pIdPessoa`, `pCpf`, `pDataInicio` |
+| Sub-rotina | Modulo - Acao descritiva | "Pessoa - Validar CPF" |
+
+### Prefixos recomendados para variaveis
+
+| Prefixo | Tipo | Exemplo |
+|---|---|---|
+| `qry` | Resultado de query (Tabela) | `qryPessoas`, `qryItens` |
+| `json` | Objeto JSON (Variante) | `jsonResultado`, `jsonPessoa` |
+| `v` | Variavel generica | `vNome`, `vTotal`, `vContador` |
+| `lst` | Lista (Variante) | `lstParametros`, `lstItens` |
+| `file` | Handle de arquivo (Variante) | `fileRelatorio`, `fileCsv` |
+
+### Nomes de regras — exemplos reais do sistema
+
+Bons:
+- "Generico - Validacao Duplicidade Antes de Inserir - V2" (12 fn)
+- "Geral - Consultar API via CEP" (11 fn)
+- "Parametros de Linha - Validar horario" (7 fn)
+- "Operador Autorizatario - Calcular Validade da CI" (4 fn)
+
+Ruins:
+- "Regra 1" — sem contexto
+- "Teste" — nao descritivo
+- "Nova regra" — nao diz o que faz
+
+---
+
+## 7. Decisions: Uso Correto
+
+### Quando usar Decision
+
+Usar APENAS quando muda o caminho de execucao:
+- Validacao de entrada → SIM: continua / NAO: erro + abortar
+- Verificar existencia → SIM: atualizar / NAO: inserir
+- Condicao de negocio → SIM: caminho A / NAO: caminho B
+
+### Quando NAO usar Decision
+
+- Para "marcar", "logar" ou "decorar" resultado → usar oprIf
+- Quando SIM e NAO convergem pro mesmo lugar fazendo a mesma coisa → nao precisa
+- Para atribuicao condicional simples → usar oprIf (428 usos reais)
+
+### Anti-padrao: Decision pra tudo
+
+**Ruim** (3 Decisions desnecessarias):
+```
+Decision: tipo = "PF"?
+  SIM → SetVisible(pnlPF, true) → SetVisible(pnlPJ, false)
+  NAO → SetVisible(pnlPF, false) → SetVisible(pnlPJ, true)
+```
+
+**Bom** (1 oprIf + 2 SetVisible):
+```
+oprIf(isEqual(tipo, "PF"), true, false) → vIsPF
+SetVisible(pnlPF, vIsPF)
+SetVisible(pnlPJ, oprNot(vIsPF))
+```
+
+### Limite de aninhamento
+
+Maximo 3 niveis de Decisions aninhadas. Mais que isso:
+- Extrair blocos internos para sub-rotinas
+- Repensar a logica (pode ser resolvida com SQL CASE ou oprIf)
+- Usar early return (Decision → NAO: abortar cedo, SIM: continua linear)
+
+### Padrao Early Return (guard clauses)
+
+Validar e sair cedo em vez de aninhar:
+
+```
+Decision: pCpf vazio? → SIM: erro + FIM
+Decision: pNome vazio? → SIM: erro + FIM
+Decision: CPF duplicado? → SIM: erro + FIM
+... processar (caminho feliz, linear) ...
+```
+
+Cada Decision tem SIM apontando para erro/abort e NAO seguindo adiante.
+O caminho feliz fica linear, sem aninhamento.
+
+---
+
+## 8. Tratamento de Erros e Debugging
+
+### Hierarquia de erros
+
+| Severidade | Funcao | Usos reais | Quando usar |
+|---|---|---|---|
+| Informativo | `ActNewSuccessMessage` | — | Operacao concluida com sucesso |
+| Aviso | `ActNewWarningMessage` | — | Alerta que nao bloqueia |
+| Erro de validacao | `ActNewErrorMessage` | 516x | Campo invalido, regra de negocio violada |
+| Erro critico (servidor) | `ebfThrowException` | — | Falha que deve abortar e reverter |
+| Erro critico (cliente) | `ebfAbortMsg` / `ebfAbort` | — | Abortar operacao no navegador |
+| Parar execucao | `ebfStopRuleExecution` | — | Interromper sem erro (fluxo condicional) |
+
+### Mensagens de erro uteis
+
+**Ruim**:
+```
+ActNewErrorMessage("Erro!")
+ActNewErrorMessage("Campo obrigatorio")
+```
+
+**Bom**:
+```
+ActNewErrorMessage("O campo CPF e obrigatorio para pessoa fisica.")
+ActNewErrorMessage("A data de inicio nao pode ser posterior a data de fim.")
+ActNewErrorMessage("Ja existe um registro com o CPF informado. Verifique o cadastro existente.")
+```
+
+A mensagem deve dizer: **o que esta errado** + **o que o usuario deve fazer**.
+
+### Rastreabilidade com Logs
+
+Para regras complexas, adicionar logs em pontos estrategicos:
+
+```
+LogCreate('FOLHA', Concat('Iniciando calculo para funcionario ', pIdFuncionario))
+... processar ...
+LogCreate('FOLHA', Concat('INSS calculado: ', toString(vINSS)))
+... processar ...
+LogCreate('FOLHA', Concat('Folha finalizada. Total bruto: ', toString(vTotalBruto)))
+```
+
+Usar `ebfLogCreate` com:
+- Categoria fixa por modulo (ex: 'FOLHA', 'VEICULO', 'PESSOA')
+- Mensagem com contexto suficiente para identificar o registro
+
+### Padrao Try-Catch em sub-rotinas
+
+Para sub-rotinas que podem falhar, retornar JSON com status:
+
+```
+Sub-rotina retorna:
+  Sucesso: {"status": "ok", "dados": {...}}
+  Erro:    {"status": "erro", "mensagem": "Descricao do problema"}
+
+Maestro verifica:
+  GetValueObjectJson(resultado, 'status') → vStatus
+  Decision: isEqual(vStatus, 'erro')?
+    SIM → ActNewErrorMessage(GetValueObjectJson(resultado, 'mensagem'))
+    NAO → continua com dados
+```
+
+---
+
+## 9. Padroes de Orquestracao
+
+### Cliente-Servidor
+
+Regra cliente chama regra servidor para obter/gravar dados, processa localmente:
+
+```
+CLIENTE (destino=1):
+  1. Obter valores da tela
+  2. CallRule(servidor) → jsonDados
+  3. Verificar status do retorno
+  4. Atualizar tela com resultado
+
+SERVIDOR (destino=2):
+  1. Validar parametros
+  2. SQL / processamento
+  3. Retornar JSON
+```
+
+### Pipeline de calculos
+
+Para calculos com multiplas etapas dependentes (ex: folha de pagamento):
+
+```
+Maestro: "Calcular Folha"
+  1. CallRule("Buscar Dados Funcionario", pId) → jsonFunc
+  2. CallRule("Calcular Salario Base", jsonFunc) → vBase
+  3. CallRule("Calcular INSS", vBase, pMes) → vINSS
+  4. CallRule("Calcular IRRF", vBase, vINSS, pMes) → vIRRF
+  5. CallRule("Calcular Liquido", vBase, vINSS, vIRRF) → vLiquido
+  6. CallRule("Gravar Folha", pId, vBase, vINSS, vIRRF, vLiquido) → status
+  7. Verificar status → sucesso ou erro
+```
+
+Cada sub-rotina tem 3–8 passos. O maestro tem 7 passos e e 100% legivel.
+
+### Validacao em cadeia (guard clauses)
+
+```
+Maestro: "Gravar Cadastro Completo"
+  1. CallRule("Validar Dados Pessoais", params) → vStatus
+  2. Decision: erro? → SIM: mostrar erro + FIM
+  3. CallRule("Validar Endereco", params) → vStatus
+  4. Decision: erro? → SIM: mostrar erro + FIM
+  5. CallRule("Validar Documentos", params) → vStatus
+  6. Decision: erro? → SIM: mostrar erro + FIM
+  7. CallRule("Gravar Pessoa", params) → vId
+  8. ActNewSuccessMessage("Cadastro realizado com sucesso.")
+```
+
+### Processamento em lote
+
+```
+Maestro: "Processar Lote de Registros"
+  1. ExecuteQuery("SELECT IDs ...") → qry
+  2. WHILE NOT EOF(qry):
+     a. Field(qry, 'ID') → vId
+     b. CallRule("Processar Registro Individual", vId) → jsonStatus
+     c. Decision: erro? → SIM: LogCreate('LOTE', erro) // nao aborta, continua
+     d. SQLNext(qry)
+  3. SQLClose(qry)
+  4. ActNewSuccessMessage("Processamento concluido.")
+```
+
+---
+
+## 10. Seguranca
+
+### SQL Injection — SEMPRE usar binds
+
+**INSEGURO**:
+```sql
+SELECT * FROM PESSOA WHERE CPF = ' + pCpf + '
+```
+
+**SEGURO**:
+```
+ParamSQL com binds: {'nome': 'pCpf', 'variavel': 'pCpf'}
+SQL: SELECT * FROM PESSOA WHERE CPF = CAST(:pCpf AS VARCHAR)
+```
+
+### Validacao de entrada obrigatoria
+
+Validar TODOS os parametros antes de usar:
+- `isNullOrEmpty` para campos obrigatorios (1461 usos no sistema)
+- Tipo correto (inteiro pra IDs, data pra datas)
+- Formato esperado (ebfIsCpf, ebfIsCnpj, ebfIsEmail)
+
+### Controle de acesso
+
+```
+ebfGetUserCode() → vCodigoUsuario
+ExecuteQuery('SELECT PERMISSAO FROM ...') → verificar
+Decision: sem permissao? → SIM: ActNewErrorMessage + FIM
+```
+
+### Dados sensiveis
+
+- Nunca retornar senhas ou tokens em JSON de resposta
+- Logs nao devem conter dados sensiveis (CPF completo, senhas)
+- Usar campos tipo Senha nos formularios
+
+### Transacoes para multiplas gravacoes
+
+Para operacoes que envolvem multiplos INSERTs/UPDATEs:
+- Validar TUDO antes de gravar qualquer coisa
+- Se uma etapa falhar apos gravacoes parciais, tratar o rollback
+- Preferir uma unica query com INSERT...SELECT ou MERGE quando possivel
+
+---
+
+## 11. Eventos — Uso Correto
+
+Dados reais do sistema (2773 vinculos, 97% sao "Executar Regra"):
+
+| Evento | Usos | Quando usar |
+|---|---|---|
+| Ao Clicar | 1197 | Botoes, acoes do usuario |
+| Ao Modificar | 487 | Campo alterado, cascata, calculos |
+| Ao Entrar | 278 | Inicializacao do formulario |
+| Ao Sair | 176 | Limpeza, salvamento |
+| Antes de Inserir | 149 | Validacao pre-inclusao |
+| Antes de Gravar | 116 | Validacao obrigatoria |
+| Ao Remover | 111 | Validacao pre-exclusao |
+| Ao Selecionar | 53 | Combo/lookup selecionado |
+
+### Padrao: Ao Entrar
+
+```
+1. browser_mode_guard (retorna se em modo navegacao)
+2. Obter GUID
+3. Carregar dados iniciais (CallRule servidor ou SQL)
+4. Preencher combos/lookups dinamicos
+5. Configurar visibilidade e habilitacao
+```
+
+### Padrao: Antes de Gravar
+
+```
+1. Obter valores da tela
+2. Validar campos obrigatorios (isNullOrEmpty)
+3. Validar formatos (CPF, email, data)
+4. Validar regras de negocio (CallRule servidor)
+5. Se invalido: AbortMsg('mensagem especifica')
+```
+
+### Padrao: Ao Modificar (cascata)
+
+```
+1. Obter novo valor do campo
+2. Buscar dados dependentes (CallRule servidor ou SQL inline)
+3. Preencher campos relacionados
+4. Ajustar visibilidade de secoes
+```
+
+---
+
+## 12. Anti-padroes — Exemplos Reais
+
+### Regra monolitica
+
+Regra 2592 "Validar Datas de Inicio e Fim": 49 funcoes, 89 componentes, 7 ends.
+Deveria ser decomposta em sub-rotinas: validar formato, validar intervalo, validar limites.
+
+### Query sem close
+
+712 ExecuteQuery vs 518 SQLClose no sistema = ~200 queries vazando conexao.
+**Cada query aberta consome memoria e conexao no servidor.**
+
+### Decision sem proposito
+
+Decision onde SIM e NAO fazem a mesma coisa ou convergem pro mesmo ponto sem acao diferente.
+Substituir por oprIf quando so precisa de valor condicional.
+
+### Concat encadeado
+
+10 Concats para montar uma string complexa. Resolver no SQL com CONCAT/FORMAT.
+
+### Funcao inventada
+
+Se `buscar_funcao` nao encontrou no catalogo de 1186 funcoes, nao existe.
+Nao inventar nomes — verificar sempre.
+
+### Parametros soltos em vez de JSON
+
+Regra que recebe 15 parametros separados em vez de 1 JSON estruturado.
+JSON e o padrao do sistema (1532 usos).
+
+---
+
+## 13. Checklist de Qualidade
+
+Antes de gerar qualquer fluxograma, verificar:
+
+### Legibilidade
+- [ ] Cada passo tem descricao autoexplicativa (verbo + objeto)
+- [ ] Maximo 25 processamentos (decompor se maior)
+- [ ] Maximo 3 niveis de Decisions aninhadas
+- [ ] Fluxo visual e linear (de cima para baixo)
+- [ ] Variaveis e parametros com nomes descritivos e prefixos corretos
+
+### Performance
+- [ ] Logica complexa resolvida no SQL, nao no fluxo
+- [ ] Queries/arquivos fechados (SQLClose, FileClose)
+- [ ] Sem queries dentro de loops (usar JOINs)
+- [ ] oprIf usado para condicionais simples (nao Decision)
+- [ ] Numero minimo de processamentos para o resultado
+
+### Funcoes
+- [ ] Todas as funcoes existem no catalogo (verificadas com buscar_funcao)
+- [ ] Assinaturas e tipos de retorno corretos (verificados com detalhar_funcao)
+- [ ] Funcao mais adequada escolhida (nao apenas "uma que funciona")
+- [ ] JSON usado para troca de dados entre regras
+
+### Seguranca
+- [ ] SQL usa binds (nunca concatenacao de valores)
+- [ ] Parametros de entrada validados (isNullOrEmpty, tipo, formato)
+- [ ] Dados sensiveis nao expostos em logs ou retornos
+
+### Estrutura
+- [ ] Destino correto: 2=servidor (SQL, arquivos, email) / 1=cliente (DOM, componentes)
+- [ ] Sub-rotinas para logica reutilizavel ou blocos > 15 passos
+- [ ] Tratamento de erros com mensagens uteis (o que + o que fazer)
+- [ ] Regra maestro quando ha mais de 3 sub-rotinas
+- [ ] Contrato claro entre sub-rotinas (params tipados, retorno JSON)

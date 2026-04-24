@@ -1,0 +1,252 @@
+<div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-file-earmark-plus"></i> Novo Edital — Cadastro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Wizard Steps -->
+        <div class="wizard-steps" id="wizard-steps">
+          <div class="wizard-step active" onclick="goStep(1)">1. Dados Gerais</div>
+          <div class="wizard-step" onclick="goStep(2)">2. Elegibilidade</div>
+          <div class="wizard-step" onclick="goStep(3)">3. Categorias</div>
+          <div class="wizard-step" onclick="goStep(4)">4. Formulário</div>
+          <div class="wizard-step" onclick="goStep(5)">5. Avaliação</div>
+          <div class="wizard-step" onclick="goStep(6)">6. Regras Fomento</div>
+          <div class="wizard-step" onclick="goStep(7)" id="step7-tab" style="display:none;">7. Orçamento</div>
+        </div>
+
+        <!-- ABA 1: Dados Gerais -->
+        <div class="tab-step active" id="step1">
+          <div class="section-title">Identificação do Edital</div>
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label required">Título do Edital</label>
+              <input type="text" class="form-control" placeholder="Ex: Edital de Fomento à Cultura 2026">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label required">Número do Edital</label>
+              <input type="text" class="form-control" placeholder="001/2026">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label required">Ano de Referência</label>
+              <input type="number" class="form-control" value="2026">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label required">Tipo de Fomento</label>
+              <select class="form-select" id="tipoFomento" onchange="alternarTipo()">
+                <option value="">Selecione...</option>
+                <option value="direto">Direto</option>
+                <option value="indireto">Indireto</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label required">Data de Abertura</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label required">Data de Encerramento</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label required">Valor Total Disponível (R$)</label>
+              <input type="text" class="form-control" placeholder="0,00">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label required">Prazo de Inscrição — Início</label>
+              <input type="datetime-local" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label required">Prazo de Inscrição — Fim</label>
+              <input type="datetime-local" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label required">Limite de Projetos Finalizados por Produtor</label>
+              <input type="number" class="form-control" placeholder="Ex: 1" min="1">
+              <div class="form-text">Máx. de propostas selecionadas por CPF/CNPJ.</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Data da Liberação do Parecer</label>
+              <input type="date" class="form-control">
+              <div class="form-text">Gatilho que torna notas dos avaliadores visíveis ao proponente.</div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Período de Recursos</label>
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="0" min="0">
+                <span class="input-group-text" title="Dias úteis">d.u.</span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Período de Contrarrazões</label>
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="0" min="0">
+                <span class="input-group-text" title="Dias úteis">d.u.</span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Período de Prorrogação do Projeto</label>
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="0" min="0">
+                <span class="input-group-text" title="Dias úteis">d.u.</span>
+              </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-end gap-4 pb-1">
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="checkbox" id="chkProrrogavel">
+                <label class="form-check-label" for="chkProrrogavel">Permitir Prorrogação</label>
+              </div>
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="checkbox" id="chkOrcamento" onchange="toggleOrcamentoTab()">
+                <label class="form-check-label" for="chkOrcamento">Habilitar Orçamento</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Texto Informativo / Regras Gerais</label>
+              <textarea class="form-control" rows="4" placeholder="Insira o texto descritivo do edital..."></textarea>
+            </div>
+          </div>
+          <hr>
+          <div class="section-title">Publicação no Diário Oficial</div>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Número do D.O.</label>
+              <input type="text" class="form-control" placeholder="DOC-2026-XXXXX">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Data de Publicação</label>
+              <input type="date" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 2: Elegibilidade -->
+        <div class="tab-step" id="step2">
+          <div class="section-title">Tipologia de Agentes Culturais Elegíveis</div>
+          <div class="row g-2 mb-3">
+            <div class="col-auto"><div class="form-check"><input class="form-check-input" type="checkbox" checked> <label class="form-check-label">Pessoa Física</label></div></div>
+            <div class="col-auto"><div class="form-check"><input class="form-check-input" type="checkbox" checked> <label class="form-check-label">Pessoa Jurídica</label></div></div>
+            <div class="col-auto"><div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">MEI</label></div></div>
+            <div class="col-auto"><div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">ONGs</label></div></div>
+            <div class="col-auto"><div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">Coletivos Culturais</label></div></div>
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-plus"></i> Adicionar Outra Tipologia</button>
+          </div>
+          <hr>
+          <div class="section-title">Critérios de Elegibilidade</div>
+          <div class="mb-2" id="criterios-lista">
+            <div class="d-flex gap-2 align-items-center mb-2">
+              <span class="badge bg-secondary">REQ 01</span>
+              <input type="text" class="form-control form-control-sm" value="Residência comprovada no município há mais de 2 anos">
+              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+            </div>
+            <div class="d-flex gap-2 align-items-center mb-2">
+              <span class="badge bg-secondary">REQ 02</span>
+              <input type="text" class="form-control form-control-sm" value="Experiência prévia comprovada no setor cultural">
+              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus"></i> Novo critério de elegibilidade</button>
+          <hr>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Tempo mínimo de atividade cultural (anos)</label>
+              <input type="number" class="form-control" value="2" min="0">
+            </div>
+            <div class="col-md-8 d-flex align-items-end">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked>
+                <label class="form-check-label">Exigir residência ou sede no Município do Rio de Janeiro</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 3: Categorias -->
+        <div class="tab-step" id="step3">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="section-title mb-0">Gerenciamento de Categorias</div>
+            <button class="btn btn-sm btn-primary"><i class="bi bi-plus-lg"></i> Nova Categoria</button>
+          </div>
+          <table class="table table-sm table-bordered">
+            <thead><tr><th>Categoria</th><th>Modalidade</th><th>Meta de Projetos</th><th>Valor por Categoria (R$)</th><th>Ação</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><input type="text" class="form-control form-control-sm" value="Produção de Longa-Metragem"></td>
+                <td><select class="form-select form-select-sm"><option selected>Audiovisual</option><option>Artes Cênicas</option><option>Música</option></select></td>
+                <td><input type="number" class="form-control form-control-sm" value="10"></td>
+                <td><input type="text" class="form-control form-control-sm" value="500.000,00"></td>
+                <td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ABA 4: Formulário e Documentos -->
+        <div class="tab-step" id="step4">
+          <div class="section-title">Parametrização do Formulário</div>
+          <table class="table table-sm table-bordered">
+            <thead><tr><th>Campo</th><th>Obrigatório</th><th>Opcional</th><th>Ação</th></tr></thead>
+            <tbody>
+              <tr><td>Metas do Projeto</td><td><input type="radio" name="r1" checked></td><td><input type="radio" name="r1"></td><td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button></td></tr>
+              <tr><td>Cronograma Físico-Financeiro</td><td><input type="radio" name="r2" checked></td><td><input type="radio" name="r2"></td><td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button></td></tr>
+              <tr><td>Portfolio Artístico</td><td><input type="radio" name="r3" checked></td><td><input type="radio" name="r3"></td><td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button></td></tr>
+            </tbody>
+          </table>
+          <button class="btn btn-sm btn-outline-primary mb-3"><i class="bi bi-plus"></i> Adicionar Campo Customizado</button>
+          <hr>
+          <div class="section-title">Documentação Exigida</div>
+          <div class="row g-2">
+            <div class="col-md-4"><div class="border rounded p-2 d-flex justify-content-between align-items-center"><span><i class="bi bi-file-earmark"></i> CPF ou CNPJ</span><span class="badge bg-danger">Obrigatório</span></div></div>
+            <div class="col-md-4"><div class="border rounded p-2 d-flex justify-content-between align-items-center"><span><i class="bi bi-file-earmark"></i> Comprovante de Residência</span><span class="badge bg-danger">Obrigatório</span></div></div>
+            <div class="col-md-4"><div class="border rounded p-2 d-flex justify-content-between align-items-center"><span><i class="bi bi-file-earmark"></i> Portfolio</span><span class="badge bg-secondary">Opcional</span></div></div>
+          </div>
+          <button class="btn btn-sm btn-outline-secondary mt-2"><i class="bi bi-plus"></i> Adicionar documento</button>
+          <hr>
+          <div class="alert-dup"><i class="bi bi-link-45deg"></i> <strong>Formulário de Inscrição:</strong> Não vinculado. <a href="#">Configurar Formulário (HU.002)</a></div>
+        </div>
+
+        <!-- ABA 5: Critérios de Avaliação -->
+        <div class="tab-step" id="step5">
+          <div class="section-title">Critérios de Pontuação</div>
+          <table class="table table-sm table-bordered" id="tbl-criterios">
+            <thead><tr><th>Critério</th><th>Descrição</th><th>Peso (1-10)</th><th>Perfil Avaliador</th><th>Ação</th></tr></thead>
+            <tbody>
+              <tr><td><input type="text" class="form-control form-control-sm" value="Relevância Cultural"></td><td><input type="text" class="form-control form-control-sm" value="Impacto na cultura local"></td><td><input type="number" class="form-control form-control-sm" value="40"></td><td><select class="form-select form-select-sm"><option selected>Comissão Técnica</option></select></td><td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td></tr>
+              <tr><td><input type="text" class="form-control form-control-sm" value="Viabilidade Técnica"></td><td><input type="text" class="form-control form-control-sm" value="Cronograma e orçamento"></td><td><input type="number" class="form-control form-control-sm" value="30"></td><td><select class="form-select form-select-sm"><option selected>Comissão Técnica</option></select></td><td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td></tr>
+              <tr><td><input type="text" class="form-control form-control-sm" value="Impacto Social"></td><td><input type="text" class="form-control form-control-sm" value="Benefícios comunitários"></td><td><input type="number" class="form-control form-control-sm" value="20"></td><td><select class="form-select form-select-sm"><option selected>Comissão Social</option></select></td><td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td></tr>
+              <tr><td><input type="text" class="form-control form-control-sm" value="Inovação"></td><td><input type="text" class="form-control form-control-sm" value="Originalidade"></td><td><input type="number" class="form-control form-control-sm" value="10"></td><td><select class="form-select form-select-sm"><option selected>Comissão Técnica</option></select></td><td><button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td></tr>
+            </tbody>
+          </table>
+          <button class="btn btn-sm btn-outline-primary mb-3"><i class="bi bi-plus"></i> Adicionar Critério</button>
+          <hr>
+          <div class="row g-3">
+            <div class="col-md-4"><label class="form-label">Pontuação Mínima para Classificação</label><input type="number" class="form-control" value="60"></div>
+            <div class="col-md-4"><label class="form-label">Regra de Desempate</label><select class="form-select"><option>Maior pontuação no critério principal</option><option>Data de inscrição</option><option>Sorteio</option></select></div>
+          </div>
+        </div>
+
+        <!-- ABA 6: Regras Específicas -->
+        <div class="tab-step" id="step6">
+          <!-- Condicional: depende do Tipo de Fomento selecionado na Aba 1 -->
+          <!-- Direto: qtd max projetos, valor max, prazo execucao, comissao, recursos, prestacao, territorializacao -->
+          <!-- Indireto: subtipo (ISS ou Patrocinio), campos especificos de cada -->
+        </div>
+
+        <!-- ABA 7: Orçamento (condicional - so aparece se Habilitar Orcamento marcado) -->
+        <div class="tab-step" id="step7">
+          <!-- Grupos de despesa com % min/max, calculo IR, sugestao de itens -->
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button class="btn btn-sm btn-secondary" id="btn-prev">Anterior</button>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-outline-secondary">Cancelar</button>
+          <button class="btn btn-sm btn-warning">Salvar Rascunho</button>
+          <button class="btn btn-sm btn-primary" id="btn-next">Próximo</button>
+          <button class="btn btn-sm btn-success" id="btn-concluir" style="display:none;">Concluir Edital</button>
+        </div>
+      </div>
+    </div>

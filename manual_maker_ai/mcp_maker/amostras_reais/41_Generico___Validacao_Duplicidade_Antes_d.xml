@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="41" NAME="Generico&#x20;-&#x20;Validacao&#x20;Duplicidade&#x20;Antes&#x20;de&#x20;Inserir&#x20;-&#x20;V2" COMPONENTNAME="FlowStart1" DESCRIPTION="Inicio" DEBUG="FALSE">
+<HEADER>
+<AUTHOR>Gabriel&#x20;Lucas</AUTHOR>
+<DATE>05/10/2023 15:07:50</DATE>
+<RANKING>0,0</RANKING>
+</HEADER>
+<PARAM TYPE="Letras" SIZE="50">id</PARAM>
+<PARAM TYPE="Letras" SIZE="50">campoId</PARAM>
+<PARAM TYPE="Letras" SIZE="50">criterio</PARAM>
+<PARAM TYPE="Letras" SIZE="50">tabelaForm</PARAM>
+<PARAM TYPE="Letras" SIZE="50">nomeCampoCriterio</PARAM>
+<PARAM TYPE="Letras" SIZE="50">apelidoCampoCriterio</PARAM>
+<PARAM TYPE="Letras" SIZE="50">tipo</PARAM>
+<VAR TYPE="Tabela" SIZE="">tabela</VAR>
+<VAR TYPE="Letras" SIZE="50">select</VAR>
+<DECLARERETURN TYPE="" SIZE=""/>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision1" DESCRIPTION="Descri&#231;&#227;o&#x20;&#233;&#x20;nulo&#x20;ou&#x20;vazio">
+<CONDITION>
+<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+		<PARAMS>
+			<VARIABLE NAME="criterio"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector1"></REMARK>
+<REMARK COMPONENTNAME="FlowConnector2"></REMARK>
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION RETURN="select" COMPONENTNAME="FlowExpression3" DESCRIPTION="Montar&#x20;Select">
+<FUNCTION NAME="Concatena&#231;&#227;o" REALNAME="ebfConcat">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >SELECT&#x20;*&#x20;FROM&#x20;</CONSTANT>
+<VARIABLE NAME="tabelaForm"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >&#x20;WHERE&#x20;(</CONSTANT>
+<VARIABLE NAME="campoId"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >&#x20;&lt;&gt;&#x20;</CONSTANT>
+<FUNCTION NAME="Se" REALNAME="oprIf">
+<PARAMS>
+<FUNCTION NAME="&#201;&#x20;Nulo&#x20;ou&#x20;Vazio" REALNAME="isNullOrEmpty">
+<PARAMS>
+<VARIABLE NAME="id"/>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >-1</CONSTANT>
+<VARIABLE NAME="id"/>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >)&#x20;AND&#x20;(</CONSTANT>
+<VARIABLE NAME="nomeCampoCriterio"/>
+<FUNCTION NAME="Se" REALNAME="oprIf">
+<PARAMS>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+<PARAMS>
+<VARIABLE NAME="tipo"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >S</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >&#x20;=&#x20;'</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >&#x20;=&#x20;</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="criterio"/>
+<FUNCTION NAME="Se" REALNAME="oprIf">
+<PARAMS>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+<PARAMS>
+<VARIABLE NAME="tipo"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >S</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >')</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >)</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="tabela" COMPONENTNAME="FlowExpression2" DESCRIPTION="Abre&#x20;consulta&#x20;com&#x20;filtro">
+<FUNCTION NAME="Abrir Consulta Dinâmica Avançada" REALNAME="ebfOpenAdvancedQuery">
+<PARAMS>
+<VARIABLE NAME="select"/>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Inteiro" NULL="TRUE"></CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision2" DESCRIPTION="Existem&#x20;registros?">
+<CONDITION>
+<FUNCTION NAME="Existem Registros" REALNAME="ebfSQLEOF">
+		<PARAMS>
+			<VARIABLE NAME="tabela"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity1" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Duplicidade não permitida!</CONSTANT>
+
+<FUNCTION NAME="Concatena&#231;&#227;o" REALNAME="ebfConcat">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >O&#x20;Registro&#x20;&lt;b&gt;'	</CONSTANT>
+<VARIABLE NAME="criterio"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >'&lt;/b&gt;&#x20;j&#225;&#x20;se&#x20;encontra&#x20;cadastrado&#x20;para&#x20;&lt;b&gt;</CONSTANT>
+<VARIABLE NAME="apelidoCampoCriterio"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >&lt;/b&gt;</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<REMARK COMPONENTNAME="FlowConnector3"></REMARK>
+<REFERENCE COMPONENTNAME="FlowEnd1"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REFERENCE COMPONENTNAME="FlowEnd1"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</RULE>

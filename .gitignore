@@ -4,7 +4,12 @@ __pycache__/
 NativosMakerAi/
 webrun5/
 Resources/
-*.frz
-*.xml
 *.war
 .DS_Store
+.hf_cache/
+.rag_cache/
+.rag_cache_test/
+*.bak
+*.rar
+*.zip
+.cursor/mcp.json

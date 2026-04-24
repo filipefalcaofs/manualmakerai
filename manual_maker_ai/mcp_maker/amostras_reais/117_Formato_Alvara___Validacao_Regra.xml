@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="117" NAME="Formato&#x20;Alvara&#x20;-&#x20;Validacao&#x20;Regra" COMPONENTNAME="FlowStart1" DESCRIPTION="Inicio" DEBUG="FALSE">
+<HEADER>
+<AUTHOR>Jordan</AUTHOR>
+<DATE>11/09/2024 15:41:20</DATE>
+<RANKING>9,5</RANKING>
+</HEADER>
+<PARAM TYPE="Letras" SIZE="50">Alvara</PARAM>
+<DECLARERETURN TYPE="" SIZE=""/>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision6" DESCRIPTION="Alvar&#225;&#x20;com,&#x20;no&#x20;m&#237;nimo,&#x20;4&#x20;caracteres">
+<CONDITION>
+<FUNCTION NAME="Validar&#x20;Texto&#x20;Utilizando&#x20;Express&#227;o&#x20;Regular" REALNAME="ebfValidateTextER">
+<PARAMS>
+<VARIABLE NAME="Alvara"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >^D-\d{4}$</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision1" DESCRIPTION="Alvara&#x20;contendo,&#x20;pelo&#x20;menos,&#x20;uma&#x20;letra">
+<CONDITION>
+<FUNCTION NAME="Ou" REALNAME="oprOr">
+<PARAMS>
+<FUNCTION NAME="Validar&#x20;Texto&#x20;Utilizando&#x20;Express&#227;o&#x20;Regular" REALNAME="ebfValidateTextER">
+<PARAMS>
+<VARIABLE NAME="Alvara"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >.*D.*</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Validar&#x20;Texto&#x20;Utilizando&#x20;Express&#227;o&#x20;Regular" REALNAME="ebfValidateTextER">
+<PARAMS>
+<VARIABLE NAME="Alvara"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >.*D.*</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision3" DESCRIPTION="Alvar&#225;&#x20;contendo,&#x20;pelo&#x20;menos,&#x20;quatro&#x20;n&#250;meros">
+<CONDITION>
+<FUNCTION NAME="Validar&#x20;Texto&#x20;Utilizando&#x20;Express&#227;o&#x20;Regular" REALNAME="ebfValidateTextER">
+<PARAMS>
+<VARIABLE NAME="Alvara"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >.*\d{4}.*</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision2" DESCRIPTION="Parametro&#x20;&gt;&#x20;20">
+<CONDITION>
+<FUNCTION NAME="Maior" REALNAME="isGreater">
+<PARAMS>
+<FUNCTION NAME="Tamanho" REALNAME="ebfLength">
+<PARAMS>
+<VARIABLE NAME="Alvara"/>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >4</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector3"></REMARK>
+<ACTIVITY ID="7" NAME="Mensagem&#x20;de&#x20;Erro" REALNAME="ActNewErrorMessage" COMPONENTNAME="FlowActivity6" DESCRIPTION="Mensagem&#x20;de&#x20;Erro">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >Formato&#x20;do&#x20;n&#186;&#x20;do&#x20;alvar&#225;!</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >&lt;div&#x20;class=&quot;text-left&quot;&gt;
+
+&lt;b&gt;O&#x20;formato&#x20;do&#x20;n&#250;mero&#x20;do&#x20;alvar&#225;&#x20;dever&#225;&#x20;seguir&#x20;as&#x20;seguintes&#x20;regras:
+
+Come&#231;ar&#x20;com&#x20;a&#x20;letra&#x20;'D';
+Ser&#x20;seguido&#x20;por&#x20;um&#x20;hifen&#x20;'-';
+Contendo&#x20;quatro&#x20;d&#237;gitos&#x20;num&#233;ricos
+&lt;/div&gt;</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"  >Nulo</CONSTANT>
+</PARAMS>
+</ACTIVITY>
+<REFERENCE COMPONENTNAME="FlowEnd1"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector4"></REMARK>
+<REFERENCE COMPONENTNAME="FlowConnector3"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector2"></REMARK>
+<REFERENCE COMPONENTNAME="FlowConnector4"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector1"></REMARK>
+<REFERENCE COMPONENTNAME="FlowConnector2"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</RULE>

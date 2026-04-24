@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="2293" NAME="wsGestaoMotivosChecagem" COMPONENTNAME="FlowStart1" DESCRIPTION="Inicio" DEBUG="FALSE">
+<HEADER>
+<AUTHOR>Alisson&#x20;Targino&#x20;da&#x20;Silva</AUTHOR>
+<DATE>16/10/2025 17:13:27</DATE>
+<RANKING>4,5</RANKING>
+</HEADER>
+<VAR TYPE="Letras" SIZE="50">vCorpo</VAR>
+<VAR TYPE="Letras" SIZE="50">vRetorno</VAR>
+<VAR TYPE="Variante" SIZE="">vCabecalho</VAR>
+<VAR TYPE="Letras" SIZE="50">vSecret</VAR>
+<VAR TYPE="Letras" SIZE="50">vToken</VAR>
+<VAR TYPE="Variante" SIZE="">vPayload</VAR>
+<VAR TYPE="Inteiro" SIZE="">vCodigoUsuarioSha1</VAR>
+<VAR TYPE="Inteiro" SIZE="">vCodigoChecagem</VAR>
+<VAR TYPE="Lógico" SIZE="">vRetornoFuncao</VAR>
+<VAR TYPE="Variante" SIZE="">vDadosChecagem</VAR>
+<VAR TYPE="Variante" SIZE="">vDadosPendencias</VAR>
+<VAR TYPE="Variante" SIZE="">vDadosUsuario</VAR>
+<VAR TYPE="Variante" SIZE="">vTotalizadores</VAR>
+<VAR TYPE="Inteiro" SIZE="">vStatusSoltura</VAR>
+<DECLARERETURN TYPE="Variante" SIZE=""/>
+<ACTION>
+<EXPRESSION COMPONENTNAME="FlowExpression2" DESCRIPTION="Atributo&#x20;cabe&#231;alho">
+<FUNCTION NAME="Resposta Web: Atribuir Valor ao Cabeçalho" REALNAME="ebfSetHeader">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Content-Type</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">application/json; charset=UTF-8</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION COMPONENTNAME="FlowExpression12" DESCRIPTION="Define&#x20;Acesso&#x20;Cross&#x20;Origin">
+<FUNCTION NAME="Resposta Web: Atribuir Valor ao Cabeçalho" REALNAME="ebfSetHeader">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Access-Control-Allow-Origin</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">*</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION COMPONENTNAME="FlowExpression6" DESCRIPTION="Define&#x20;Acesso&#x20;Cross&#x20;Origin">
+<FUNCTION NAME="Resposta Web: Atribuir Valor ao Cabeçalho" REALNAME="ebfSetHeader">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">Access-Control-Allow-Methods</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">POST</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="vCabecalho" COMPONENTNAME="FlowExpression4" DESCRIPTION="JSON&#x20;-&#x20;Obter&#x20;Cabecalho&#x20;da&#x20;Requisi&#231;&#227;o">
+<FUNCTION NAME="REST - Obter Conteúdo do Cabeçalho" REALNAME="ebfRestGetHeadersContent">
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="vSecret" COMPONENTNAME="FlowExpression16" DESCRIPTION="Consulta&#x20;secret">
+<FUNCTION NAME="Campo" REALNAME="ebfSQLField">
+<PARAMS>
+<FUNCTION NAME="Abrir Consulta" REALNAME="ebfSQLExecuteQuery">
+<PARAMS>
+<CONSTANT TYPE="SQL Consulta" NULL="FALSE"><PSQL>
+<COMMAND>
+Select
+  SMB_PARAMETROS_GLOBAIS.PGL_JWT_SECRET
+From
+  SMB_PARAMETROS_GLOBAIS
+
+
+/*WHERE_NEW*/
+/*ORDER_NEW*/
+</COMMAND>
+<PARAMS>
+</PARAMS>
+</PSQL>
+</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Campo" NULL="FALSE" INDEX="0">PGL_JWT_SECRET</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="vToken" COMPONENTNAME="FlowExpression8" DESCRIPTION="Remove&#x20;bearer">
+<FUNCTION NAME="Trocar Todas as Subseqüências" REALNAME="ebfReplaceAll">
+<PARAMS>
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vCabecalho"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">authorization</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE">Bearer </CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision4" DESCRIPTION="Token&#x20;v&#225;lido&#x20;?">
+<CONDITION>
+<FUNCTION NAME="JWT - Validar Token" REALNAME="ebfValidateJWTToken">
+		<PARAMS>
+			<VARIABLE NAME="vToken"/>
+			<VARIABLE NAME="vSecret"/>
+			<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION RETURN="vPayload" COMPONENTNAME="FlowExpression7" DESCRIPTION="Obtendo&#x20;payload">
+<FUNCTION NAME="JSON - Criar Objeto" REALNAME="ebfCreateObjectJSON">
+<PARAMS>
+<FUNCTION NAME="JWT - Obter Payload" REALNAME="ebfGetPayloadJWT">
+<PARAMS>
+<VARIABLE NAME="vToken"/>
+<CONSTANT TYPE="Letras" NULL="TRUE"></CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="vCorpo" COMPONENTNAME="FlowExpression14" DESCRIPTION="Obtendo&#x20;corpo&#x20;do&#x20;REST">
+<FUNCTION NAME="Alterar Charset" REALNAME="ebfValueChangeCharset">
+<PARAMS>
+<FUNCTION NAME="REST - Obter Conteúdo do Corpo" REALNAME="ebfRestGetBodyContent">
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE">ISO-8859-1</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">UTF-8</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision9" DESCRIPTION="Corpo&#x20;=&#x20;null&#x20;?">
+<CONDITION>
+<FUNCTION NAME="Ou" REALNAME="oprOr">
+		<PARAMS>
+			<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+				<PARAMS>
+					<VARIABLE NAME="vCorpo"/>
+				</PARAMS>
+			</FUNCTION>
+			<FUNCTION NAME="Igual" REALNAME="isEqual">
+				<PARAMS>
+					<VARIABLE NAME="vCorpo"/>
+					<CONSTANT TYPE="Letras" NULL="FALSE">""</CONSTANT>
+				</PARAMS>
+			</FUNCTION>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<RULERETURN COMPONENTNAME="FlowEnd8" DESCRIPTION="Fim">
+<CONSTANT TYPE="Letras" NULL="FALSE">{"status":"error","msg": "Dados não informados"}</CONSTANT>
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION RETURN="vCorpo" COMPONENTNAME="FlowExpression10" DESCRIPTION="Json&#x20;criar&#x20;objeto">
+<FUNCTION NAME="JSON - Criar Objeto" REALNAME="ebfCreateObjectJSON">
+<PARAMS>
+<VARIABLE NAME="vCorpo"/>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="vCodigoUsuarioSha1" COMPONENTNAME="FlowExpression11" DESCRIPTION="Obtem&#x20;codigo&#x20;do&#x20;usuario">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vPayload"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">usrCodigo</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision1" DESCRIPTION="codigo&#x20;do&#x20;usuario&#x20;&#x20;=&#x20;null&#x20;?">
+<CONDITION>
+<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+		<PARAMS>
+			<VARIABLE NAME="vCodigoUsuarioSha1"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<RULERETURN COMPONENTNAME="FlowEnd7" DESCRIPTION="Fim">
+<CONSTANT TYPE="Letras" NULL="FALSE">{"status":"error","msg":"Erro nos dados informados"}</CONSTANT>
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<CALLRULE ID="2307" NAME="Mobile&#x20;-&#x20;Consulta&#x20;Codigo&#x20;Usuario" RETURN="vDadosUsuario" PARAMSCOUNT="1" COMPONENTNAME="FlowSubRoutine3" DESCRIPTION="Mobile&#x20;-&#x20;Obtem&#x20;dados&#x20;do&#x20;usuario">
+<PARAMS>
+<VARIABLE NAME="vCodigoUsuarioSha1"/>
+
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="vCodigoChecagem" COMPONENTNAME="FlowExpression5" DESCRIPTION="Obtem&#x20;codigo&#x20;da&#x20;checagem">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vCorpo"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">codPai</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="vDadosPendencias" COMPONENTNAME="FlowExpression1" DESCRIPTION="Obtem&#x20;dados&#x20;das&#x20;pendencias">
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vCorpo"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">subMotivos</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<EXPRESSION RETURN="vDadosChecagem" COMPONENTNAME="FlowExpression15" DESCRIPTION="Obtem&#x20;dados&#x20;da&#x20;checagem">
+<FUNCTION NAME="JSON - Remover Elemento" REALNAME="ebfJSONRemoveElement">
+<PARAMS>
+<VARIABLE NAME="vCorpo"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">subMotivos</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision3" DESCRIPTION="Option&#x20;=&#x20;checagem?">
+<CONDITION>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+		<PARAMS>
+			<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+				<PARAMS>
+					<VARIABLE NAME="vDadosChecagem"/>
+					<CONSTANT TYPE="Letras" NULL="FALSE">option</CONSTANT>
+				</PARAMS>
+			</FUNCTION>
+			<CONSTANT TYPE="Letras" NULL="FALSE">c</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision2" DESCRIPTION="Codigo&#x20;da&#x20;soltura&#x20;nulo&#x20;ou&#x20;vazio?">
+<CONDITION>
+<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+		<PARAMS>
+			<VARIABLE NAME="vCodigoChecagem"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<CALLRULE ID="2304" NAME="Mobile&#x20;-&#x20;Criar&#x20;Checagem" RETURN="vCodigoChecagem" PARAMSCOUNT="3" COMPONENTNAME="FlowSubRoutine2" DESCRIPTION="Mobile&#x20;-&#x20;Criar&#x20;Checagem">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >serCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<REMARK COMPONENTNAME="FlowConnector1"></REMARK>
+<CALLRULE ID="2306" NAME="Mobile&#x20;-&#x20;Percorre&#x20;Pendencias&#x20;-&#x20;Checagem" RETURN="vRetornoFuncao" PARAMSCOUNT="2" COMPONENTNAME="FlowSubRoutine1" DESCRIPTION="Mobile&#x20;-&#x20;Percorre&#x20;Pendencias&#x20;-&#x20;Checagem">
+<PARAMS>
+<VARIABLE NAME="vDadosPendencias"/>
+
+<VARIABLE NAME="vCodigoChecagem"/>
+
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="vRetorno" COMPONENTNAME="FlowExpression3" DESCRIPTION="Atualizar&#x20;json&#x20;retorno">
+<FUNCTION NAME="JSON - Criar JSON a Partir dos Elementos" REALNAME="ebfJSONParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar lista a partir dos Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar lista a partir dos Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">status</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">success</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar lista a partir dos Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">msg</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">Requisição feita com sucesso!</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar lista a partir dos Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">codPai</CONSTANT>
+<VARIABLE NAME="vCodigoChecagem"/>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Lógico" NULL="FALSE">true</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<CALLRULE ID="2308" NAME="Mobile&#x20;-&#x20;Filtra&#x20;Totalizadores&#x20;Checagem" RETURN="vTotalizadores" PARAMSCOUNT="1" COMPONENTNAME="FlowSubRoutine4" DESCRIPTION="Mobile&#x20;-&#x20;Filtra&#x20;Totalizadores&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+		<PARAMS>
+			<VARIABLE NAME="vDadosChecagem"/>
+			<CONSTANT TYPE="Letras" NULL="FALSE">autorizatario</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="vRetorno" COMPONENTNAME="FlowExpression9" DESCRIPTION="Adiciona&#x20;totalizadores&#x20;ao&#x20;retorno">
+<FUNCTION NAME="JSON - Atualizar Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetorno"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">totalizadores</CONSTANT>
+<VARIABLE NAME="vTotalizadores"/>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<CALLRULE ID="2348" NAME="Mobile&#x20;-&#x20;Atualiza&#x20;Dados&#x20;Firebase&#x20;-&#x20;Checagem" RETURN="" PARAMSCOUNT="6" COMPONENTNAME="FlowSubRoutine13" DESCRIPTION="Mobile&#x20;-&#x20;Atualiza&#x20;Dados&#x20;Firebase&#x20;-&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >cod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >autorizatario</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >garagem</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >veiculo</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="vCodigoChecagem"/>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >status</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >dateTime</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="2352" NAME="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem" RETURN="" PARAMSCOUNT="2" COMPONENTNAME="FlowSubRoutine18" DESCRIPTION="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="vCodigoChecagem"/>
+</PARAMS>
+</CALLRULE>
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+<VARIABLE NAME="vRetorno"/>
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REFERENCE COMPONENTNAME="FlowSubRoutine1"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector2"></REMARK>
+<DECISION COMPONENTNAME="FlowDecision6" DESCRIPTION="Option&#x20;=&#x20;checagem&#x20;complementar?">
+<CONDITION>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+		<PARAMS>
+			<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+				<PARAMS>
+					<VARIABLE NAME="vDadosChecagem"/>
+					<CONSTANT TYPE="Letras" NULL="FALSE">option</CONSTANT>
+				</PARAMS>
+			</FUNCTION>
+			<CONSTANT TYPE="Letras" NULL="FALSE">cc</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision8" DESCRIPTION="Acao&#x20;=&#x20;Salvar?">
+<CONDITION>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >acao</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >s</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<CALLRULE ID="2329" NAME="Mobile&#x20;-&#x20;Salvar&#x20;Pendencias/Liberacoes" RETURN="vRetornoFuncao" PARAMSCOUNT="2" COMPONENTNAME="FlowSubRoutine8" DESCRIPTION="Mobile&#x20;-&#x20;Salvar&#x20;Pendencias/Liberacoes">
+<PARAMS>
+<VARIABLE NAME="vDadosPendencias"/>
+
+<VARIABLE NAME="vCodigoChecagem"/>
+
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="2352" NAME="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem" RETURN="" PARAMSCOUNT="2" COMPONENTNAME="FlowSubRoutine20" DESCRIPTION="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="vCodigoChecagem"/>
+</PARAMS>
+</CALLRULE>
+<RULERETURN COMPONENTNAME="FlowEnd2" DESCRIPTION="Fim">
+<FUNCTION NAME="JSON&#x20;-&#x20;Criar&#x20;JSON&#x20;a&#x20;Partir&#x20;dos&#x20;Elementos" REALNAME="ebfJSONParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >status</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >success</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >msg</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >Requisi&#231;&#227;o&#x20;feita&#x20;com&#x20;sucesso!</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >codPai</CONSTANT>
+<VARIABLE NAME="vCodigoChecagem"/>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="L&#243;gico" NULL="FALSE"  >true</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision10" DESCRIPTION="Acao&#x20;=&#x20;Finalizar?">
+<CONDITION>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >acao</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >f</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<CALLRULE ID="2329" NAME="Mobile&#x20;-&#x20;Salvar&#x20;Pendencias/Liberacoes" RETURN="vRetornoFuncao" PARAMSCOUNT="2" COMPONENTNAME="FlowSubRoutine10" DESCRIPTION="Mobile&#x20;-&#x20;Salvar&#x20;Pendencias/Liberacoes">
+<PARAMS>
+<VARIABLE NAME="vDadosPendencias"/>
+
+<VARIABLE NAME="vCodigoChecagem"/>
+
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="2312" NAME="Mobile&#x20;-&#x20;Atualizar&#x20;Status&#x20;Checagem" RETURN="vRetornoFuncao" PARAMSCOUNT="3" COMPONENTNAME="FlowSubRoutine9" DESCRIPTION="Mobile&#x20;-&#x20;Atualizar&#x20;Status&#x20;Checagem">
+<PARAMS>
+<VARIABLE NAME="vCodigoChecagem"/>
+
+<VARIABLE NAME="vDadosChecagem"/>
+
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="vRetorno" COMPONENTNAME="FlowExpression21" DESCRIPTION="Atualiza&#x20;valor&#x20;de&#x20;status">
+<FUNCTION NAME="JSON&#x20;-&#x20;Criar&#x20;JSON&#x20;a&#x20;Partir&#x20;dos&#x20;Elementos" REALNAME="ebfJSONParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >status</CONSTANT>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetornoFuncao"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >status</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar&#x20;lista&#x20;a&#x20;partir&#x20;dos&#x20;Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >msg</CONSTANT>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetornoFuncao"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >msg</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="L&#243;gico" NULL="FALSE"  >true</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<CALLRULE ID="2308" NAME="Mobile&#x20;-&#x20;Filtra&#x20;Totalizadores&#x20;Checagem" RETURN="vTotalizadores" PARAMSCOUNT="1" COMPONENTNAME="FlowSubRoutine11" DESCRIPTION="Mobile&#x20;-&#x20;Filtra&#x20;Totalizadores&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+		<PARAMS>
+			<VARIABLE NAME="vDadosChecagem"/>
+			<CONSTANT TYPE="Letras" NULL="FALSE">autorizatario</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="vRetorno" COMPONENTNAME="FlowExpression22" DESCRIPTION="Adiciona&#x20;totalizadores&#x20;ao&#x20;retorno">
+<FUNCTION NAME="JSON&#x20;-&#x20;Atualizar&#x20;Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Atualizar&#x20;Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetorno"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >totalizadores</CONSTANT>
+<VARIABLE NAME="vTotalizadores"/>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >codPai</CONSTANT>
+<VARIABLE NAME="vCodigoChecagem"/>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision11" DESCRIPTION="Checagem&#x20;de&#x20;Soltura?">
+<CONDITION>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >chkSoltura</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="L&#243;gico" NULL="FALSE"  >true</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<CALLRULE ID="2347" NAME="Mobile&#x20;-&#x20;Obter&#x20;Status&#x20;Soltura" RETURN="vStatusSoltura" PARAMSCOUNT="1" COMPONENTNAME="FlowSubRoutine12" DESCRIPTION="Mobile&#x20;-&#x20;Obter&#x20;Status&#x20;Soltura">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >solturaCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="2348" NAME="Mobile&#x20;-&#x20;Atualiza&#x20;Dados&#x20;Firebase&#x20;-&#x20;Checagem" RETURN="" PARAMSCOUNT="6" COMPONENTNAME="FlowSubRoutine15" DESCRIPTION="Mobile&#x20;-&#x20;Atualiza&#x20;Dados&#x20;Firebase&#x20;-&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >cod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >autorizatario</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >garagem</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >veiculo</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="vCodigoChecagem"/>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >status</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >dateTime</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="2352" NAME="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem" RETURN="" PARAMSCOUNT="2" COMPONENTNAME="FlowSubRoutine17" DESCRIPTION="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="vCodigoChecagem"/>
+</PARAMS>
+</CALLRULE>
+<RULERETURN COMPONENTNAME="FlowEnd4" DESCRIPTION="Fim">
+<FUNCTION NAME="JSON&#x20;-&#x20;Atualizar&#x20;Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetorno"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >codStatus</CONSTANT>
+<VARIABLE NAME="vStatusSoltura"/>
+</PARAMS>
+</FUNCTION>
+</RULERETURN>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<CALLRULE ID="2348" NAME="Mobile&#x20;-&#x20;Atualiza&#x20;Dados&#x20;Firebase&#x20;-&#x20;Checagem" RETURN="" PARAMSCOUNT="6" COMPONENTNAME="FlowSubRoutine14" DESCRIPTION="Mobile&#x20;-&#x20;Atualiza&#x20;Dados&#x20;Firebase&#x20;-&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >cod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >autorizatario</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >garagem</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >veiculo</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="vCodigoChecagem"/>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >status</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >dateTime</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="2352" NAME="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem" RETURN="" PARAMSCOUNT="2" COMPONENTNAME="FlowSubRoutine16" DESCRIPTION="Mobile&#x20;-&#x20;Remove&#x20;Sinal&#x20;Vermelho&#x20;-&#x20;Semafaro&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<VARIABLE NAME="vCodigoChecagem"/>
+</PARAMS>
+</CALLRULE>
+<RULERETURN COMPONENTNAME="FlowEnd6" DESCRIPTION="Fim">
+<FUNCTION NAME="JSON&#x20;-&#x20;Atualizar&#x20;Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetorno"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >codStatus</CONSTANT>
+<CONSTANT TYPE="Inteiro" NULL="FALSE"  >1</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</RULERETURN>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REMARK COMPONENTNAME="FlowConnector3"></REMARK>
+<RULERETURN COMPONENTNAME="FlowEnd5" DESCRIPTION="Fim">
+<CONSTANT TYPE="Letras" NULL="FALSE">{"status":"error", "msg":"nenhuma opção válida foi informada!"}</CONSTANT>
+</RULERETURN>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<DECISION COMPONENTNAME="FlowDecision5" DESCRIPTION="Option&#x20;=&#x20;finalizar?">
+<CONDITION>
+<FUNCTION NAME="Igual" REALNAME="isEqual">
+		<PARAMS>
+			<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+				<PARAMS>
+					<VARIABLE NAME="vDadosChecagem"/>
+					<CONSTANT TYPE="Letras" NULL="FALSE">option</CONSTANT>
+				</PARAMS>
+			</FUNCTION>
+			<CONSTANT TYPE="Letras" NULL="FALSE">f</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION RETURN="vRetorno" COMPONENTNAME="FlowExpression18" DESCRIPTION="Atualizar&#x20;json&#x20;retorno">
+<FUNCTION NAME="JSON - Criar JSON a Partir dos Elementos" REALNAME="ebfJSONParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar lista a partir dos Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<FUNCTION NAME="Criar lista a partir dos Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">status</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">success</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="Criar lista a partir dos Elementos" REALNAME="ebfListParamsCreate">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">msg</CONSTANT>
+<CONSTANT TYPE="Letras" NULL="FALSE">Requisição feita com sucesso!</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Lógico" NULL="FALSE">true</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<DECISION COMPONENTNAME="FlowDecision7" DESCRIPTION="Codigo&#x20;da&#x20;soltura&#x20;nulo&#x20;ou&#x20;vazio?">
+<CONDITION>
+<FUNCTION NAME="É Nulo ou Vazio" REALNAME="isNullOrEmpty">
+		<PARAMS>
+			<VARIABLE NAME="vCodigoChecagem"/>
+		</PARAMS>
+	</FUNCTION>
+
+</CONDITION>
+<IFTRUE>
+<ACTION>
+<EXPRESSION RETURN="vDadosChecagem" COMPONENTNAME="FlowExpression17" DESCRIPTION="Atualiza&#x20;status&#x20;para&#x20;finalizado">
+<FUNCTION NAME="JSON - Atualizar Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">status</CONSTANT>
+<FUNCTION NAME="JSON - Criar Objeto" REALNAME="ebfCreateObjectJSON">
+<PARAMS>
+<CONSTANT TYPE="Letras" NULL="FALSE">{"cod":1}</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<CALLRULE ID="2304" NAME="Mobile&#x20;-&#x20;Criar&#x20;Checagem" RETURN="vCodigoChecagem" PARAMSCOUNT="3" COMPONENTNAME="FlowSubRoutine5" DESCRIPTION="Mobile&#x20;-&#x20;Criar&#x20;Checagem">
+<PARAMS>
+<VARIABLE NAME="vDadosChecagem"/>
+
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >serCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<CALLRULE ID="2308" NAME="Mobile&#x20;-&#x20;Filtra&#x20;Totalizadores&#x20;Checagem" RETURN="vTotalizadores" PARAMSCOUNT="1" COMPONENTNAME="FlowSubRoutine6" DESCRIPTION="Mobile&#x20;-&#x20;Filtra&#x20;Totalizadores&#x20;Checagem">
+<PARAMS>
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+		<PARAMS>
+			<VARIABLE NAME="vDadosChecagem"/>
+			<CONSTANT TYPE="Letras" NULL="FALSE">autorizatario</CONSTANT>
+		</PARAMS>
+	</FUNCTION>
+
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="vRetorno" COMPONENTNAME="FlowExpression19" DESCRIPTION="Adiciona&#x20;totalizadores&#x20;ao&#x20;retorno">
+<FUNCTION NAME="JSON - Atualizar Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetorno"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">totalizadores</CONSTANT>
+<VARIABLE NAME="vTotalizadores"/>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<REFERENCE COMPONENTNAME="FlowSubRoutine13"/>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<CALLRULE ID="2312" NAME="Mobile&#x20;-&#x20;Atualizar&#x20;Status&#x20;Checagem" RETURN="vRetornoFuncao" PARAMSCOUNT="3" COMPONENTNAME="FlowSubRoutine7" DESCRIPTION="Mobile&#x20;-&#x20;Atualizar&#x20;Status&#x20;Checagem">
+<PARAMS>
+<VARIABLE NAME="vCodigoChecagem"/>
+
+<VARIABLE NAME="vDadosChecagem"/>
+
+<FUNCTION NAME="JSON&#x20;-&#x20;Obter&#x20;Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vDadosUsuario"/>
+<CONSTANT TYPE="Letras" NULL="FALSE"  >usrCod</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</CALLRULE>
+<EXPRESSION RETURN="vRetorno" COMPONENTNAME="FlowExpression20" DESCRIPTION="Atualiza&#x20;valor&#x20;de&#x20;status">
+<FUNCTION NAME="JSON - Atualizar Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<FUNCTION NAME="JSON - Atualizar Valor" REALNAME="ebfUpdateValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetorno"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">status</CONSTANT>
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetornoFuncao"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">status</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+<CONSTANT TYPE="Letras" NULL="FALSE">msg</CONSTANT>
+<FUNCTION NAME="JSON - Obter Valor" REALNAME="ebfGetValueObjectJson">
+<PARAMS>
+<VARIABLE NAME="vRetornoFuncao"/>
+<CONSTANT TYPE="Letras" NULL="FALSE">msg</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<REFERENCE COMPONENTNAME="FlowSubRoutine6"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<REFERENCE COMPONENTNAME="FlowEnd5"/>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</IFTRUE>
+<IFFALSE>
+<ACTION>
+<EXPRESSION COMPONENTNAME="FlowExpression13" DESCRIPTION="Define&#x20;status&#x20;error">
+<FUNCTION NAME="Resposta Web: Definir Status" REALNAME="ebfSetStatusCode">
+<PARAMS>
+<CONSTANT TYPE="Inteiro" NULL="FALSE">403</CONSTANT>
+</PARAMS>
+</FUNCTION>
+</EXPRESSION>
+<RULERETURN COMPONENTNAME="FlowEnd3" DESCRIPTION="Fim">
+<CONSTANT TYPE="Letras" NULL="FALSE">{"status":"error","msg": "Token Inválido"}</CONSTANT>
+</RULERETURN>
+</ACTION>
+</IFFALSE>
+</DECISION>
+</ACTION>
+</RULE>

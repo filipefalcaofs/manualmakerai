@@ -1,0 +1,278 @@
+---
+description: UI/UX para formularios Maker — padroes reais de producao com Bootstrap 5
+globs: ["**/mcp_maker/**", "**/*.frz"]
+alwaysApply: false
+---
+
+# Formularios Maker — UI/UX de Producao
+
+Baseado na analise de 646 formularios, 7893 componentes e 235426 propriedades de um sistema em producao.
+
+---
+
+## 1. Layout com Containers (Bootstrap 5)
+
+O Maker renderiza HTML com Bootstrap 5. Containers (COM_TIPO = 'P') sao divs que agrupam componentes.
+
+### Classe padrao de container: card com sombra
+
+```
+form-group card shadow-sm
+```
+
+Usado em 42+ containers no sistema. E o padrao visual dominante.
+
+### Hierarquia de containers
+
+```
+Aba "01-Cadastro"
+├── Container (card principal)  → form-group card shadow-sm
+│   ├── Label (titulo)          → <div class="text-primary"><i class="fas fa-icon"></i> Titulo</div>
+│   ├── Edit: campo1
+│   ├── Edit: campo2
+│   └── Lookup: campo3
+├── Container (card 2)          → form-group card shadow-sm
+│   ├── Label (titulo)
+│   └── Grid (detalhe)
+```
+
+### Variacoes de container usadas no sistema
+
+| Classe CSS | Uso | Quando |
+|---|---|---|
+| `form-group card shadow-sm` | Card padrao | Sempre |
+| `form-group card shadow-sm bg-primary-subtle` | Card destaque | Informacoes principais |
+| `form-group card shadow` | Card com sombra forte | Secoes importantes |
+| `form-group border shadow` | Card com borda | Secoes secundarias |
+| `form-group border-0` | Sem borda | Agrupamento invisivel |
+| `form-group p-3 card h-100 shadow` | Card full-height | Colunas lado a lado |
+
+### Dashboard com cards de metricas
+
+Padrao do Dashboard real (64 componentes, 21 containers):
+
+```
+Container (card metrica)  → form-group card shadow-sm
+  Label (valor)           → font-size grande, text-primary
+  Label (descricao)       → text-muted
+```
+
+---
+
+## 2. Componentes — Uso real
+
+### Distribuicao no sistema (7893 componentes)
+
+| Tipo | Qtd | % | Uso |
+|---|---|---|---|
+| Edit (E) | 3088 | 39% | Campos de texto, data, numero |
+| Button (B) | 774 | 10% | Acoes |
+| FormSettings (F) | 744 | 9% | Config do form |
+| Lookup (K) | 742 | 9% | Busca com SQL |
+| Label (L) | 669 | 8% | Titulos, textos, HTML |
+| Container (P) | 287 | 4% | Agrupamento visual |
+| CheckBox (H) | 280 | 4% | Sim/Nao |
+| Grid (G) | 248 | 3% | Tabelas de dados |
+| Combo (C) | 215 | 3% | Listas estaticas |
+| Memo (M) | 181 | 2% | Texto longo |
+
+### Propriedades mais usadas
+
+| Propriedade | Usos | Descricao |
+|---|---|---|
+| NomeClasseCss | 6722 | Classes CSS do componente |
+| EstiloCss | 6706 | Estilo inline |
+| Placeholder | 4478 | Texto guia no campo |
+| LabelPosition | 4226 | Posicao do label |
+| Descricao | 6527 | Label visivel |
+
+---
+
+## 3. Botoes — Design System
+
+### Classes CSS para botoes (dados reais)
+
+| Classe | Usos | Quando usar |
+|---|---|---|
+| `btn-secondary` | 111 | Acao secundaria (cancelar, voltar) |
+| `btn-success` | 56 | Acao positiva (salvar, confirmar) |
+| `btn-danger` | 20 | Acao destrutiva (excluir) |
+| `btn-warning` | 6 | Acao com atencao |
+| `btn-dark` | 4 | Acao neutra forte |
+| `btn btn-outline-primary` | 6 | Acao alternativa |
+| `btn-link` | 3 | Acao discreta |
+| `btn-info` | 2 | Acao informativa |
+
+### Padrao de botao com icone
+
+```xml
+<property name="Descricao"><![CDATA[<i class="fas fa-save"></i> Salvar]]></property>
+<property name="NomeClasseCss">btn-success</property>
+```
+
+---
+
+## 4. Labels com HTML
+
+Labels (L) aceitam HTML na Descricao. Padroes do sistema:
+
+### Titulo de secao
+
+```html
+<div class="text-primary"><i class="fas fa-file"></i> Dados do Documento</div>
+```
+
+### Texto informativo
+
+```html
+<span class="text-muted">Preencha todos os campos obrigatorios</span>
+```
+
+### Valor em destaque (dashboard)
+
+```html
+<span style="font-size: 2em; font-weight: bold;">R$ 1.234,56</span>
+```
+
+---
+
+## 5. Formulario — Configuracao padrao
+
+### Propriedades do FormSettings (COM_TIPO = 'F')
+
+| Propriedade | Valor recomendado | Por que |
+|---|---|---|
+| Responsivo | TRUE | Layout adaptavel |
+| Navegacao | TRUE | Barra de navegacao |
+| Abas | TRUE | Organizar conteudo |
+| BarraDeRolagem | True | Scroll quando necessario |
+| EntrarComoPesquisa | FALSE | Abrir no cadastro |
+| ModoLegado | FALSE | Usar engine novo |
+| AbaLocalizar | TRUE | Permitir busca |
+
+### Dimensoes recomendadas
+
+| Tipo de formulario | Tamanho | Altura |
+|---|---|---|
+| Cadastro simples | 1090 | 666 |
+| Cadastro complexo | 1246 | 775 |
+| Dashboard | 1273 | 775 |
+| Modal / Popup | 800 | 500 |
+
+---
+
+## 6. Abas — Organizacao
+
+### Padrao de nomeacao
+
+```
+01-Cadastro       → dados principais
+02-Detalhes       → informacoes complementares
+03-Historico      → logs, auditoria
+04-Configuracoes  → opcoes avancadas
+```
+
+Prefixo numerico garante a ordem correta.
+
+---
+
+## 7. Lookups — Busca inteligente
+
+742 lookups no sistema. Configuracao ideal:
+
+```xml
+<property name="BuscaIncremental">True</property>
+<property name="TipoFiltroInicial">2</property>  <!-- 2 = contem -->
+<property name="Paginacao">20</property>
+<property name="SQL">
+    SELECT ID, DESCRICAO FROM TABELA WHERE DESCRICAO ILIKE '%' || :SEARCH || '%' ORDER BY DESCRICAO
+</property>
+```
+
+---
+
+## 8. Grids — Tabelas de dados
+
+248 grids no sistema. Configuracao ideal:
+
+```xml
+<property name="Editavel">False</property>       <!-- readonly por padrao -->
+<property name="Paginacao">20</property>          <!-- paginacao -->
+<property name="AlturaCabecalho">35</property>
+<property name="AlturaLinha">30</property>
+<property name="PlaceHolder">Nenhum registro encontrado</property>
+```
+
+Para grids editaveis: `Editavel = True` com validacao no evento "Antes de Gravar".
+
+---
+
+## 9. UX — Boas Praticas
+
+### Campos obrigatorios
+
+Usar `ebfFormSetRequired` (140 usos no sistema) pra marcar visualmente:
+```
+FormSetRequired(guid, 'nomeCampo', true)
+```
+
+### Feedback visual
+
+- Ao salvar com sucesso: nao precisa de alert (o Maker ja mostra)
+- Ao falhar: AbortMsg com mensagem clara sobre o que corrigir
+- Campos com erro: usar CSS para destacar (border-danger)
+
+### Cascata de campos
+
+Ao modificar um campo, atualizar os dependentes automaticamente:
+```
+Evento: Ao Modificar (campo UF)
+  → Buscar cidades da UF selecionada
+  → Atualizar lookup de Cidade
+  → Limpar campo Bairro
+```
+
+### Responsividade
+
+- `Responsivo = TRUE` no form
+- Containers com classes Bootstrap: `d-flex`, `flex-wrap`, `col-md-6`
+- Evitar posicao absoluta (EstiloCss) quando possivel
+
+---
+
+## 10. Template de Formulario CRUD
+
+### Componentes minimos
+
+```
+FormSettings (F)
+  → Responsivo=TRUE, Navegacao=TRUE
+
+Container card (P)
+  → form-group card shadow-sm
+  Label titulo (L)
+    → <div class="text-primary"><i class="fas fa-edit"></i> Dados</div>
+  Edit campos (E)
+    → Campo=NOME_NO_BANCO, Placeholder="Digite..."
+  Lookup referencias (K)
+    → BuscaIncremental=True, TipoFiltroInicial=2
+
+Grid detalhe (G)
+  → Paginacao=20, PlaceHolder="Nenhum registro"
+```
+
+### Eventos minimos
+
+```
+Ao Entrar           → Inicializar campos, configurar visibilidade
+Antes de Gravar     → Validar campos obrigatorios
+Ao Modificar (campo) → Cascata de dependencias
+```
+
+### Regras minimas
+
+```
+[SRV] NomeForm - Ao Entrar          → carregar dados iniciais
+[CLI] NomeForm - Antes de Gravar    → validar campos
+[CLI] NomeForm - Ao Modificar Campo → cascata
+```

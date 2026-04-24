@@ -1,0 +1,600 @@
+---
+description: Guia completo para criar fluxogramas (rules) no Maker — DFM, Script XML, funcoes, padroes
+alwaysApply: false
+---
+
+# Maker — Criacao de Fluxogramas (Rules)
+
+Guia para gerar regras de negocio (fluxogramas) no formato FRZ. Cada rule tem duas representacoes base64: `REG_INTERFACE` (visual DFM) e `REG_SCRIPT` (logica XML).
+
+---
+
+## Anatomia de uma Rule
+
+```xml
+<rule REG_NOME="Nome&#x0020;do&#x0020;Fluxograma" REG_COD="ID">
+    <property name="REG_COD">ID</property>
+    <property name="REG_NOME">Nome (XML-escaped)</property>
+    <property name="REG_DESCRICAO">Descricao</property>
+    <property name="REG_PARAMS">param1,Tipo,,;param2,Tipo,,</property>
+    <property name="REG_VARIAVEIS">var1,Tipo,,;var2,Tipo,,</property>
+    <property name="REG_PARAMS_OUT">retorno,Tipo,,</property>
+    <property name="REG_DATA"></property>
+    <property name="REG_HORA"></property>
+    <property name="REG_COMPILADA"></property>
+    <property name="REG_DESTINO">1</property>
+    <property name="REG_HASH"></property>
+    <property name="REG_INTERFACE" binary-encoded="True"><![CDATA[...base64 DFM...]]></property>
+    <property name="REG_SCRIPT" binary-encoded="True"><![CDATA[...base64 XML...]]></property>
+    <property name="CAT_PATH"><![CDATA[\Categoria]]></property>
+</rule>
+```
+
+### Destino (REG_DESTINO)
+
+| Valor | Descricao |
+|---|---|
+| `1` | Cliente (executa no navegador — JavaScript) |
+| `2` | Servidor (executa no backend — Java) |
+
+### Tipos de dados para params/variaveis
+
+| Tipo | Descricao |
+|---|---|
+| `Inteiro` | Numero inteiro |
+| `Letras` | String/texto |
+| `Variante` | Tipo dinamico |
+| `Logico` | Booleano |
+| `Formulario` | Referencia a formulario (por GUID) |
+| `Componente` | Referencia a componente na tela |
+
+### Formato de params/variaveis
+
+```
+nome,Tipo,Tamanho,;nome2,Tipo,,
+```
+
+Separador entre variaveis: `;`. Campos dentro de cada variavel: `,` (nome, tipo, tamanho, valor_default).
+
+---
+
+## REG_INTERFACE — Layout Visual (DFM)
+
+O DFM descreve os componentes visuais do fluxograma (caixas, setas, decisoes). Codificado em base64 **SEM null padding**.
+
+**CRITICO: O DFM DEVE usar line endings CRLF (`\r\n`).** O parser Delphi do Maker rejeita DFM com `\n` puro.
+
+### Encoding
+
+```python
+def encode_dfm_b64(text: str) -> str:
+    crlf = text.replace("\r\n", "\n").replace("\n", "\r\n")
+    data = crlf.encode("iso-8859-1")
+    return base64.b64encode(data).decode("ascii")
+```
+
+### Tipos de componentes DFM
+
+| Classe | Tipo | Descricao |
+|---|---|---|
+| `TFlowStart` | Inicio | Ponto de entrada do fluxo |
+| `TFlowEnd` | Fim | Ponto de saida |
+| `TFlowExpression` | Expressao | Executa funcao e opcionalmente retorna valor |
+| `TFlowDecision` | Decisao | Condicional com 2 saidas (Sim/Nao) |
+| `TFlowSubRoutine` | Sub-rotina | Chamada a outro fluxograma |
+| `TFlowConnector` | Conector visual | Ponto de juncao entre caminhos |
+| `TFlowLoop` | Loop | Repeticao |
+| `TFlowLine` | Linha | Liga dois componentes |
+
+### Estrutura DFM padrao
+
+```delphi
+object FlowSubModel1: TFlowSubModel
+  object FlowStart1: TFlowStart
+    Left = 400
+    Top = 30
+    Width = 38
+    Height = 38
+    Constraints.MaxHeight = 600
+    Constraints.MaxWidth = 600
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ChangeDescription = False
+    OutputNames = 'FlowLine1'
+    Description = 'Inicio'
+    Variables = 'var1,Tipo,,;var2,Tipo,,'
+    WorkFormCod = -1
+  end
+  object flowExpression1: TFlowExpression
+    Left = 344
+    Top = 96
+    Width = 150
+    Height = 57
+    Constraints.MaxHeight = 600
+    Constraints.MaxWidth = 600
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ChangeDescription = True
+    InputNames = 'FlowLine1'
+    OutputNames = 'FlowLine2'
+    Description = 'Descricao do passo'
+    Text = 'Funcao(param1, param2)'
+    ReturnVar = 'varRetorno'
+    Expression = '<FUNCTION NAME="Nome Amigavel" REALNAME="ebfNomeFuncao">...</FUNCTION>'
+    DiagramXml = '...'
+  end
+  object flowDecision1: TFlowDecision
+    Left = 365
+    Top = 200
+    Width = 108
+    Height = 75
+    Constraints.MaxHeight = 600
+    Constraints.MaxWidth = 600
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ChangeDescription = True
+    InputNames = 'FlowLine2'
+    OutputNames = 'FlowLine3;FlowLine4'
+    Description = 'Condicao X?'
+    Expression = '<FUNCTION ...>...</FUNCTION>'
+    Loop = False
+  end
+  object FlowEnd1: TFlowEnd
+    Left = 400
+    Top = 500
+    Width = 38
+    Height = 38
+    Constraints.MaxHeight = 600
+    Constraints.MaxWidth = 600
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ChangeDescription = False
+    InputNames = 'FlowLineN'
+    Description = 'Fim'
+  end
+  object FlowLine1: TFlowLine
+    Left = 399
+    Top = 48
+    Width = 40
+    Height = 68
+    Color = clWhite
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ChangeDescription = False
+    InputNames = 'FlowStart1'
+    OutputNames = 'FlowExpression1'
+    Region = 0
+    Style = psSolid
+    Decision = False
+  end
+  object FlowLine3: TFlowLine
+    Left = 474
+    Top = 210
+    Width = 140
+    Height = 41
+    Color = clBlack
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ChangeDescription = False
+    InputNames = 'FlowDecision1'
+    OutputNames = 'FlowConnector1'
+    Description = 'SIM'
+    Region = 0
+    Style = psDash
+    Decision = True
+  end
+  object FlowLine4: TFlowLine
+    Left = 399
+    Top = 240
+    Width = 64
+    Height = 55
+    Color = clBlack
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ChangeDescription = False
+    InputNames = 'FlowDecision1'
+    OutputNames = 'OutroComponente'
+    Description = 'N'#195'O'
+    Region = 0
+    Style = psSolid
+    Decision = False
+  end
+end
+```
+
+### Regras de posicionamento DFM
+
+- `TFlowStart` sempre no topo (Top ~93, Left ~400)
+- Cada passo subsequente incrementa Top em ~75px
+- `TFlowEnd` no final
+- `TFlowLine` conecta componentes (Input -> Output)
+- Para decisoes: `OutputNames` tem 2 linhas separadas por `;` (Sim e Nao)
+- `Decision = True` no FlowLine marca a saida "Sim" — usa `Style = psDash` e `Description = 'SIM'`
+- `Decision = False` no FlowLine marca "Nao" — usa `Style = psSolid` e `Description = 'N'#195'O'`
+
+### Propriedades obrigatorias do TFlowLine
+
+Todas estas propriedades DEVEM estar presentes:
+
+```delphi
+  object FlowLine1: TFlowLine
+    Left = X
+    Top = Y
+    Width = W
+    Height = H
+    Color = clWhite        // clWhite para Start, clBlack para outros, 9079434 para neutro
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ChangeDescription = False
+    InputNames = 'ComponenteOrigem'
+    OutputNames = 'ComponenteDestino'
+    Region = 0
+    Style = psSolid         // psSolid ou psDash (saida True de Decision)
+    Decision = False        // True apenas na saida "Sim" de Decision
+  end
+```
+
+### TFlowConnector (juncao de caminhos)
+
+```delphi
+  object FlowConnector1: TFlowConnector
+    Left = X
+    Top = Y
+    Width = 30
+    Height = 30
+    Constraints.MaxHeight = 600
+    Constraints.MaxWidth = 600
+    Constraints.MinHeight = 9
+    Constraints.MinWidth = 9
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ChangeDescription = False
+    InputNames = 'FlowLineX'
+    OutputNames = 'FlowLineY'
+  end
+```
+
+---
+
+## REG_SCRIPT — Logica de Execucao (XML)
+
+O Script XML define a logica real que sera executada. Codificado em base64 **SEM null padding**.
+
+**CRITICO: O Script DEVE usar line endings CRLF (`\r\n`).** Mesmo requisito do DFM.
+
+### Encoding
+
+```python
+def encode_script_b64(text: str) -> str:
+    crlf = text.replace("\r\n", "\n").replace("\n", "\r\n")
+    data = crlf.encode("iso-8859-1")
+    return base64.b64encode(data).decode("ascii")
+```
+
+### Estrutura XML do Script
+
+```xml
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RULE ID="ID" NAME="Nome&#x20;do&#x20;Fluxograma" COMPONENTNAME="FlowStart1"
+      DESCRIPTION="Inicio" DEBUG="FALSE">
+  <HEADER>
+    <AUTHOR>master</AUTHOR>
+    <DATE>DD/MM/AAAA HH:MM:SS</DATE>
+    <RANKING>10,0</RANKING>
+  </HEADER>
+  <PARAM TYPE="Tipo" SIZE="">nomeParam</PARAM>
+  <VAR TYPE="Tipo" SIZE="">nomeVar</VAR>
+  <DECLARERETURN TYPE="" SIZE=""/>
+  <ACTION>
+    <!-- passos do fluxograma -->
+  </ACTION>
+</RULE>
+```
+
+**NAO usar** atributos/tags como `AIGENERATED`, `AIPROMPT`, `CODE` — nao existem no formato real.
+
+### Elementos do ACTION
+
+#### EXPRESSION — Chamada de funcao
+
+```xml
+<EXPRESSION RETURN="varRetorno" COMPONENTNAME="flowExpression1"
+            DESCRIPTION="Descricao do passo">
+  <FUNCTION NAME="Nome Amigavel" REALNAME="ebfNomeFuncao">
+    <PARAMS>
+      <VARIABLE NAME="param1"/>
+      <CONSTANT TYPE="Letras" NULL="FALSE">valor</CONSTANT>
+    </PARAMS>
+  </FUNCTION>
+</EXPRESSION>
+```
+
+#### DECISION — Condicional
+
+```xml
+<DECISION COMPONENTNAME="FlowDecision1" DESCRIPTION="Condicao?">
+  <CONDITION>
+    <FUNCTION NAME="Igual" REALNAME="isEqual">
+      <PARAMS>
+        <VARIABLE NAME="var1"/>
+        <CONSTANT TYPE="Letras" NULL="FALSE">valor</CONSTANT>
+      </PARAMS>
+    </FUNCTION>
+  </CONDITION>
+  <IFTRUE>
+    <ACTION>
+      <!-- passos se verdadeiro -->
+    </ACTION>
+  </IFTRUE>
+  <IFFALSE>
+    <ACTION>
+      <!-- passos se falso -->
+    </ACTION>
+  </IFFALSE>
+</DECISION>
+```
+
+#### REMARK — Conector/Juncao
+
+Usado quando um FlowConnector junta dois caminhos:
+
+```xml
+<REMARK COMPONENTNAME="FlowConnector1"></REMARK>
+```
+
+#### REFERENCE — Referencia a componente ja definido
+
+Quando o mesmo componente (ex: FlowEnd1) e alcancado por dois caminhos diferentes:
+
+```xml
+<REFERENCE COMPONENTNAME="FlowEnd1"/>
+```
+
+#### CALLRULE — Chamada a outro fluxograma
+
+```xml
+<CALLRULE ID="ID_REGRA" NAME="Nome Sub Fluxo" RETURN="varRetorno"
+          PARAMSCOUNT="N" COMPONENTNAME="FlowSubRoutine1"
+          DESCRIPTION="Descricao">
+  <PARAMS>
+    <VARIABLE NAME="paramValue"/>
+  </PARAMS>
+</CALLRULE>
+```
+
+#### RULERETURN — Fim do fluxo
+
+```xml
+<RULERETURN COMPONENTNAME="FlowEnd1" DESCRIPTION="Fim">
+</RULERETURN>
+```
+
+---
+
+## Funcoes mais usadas
+
+### Formulario e Componentes
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `Obter GUID do Formulario Atual` | `ebfGetGUIDActualForm` | Retorna GUID do form |
+| `Obter Valor do Componente` | `ebfFormGetComponentValue` | Le valor de campo |
+| `Alterar Valor do Componente` | `ebfFormChangeComponentValue` | Define valor de campo |
+| `Obter Propriedade do Componente` | `ebfFormGetComponentProperty` | Le propriedade |
+| `Alterar Propriedade do Componente` | `ebfFormChangeComponentProperty` | Define propriedade |
+| `Formulario - Habilitar Componente` | `ebfFormEnableComponent` | Habilita/desabilita |
+| `Formulario - Visibilidade do Componente` | `ebfFormComponentVisible` | Mostra/esconde |
+| `Formulario - Focar Componente` | `ebfFormFocusComponent` | Foca campo |
+
+### Validacao
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `Validar CPF` | `ebfIsCpf` | Valida CPF |
+| `Validar CNPJ` | `ebfIsCnpj` | Valida CNPJ |
+| `Validar Email` | `ebfIsEmail` | Valida e-mail |
+| `Nulo?` | `ebfIsNull` | Verifica se nulo/vazio |
+
+### Mensagens e UI
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `Mensagem de Alerta` | `ebfAlert` | Alert simples |
+| `Mensagem de Confirmacao` | `ebfConfirm` | Confirm (Sim/Nao) |
+| `Abortar` | `ebfAbort` | Aborta a operacao |
+| `Abortar com mensagem` | `ebfAbortMsg` | Aborta com mensagem |
+
+### Texto e Conversao
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `Concatenacao` | `ebfConcat` | Concatena strings |
+| `Trim` | `ebfTrim` | Remove espacos |
+| `Maiusculas` | `ebfUpperCase` | Converte para maiusculas |
+| `Minusculas` | `ebfLowerCase` | Converte para minusculas |
+| `Tamanho do Texto` | `ebfLength` | Retorna tamanho da string |
+| `Substituir` | `ebfReplace` | Substitui texto |
+
+### Operadores logicos e comparacao
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `Igual` | `isEqual` | Comparacao de igualdade |
+| `Diferente` | `isNotEqual` | Diferente de |
+| `Maior` | `isGreater` | Maior que |
+| `Menor` | `isLess` | Menor que |
+| `E` | `oprAnd` | AND logico |
+| `Ou` | `oprOr` | OR logico |
+| `Nao` | `oprNot` | NOT logico |
+
+### Banco de dados
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `Executar SQL` | `ebfExecuteSQL` | Executa SQL DML |
+| `Consultar SQL` | `ebfQuerySQL` | Executa SELECT |
+| `Obter Campo da Consulta` | `ebfGetFieldValue` | Le campo do resultado |
+
+### Navegacao
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `Abrir Formulario` | `ebfOpenForm` | Abre formulario por GUID |
+| `Fechar Formulario` | `ebfCloseForm` | Fecha formulario atual |
+| `Navegar` | `ebfNavigate` | Navega para URL/pagina |
+
+### HTML/CSS (Cliente)
+
+| Nome Amigavel | REALNAME | Descricao |
+|---|---|---|
+| `HTML - Obter Elemento pelo ID` | `ebfHtmlGetElementById` | Pega referencia DOM |
+| `HTML - Criar Elemento` | `ebfHtmlCreateHtmlElement` | Cria tag HTML |
+| `HTML - Definir Conteudo` | `ebfHtmlInnerHtml` | Define innerHTML |
+| `HTML - Definir Atributo` | `ebfHtmlSetAttribute` | Define atributo HTML |
+| `CSS - Adicionar Classe` | `ebfHtmlCssAddClass` | Adiciona classe CSS |
+| `CSS - Remover Classe` | `ebfHtmlCssRemoveClass` | Remove classe CSS |
+| `CSS - Definir Propriedade` | `ebfHtmlCssDefineStyle` | Define estilo CSS |
+
+Para catalogo completo de funcoes, consultar `nativos/funcoes/README.md` e os arquivos por categoria.
+
+---
+
+## Padroes comuns de fluxogramas
+
+### Padrao 1: Validacao "Antes de Gravar"
+
+1. Obter GUID do formulario
+2. Obter valores dos campos obrigatorios
+3. Para cada campo: verificar se vazio → abortar com mensagem
+4. Para campos com formato (CPF, email): validar formato
+5. Se tudo OK, fluxo termina normalmente (gravar prossegue)
+
+### Padrao 2: "Ao Entrar" — Inicializacao
+
+1. Obter GUID do formulario
+2. Definir valores iniciais de campos
+3. Configurar visibilidade de componentes
+4. Carregar dados auxiliares
+
+### Padrao 3: Botao de acao
+
+1. Obter valores necessarios da tela
+2. Executar logica (SQL, API, etc.)
+3. Exibir mensagem de sucesso/erro
+4. Atualizar tela se necessario
+
+### Padrao 4: "Ao Modificar" — Cascata
+
+1. Obter novo valor do campo
+2. Baseado no valor, carregar dados dependentes (SQL)
+3. Preencher campos relacionados
+4. Ajustar visibilidade de secoes
+
+---
+
+## Expression — formato da propriedade Expression no DFM
+
+A propriedade `Expression` no DFM contem a definicao da funcao em formato pseudo-XML inline:
+
+```
+Expression = '<FUNCTION NAME="Nome&#x20;Amigavel" REALNAME="ebfNomeFuncao">'#13#10'<PARAMS>'#13#10'<VARIABLE NAME="param1"/>'#13#10'</PARAMS>'#13#10'</FUNCTION>'
+```
+
+Caracteres especiais no DFM usam notacao Delphi:
+- `#13#10` = CRLF (nova linha)
+- `#233` = e com acento (e)
+- `#225` = a com acento (a)
+- `#231` = c cedilha (c)
+- `#243` = o com acento (o)
+- `#250` = u com acento (u)
+
+### DiagramXml no DFM
+
+```
+DiagramXml = '<?xml version="1.0" encoding="ISO-8859-1"?>'#13#10'<ROOT>'#13#10'<TObjFunction>'#13#10'<ID>0</ID>'#13#10'<NOME>FUNCTION</NOME>'#13#10'<TEXT>ebfNomeFuncao</TEXT>'#13#10'<SQL>FALSE</SQL>'#13#10'<TIPO>TipoRetorno</TIPO>'#13#10'<INCOMPATIVEL>FALSE</INCOMPATIVEL>'#13#10'<MKR_VERSION>6.1.0.14</MKR_VERSION>'#13#10'</TObjFunction>'#13#10'</ROOT>'#13#10
+```
+
+---
+
+## Vinculando regras a eventos de tela
+
+As regras ficam em `<global><rules>` e sao referenciadas por NOME (nao por codigo) nos eventos dos componentes:
+
+```xml
+<event name="Antes de Gravar">
+    <action name="12">
+        <property name="ACC_CONDICAO"></property>
+        <param name="Entrada"><![CDATA[param1=campo_formulario]]></param>
+        <param name="Nome"><![CDATA[Nome do Fluxograma]]></param>
+    </action>
+</event>
+```
+
+### Tipos de action
+
+| Tipo | Descricao | Uso |
+|---|---|---|
+| `12` | Executar fluxograma | `Nome` = nome da regra, `Entrada` = parametros |
+| `3` | Visibilidade de componentes | `Lista de Objetos` = condicoes |
+| `6` | Limpar/definir valores | `Lista de Objetos` = mapeamento |
+| `7` | Acao sobre componente | Variavel |
+
+### Mapeamento de parametros (Entrada)
+
+```
+nome_param_no_fluxo=nome_campo_no_formulario
+```
+
+Multiplos parametros separados por `\r\n`. Deixar vazio se o fluxograma nao recebe parametros.

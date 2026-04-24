@@ -1,0 +1,200 @@
+---
+description: Detecta tarefas do Maker e ativa o MCP maker-flow-engine para criacao de FRZ
+alwaysApply: true
+---
+
+# Maker — Motor de Criacao de FRZ
+
+Quando o usuario pedir para criar, modificar ou gerar artefatos do Maker (WebRun/fmaker), voce DEVE usar o MCP `maker-flow-engine`.
+
+## Gatilhos — quando ativar
+
+Qualquer mencao a:
+
+- Criar tela, formulario, form, cadastro, consulta no Maker
+- Criar fluxograma, fluxo, regra, rule no Maker
+- Gerar ou modificar FRZ
+- Criar tabela, entidade, schema, DDL no Maker
+- Inserir dados iniciais, seed data, dados de referencia
+- Componentes Maker (MakerEdit, MakerLookup, MakerGrid, MakerContainer, MakerCombo, etc.)
+- Funcoes do Maker (ebf*, opr*, isEqual, isNullOrEmpty, ActNewErrorMessage, etc.)
+- Regras de negocio servidor (Java) ou cliente (JavaScript)
+- Eventos de formulario (Antes de Gravar, Ao Entrar, Ao Clicar, etc.)
+- Design de tela, layout, cards, CSS
+- WebRun, fmaker, low-code Maker
+- Duvidas sobre banco de dados no Maker (config, erros, drivers)
+- Erros ou problemas no Maker/WebRun (troubleshooting)
+- Dicas de uso, truques, boas praticas
+- Arquitetura do WebRun (classes Java, componentes JS, JARs)
+- Maker Mobile (exportacao, sincronizacao, pacotes)
+- Configuracao da IDE Maker (plugins, skins, templates)
+- Documentacao ou manual do Maker
+
+## MCP — maker-flow-engine (44 tools)
+
+### Tools de consulta (descobrir funcoes)
+- `buscar_funcao(termo)` — encontrar funcoes nativas por nome/descricao
+- `detalhar_funcao(nome_real)` — assinatura, params, retorno, compatibilidade
+- `listar_funcoes(camada, categoria)` — listar por servidor/cliente e categoria
+
+### Tools de referencia (aprender padroes)
+- `guia_fluxograma(topico)` — **CONSULTAR SEMPRE antes de criar regras**. Traduz logica de backend para fluxogramas Maker. Topicos: campo, duplicidade, validacao, servidor, componente, json, erros
+- `padroes_fluxo(padrao)` — composicoes de funcoes extraidas de 2371 regras + 12 formularios reais. Inclui: SQL Loop, DOM/HTML, Dashboard, Login, Formularios
+- `boas_praticas()` — performance, seguranca, nomenclatura
+- `buscar_regra_real(termo)` — buscar exemplos do sistema de producao
+- `spec_fluxograma()` — spec tecnica (DFM, Script XML, encoding, eventos)
+- `estrutura_frz()` — estrutura XML COMPLETA de um FRZ (hierarquia de tags, COM_TIPO, tipos de form, eventos, ENTITY_SCHEMA, datapackets, CSS)
+- `spec_componentes()` — catalogo de COM_TIPO: E, C, K, L, P, G, B, M, H, R, I, A, W, S
+- `spec_design()` — design premium, cards Bootstrap, CSS, layout
+
+### Tools de geracao (produzir FRZ)
+- `validar_fluxo(spec_json)` — validar spec antes de gerar
+- `gerar_fluxo(spec_json, output_path)` — gerar FRZ com regras
+- `gerar_funcao(spec_json, output_path)` — gerar FRZ com funcoes customizadas (JS cliente do zero, Java servidor com classes existentes)
+- `gerar_tela_completa(spec_json, output_path)` — gerar FRZ com formulario(s) + regras + entidades + dados. Suporta multiplos forms e templates
+- `gerar_tabela_dados(spec_json, output_path)` — gerar FRZ com ENTITY_SCHEMA (DDL) + datapackets (seed data)
+- `gerar_expressao(funcao, params_json, retorno)` — gerar DFM de uma funcao (debug)
+
+### Tools do manual (acesso a 668+ paginas da documentacao)
+- `buscar_manual(termo)` — busca semantica no manual completo (chunked para melhor qualidade)
+- `ler_pagina_manual(caminho)` — retorna conteudo COMPLETO de uma pagina do manual
+- `indice_manual(categoria)` — lista todas as paginas organizadas por categoria
+- `troubleshoot_erro(descricao)` — diagnostica erros buscando em topicos de erros + FAQ
+- `config_banco(tipo_banco)` — configuracao de SQL Server, MySQL, Oracle, PostgreSQL, Firebird, DB2
+- `dica_maker(topico, area)` — 170+ dicas e truques (formularios, funcoes, relatorios, webrun)
+- `faq_maker(topico)` — FAQ oficial (bancos, hardware, instalacao, versoes, recursos avancados)
+- `arquitetura_webrun(secao)` — arquitetura interna: componentes JS (63), classes Java (280), JARs (205)
+- `webrun_docs(topico)` — docs operacionais: servidores, deploy, admin, APIs
+- `maker_docs(topico)` — docs Maker Studio: componentes, forms, relatorios, boas praticas
+- `config_mobile(topico)` — Maker Mobile: exportacao, sync, restricoes
+- `recursos_ide(topico)` — recursos IDE: plugins, skins, templates, configs
+- `estrutura_banco_dados(secao)` — estrutura interna do SIG_MAKER (tabelas FR_*)
+
+## Fluxo de trabalho
+
+### Para criar FLUXOS (regras isoladas)
+1. `buscar_funcao` / `detalhar_funcao` → validar funcoes
+2. `padroes_fluxo` → composicoes testadas em producao
+3. `validar_fluxo` → checar spec
+4. `gerar_fluxo` → produzir FRZ
+
+### Para criar TELAS COMPLETAS (formulario + regras)
+1. `estrutura_frz` → entender a estrutura XML e tipos de formulario
+2. `spec_componentes` → properties de cada tipo de campo
+3. `spec_design` → layout com cards, CSS, Bootstrap
+4. `buscar_funcao` → funcoes para os fluxos vinculados
+5. `gerar_tela_completa` → produzir FRZ com tudo
+
+### Para criar TELAS + TABELAS + DADOS (sistema completo)
+1. Definir entidades (ENTITY_SCHEMA) com tipos, chaves e defaults
+2. Definir dados iniciais (datapackets) para tabelas de referencia
+3. Definir formularios e regras
+4. `gerar_tela_completa` → produzir FRZ com tudo junto (aceita "entidades" e "dados")
+   OU separar: `gerar_tabela_dados` para DDL/seed + `gerar_tela_completa` para telas
+
+### Para criar TABELAS E DADOS (sem tela)
+1. Definir entidades com atributos, tipos, nullable, generated, defaults
+2. Definir dados iniciais para pre-popular
+3. `gerar_tabela_dados` → produzir FRZ com ENTITY_SCHEMA + datapackets
+
+### Para criar TEMPLATES (Dashboard, Login, Kanban)
+1. `padroes_fluxo('dashboard')` ou `padroes_fluxo('login')` → padrao especifico
+2. `estrutura_frz` → tipo Template (navegacao=false, abas=false)
+3. `gerar_tela_completa` → com navegacao=false, abas=false, sem tabela
+
+### Para CONSULTAR o manual
+1. `buscar_manual(termo)` → busca semantica em 668+ paginas
+2. `ler_pagina_manual(caminho)` → conteudo completo de uma pagina
+3. `indice_manual(categoria)` → descobrir que documentacao existe
+
+### Para RESOLVER ERROS
+1. `troubleshoot_erro(descricao)` → busca em topicos de erros + FAQ
+2. `faq_maker(topico)` → FAQ oficial com solucoes conhecidas
+
+### Para CONFIGURAR BANCO DE DADOS
+1. `config_banco(tipo_banco)` → docs de SQL Server, MySQL, Oracle, etc.
+
+### Para APRENDER sobre a plataforma
+1. `dica_maker(topico)` → 170+ dicas praticas
+2. `arquitetura_webrun(secao)` → arquitetura interna do WebRun
+3. `maker_docs(topico)` → documentacao do Maker Studio
+4. `webrun_docs(topico)` → documentacao operacional do WebRun
+
+## Regras criticas
+
+- **NUNCA inventar funcoes** — se `buscar_funcao` nao encontrou, nao existe
+- **NUNCA escrever DFM/Script XML manualmente** — sempre usar o gerador
+- **Servidor (destino=2)**: funcoes Java com classes existentes no WebRun/JARs. NAO pode criar classes Java novas via FRZ
+- **Cliente (destino=1)**: funcoes JavaScript no navegador. PODE criar funcoes novas do zero (JS puro)
+- **Leitura de campos em eventos de formulario**: SEMPRE `ebfSQLGetFormField` (Obter Campo) com tipo_dado="Campo", guid=FRM_GUID, field_index=posicao no SELECT. NUNCA `ebfFormChangeComponentValue` para ler dados em Antes de Inserir/Alterar/Gravar/Deletar
+- **ebfFormChangeComponentValue**: SOMENTE para eventos de componente (Ao Modificar, Ao Clicar) — manipulacao de UI
+- **Consultar `guia_fluxograma()` ANTES de criar qualquer regra de formulario**
+- JSON e o padrao de troca de dados entre regras (1532 usos no sistema real)
+- **Templates vs CRUDs**: templates usam navegacao=false/abas=false, sem tabela
+- **Multiplos forms**: `gerar_tela_completa` aceita "formularios": [{...}, {...}]
+- **Entidades + Dados**: tanto `gerar_tela_completa` quanto `gerar_tabela_dados` aceitam "entidades" e "dados"
+
+## Formato JSON de passos
+
+```json
+{
+  "tipo": "expressao",
+  "nome": "consultarBanco",
+  "descricao": "Abrir consulta",
+  "funcao": "ebfSQLExecuteQuery",
+  "nome_amigavel": "Abrir Consulta",
+  "params": [
+    {"tipo": "sql", "sql": "SELECT ...", "binds": [{"nome": "x", "variavel": "pX"}]},
+    {"tipo": "constante", "valor": null, "tipo_dado": "Letras"}
+  ],
+  "retorno": "qryResult",
+  "tipo_retorno": "Tabela"
+}
+```
+
+Tipos de passo: `expressao`, `decisao` (com `sim`/`nao`), `subrotina`, `atividade`.
+Tipos de param: `variavel`, `constante`, `sql`, `funcao`.
+
+## Formato JSON de entidades (ENTITY_SCHEMA)
+
+```json
+{
+  "entidades": [
+    {
+      "nome": "NOME_TABELA",
+      "form": "nome_form_vinculado",
+      "atributos": [
+        {"nome": "ID", "tipo": "integer", "tamanho": 32, "nullable": false, "generated": true},
+        {"nome": "NOME", "tipo": "string", "tamanho": 150, "nullable": false},
+        {"nome": "ATIVO", "tipo": "boolean", "nullable": false, "default": "true"},
+        {"nome": "DATA", "tipo": "date", "nullable": true},
+        {"nome": "DESCRICAO", "tipo": "string", "tamanho": 0, "nullable": true}
+      ],
+      "chaves": [
+        {"nome": "TABELA_PKEY", "colunas": ["ID"], "primary": true}
+      ]
+    }
+  ]
+}
+```
+
+Tipos: `integer` (tamanho=bits), `string` (tamanho=chars, 0=text), `boolean`, `date`, `float`.
+Chave primaria e auto-inferida se nao definida (usa campos `generated` ou primeiro campo).
+
+## Formato JSON de dados (datapackets)
+
+```json
+{
+  "dados": [
+    {
+      "entity_name": "NOME_TABELA",
+      "linhas": [
+        {"ID": "1", "NOME": "Primeiro", "ATIVO": "-1", "DATA": "01/01/2025"},
+        {"ID": "2", "NOME": "Segundo", "ATIVO": "0", "DATA": null}
+      ]
+    }
+  ]
+}
+```
+
+Valores boolean: `-1` = true, `0` = false. Datas: `DD/MM/AAAA`. NULL: omitir chave ou valor `null`.

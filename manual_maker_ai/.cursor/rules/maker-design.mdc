@@ -1,0 +1,364 @@
+---
+description: Padroes de design premium para formularios Maker — layout, CSS nativo Bootstrap/WebRun, cards, icones
+alwaysApply: false
+---
+
+# Maker — Design Premium para Formularios
+
+Padroes obrigatorios para criar formularios com visual profissional no Maker. O Maker usa **Bootstrap 5** como base com variaveis CSS customizadas (`--webrun-*`). O CSS skin padrao esta em `nativos/custom_LG3.css`.
+
+---
+
+## Principios
+
+1. **Cards Bootstrap nativos** — Toda secao logica de campos deve estar dentro de um `.card`
+2. **Headers com icones Font Awesome** — Cada card tem `.card-header` com icone e titulo
+3. **Titulo da pagina** — Label HTML no topo com titulo principal e subtitulo
+4. **Responsivo** — Propriedade `Responsivo = TRUE` no componente F
+5. **Classes Bootstrap nativas** — Usar classes do skin nativo antes de criar CSS customizado
+6. **Mascaras nativas** — Usar tipos nativos (CPF, CNPJ, DATA, CEP) sempre que possivel
+7. **Suporte a dark mode** — O skin tem `[data-bs-theme="dark"]`, CSS customizado deve respeitar
+
+---
+
+## Estrutura de layout
+
+### Hierarquia padrao
+
+```
+Formulario (F)
+  └── Aba "01-NomeAba"
+      ├── MakerLabel (titulo da pagina, HTML premium)
+      ├── Card 1 (MakerContainer com card)
+      │   ├── Header (MakerContainer com card-header)
+      │   │   └── Label (icone Font Awesome + titulo)
+      │   ├── Campo 1 (Edit/Combo/Lookup/etc.)
+      │   ├── Campo 2
+      │   └── ...
+      ├── Card 2
+      │   └── ...
+      └── Card N
+```
+
+### Dimensoes recomendadas
+
+| Elemento | Largura | Altura |
+|---|---|---|
+| Formulario | 1100 px | Variavel (calcular pela soma dos cards + margens) |
+| Card | 1060 px (16px margem esquerda) | Variavel |
+| Card header | Mesma do card | 40 px |
+| Label do header | Largura do header - 20px | 30 px |
+| Edit padrao | 200-400 px | 33 px |
+| Edit largo (nome, endereco) | 400-700 px | 33 px |
+| Edit pequeno (ID, UF) | 80-150 px | 33 px |
+| ComboBox | 150-300 px | 33 px |
+| Memo | Largura do card - 40px | 80-150 px |
+| Button | 150-250 px | 33 px |
+| Grid | Largura do card - 20px | 150-300 px |
+
+### Posicionamento
+
+- Margem esquerda do card: `16px`
+- Primeira linha de campos: `Y = 50` (abaixo do header de 40px + 10px gap)
+- Espaco vertical entre linhas: `50px` (campo de 33px + 17px gap)
+- Espaco horizontal entre campos: `14-20px`
+- Gap entre cards: `10px`
+
+---
+
+## Design System nativo do Maker (Bootstrap 5 + WebRun)
+
+O Maker carrega automaticamente o Bootstrap 5 com variaveis CSS customizadas. O skin padrao (`custom_LG3.css`) define temas light e dark.
+
+### Cor primaria do skin padrao
+
+- Light: `#13c983` (verde)
+- Dark: `#00FF9D` (verde neon)
+
+### Classes Bootstrap disponiveis no Maker
+
+#### Cores de texto
+
+`text-primary`, `text-secondary`, `text-success`, `text-danger`, `text-warning`, `text-info`, `text-light`, `text-dark`, `text-muted`, `text-link`
+
+#### Cores de fundo
+
+`bg-primary`, `bg-secondary`, `bg-success`, `bg-danger`, `bg-warning`, `bg-info`, `bg-light`, `bg-dark`
+
+#### Badges
+
+`badge-primary`, `badge-secondary`, `badge-success`, `badge-danger`, `badge-warning`, `badge-info`
+
+#### Bordas
+
+`border`, `border-primary`, `border-secondary`, `border-success`, `border-danger`, `border-warning`, `border-info`, `border-start`, `border-end`, `border-top`, `border-bottom`
+
+#### Sombras
+
+`shadow` (padrao), `shadow-sm` (sutil), `shadow-lg` (forte), `shadow-inset`
+
+#### Cards
+
+`card` (container), `card-header` (cabecalho), `card-body` (corpo). Cards herdam cores do body. Para cards coloridos: `card bg-primary`, `card bg-success`, etc.
+
+#### Botoes
+
+| Classe | Visual |
+|---|---|
+| `btn-primary` | Verde primario (#13c983), texto preto |
+| `btn-secondary` | Cinza (#6C757D), texto branco |
+| `btn-tertiary` | Cinza claro (#F8F9FA), texto preto |
+| `btn-success` | Verde (#198754), texto branco |
+| `btn-danger` | Vermelho (#DC3545), texto branco |
+| `btn-warning` | Amarelo (#FFC107), texto preto |
+| `btn-info` | Ciano (#0DCAF0), texto preto |
+| `btn-dark` | Escuro (#212529), texto branco |
+| `btn-light` | Claro (#F8F9FA), texto preto |
+| `btn-link` | Azul link |
+| `btn-outline-*` | Todas as variantes outline |
+
+#### Tipografia
+
+`fw-bold`, `fw-semibold`, `fw-normal`, `text-uppercase`, `text-lowercase`, `text-capitalize`, `fs-1` a `fs-6`
+
+#### Espacamento
+
+`m-*`, `p-*`, `mb-*`, `mt-*`, `ms-*`, `me-*`, `mx-*`, `my-*` (0 a 5), `gap-*`
+
+#### Layout
+
+`d-flex`, `d-block`, `d-inline`, `d-none`, `flex-row`, `flex-column`, `align-items-center`, `justify-content-between`, `w-100`, `h-100`
+
+### Variaveis WebRun customizadas
+
+| Variavel | Descricao | Valor padrao (light) |
+|---|---|---|
+| `--webrun-highlight-bg` | Cor de destaque | `#13c983` |
+| `--webrun-highlight-color` | Texto sobre destaque | `#000000` |
+| `--webrun-components-bg` | Fundo dos campos | `var(--bs-body-bg)` |
+| `--webrun-components-color` | Texto dos campos | `var(--bs-body-color)` |
+| `--webrun-components-disabled-bg` | Fundo de campo desabilitado | `#E5E5E5` |
+| `--webrun-components-disabled-color` | Texto de campo desabilitado | `rgba(..., 0.65)` |
+| `--webrun-components-font-size-label` | Tamanho da fonte do label | `0.9rem` |
+| `--webrun-form-padding-horizontal` | Padding horizontal dos campos | `0.75rem` |
+| `--webrun-form-padding-vertical` | Padding vertical dos campos | `0.375rem` |
+| `--webrun-grid-highlight-bg` | Destaque da grade | `var(--bs-primary)` |
+| `--webrun-grid-border-color` | Borda da grade | `var(--bs-border-color)` |
+
+### CSS customizado no ClasseCss (componente F)
+
+Adicionar APENAS classes que nao existem no Bootstrap/WebRun. O CSS customizado deve respeitar dark mode usando `[data-bs-theme="dark"]`.
+
+Exemplo minimo para titulos de card e pagina:
+
+```css
+.card-heading-premium {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+.card-heading-premium i { font-size: 1rem; }
+.header-title-premium { padding: 8px 0; }
+.header-title-premium h3 {
+    margin: 0; font-size: 1.4rem; font-weight: 700;
+    color: var(--bs-emphasis-color);
+}
+.header-title-premium h3 i {
+    color: var(--bs-primary); margin-right: 8px;
+}
+.header-title-premium small {
+    display: block; margin-top: 4px;
+    font-size: 0.85rem; color: var(--bs-muted-color); font-weight: 400;
+}
+```
+
+IMPORTANTE: Usar `var(--bs-primary)` em vez de cores hardcoded (#0d6efd) para respeitar o tema do projeto.
+
+---
+
+## Titulo da pagina
+
+Label HTML no topo do formulario (fora de qualquer card, `Container` vazio):
+
+```html
+<div class="header-title-premium">
+  <h3><i class="fa-solid fa-ICONE"></i> <span>Titulo do Formulario</span></h3>
+  <small>Descricao breve do proposito</small>
+</div>
+```
+
+Classes recomendadas para o label: `form-group fw-bold text-dark mb-3`
+
+### Icones por tipo de formulario
+
+| Tipo | Icone sugerido |
+|---|---|
+| Cadastro de pessoa | `fa-user-plus` |
+| Cadastro generico | `fa-plus-circle` |
+| Documentos | `fa-file-alt` |
+| Financeiro | `fa-dollar-sign` |
+| Configuracoes | `fa-cog` |
+| Relatorios | `fa-chart-bar` |
+| Estoque/produtos | `fa-boxes` |
+| Vendas | `fa-shopping-cart` |
+| Calendario/agenda | `fa-calendar-alt` |
+
+---
+
+## Cards — padrao de montagem
+
+### Estrutura XML
+
+```xml
+<!-- Card body -->
+<component COM_CODIGO="ID1" COM_TIPO="P" name="MakerContainer1">
+    <property name="NomeClasseCss">form-group card</property>
+    <property name="Container"></property>  <!-- raiz da aba -->
+    <!-- posicao e tamanho -->
+</component>
+
+<!-- Card header -->
+<component COM_CODIGO="ID2" COM_TIPO="P" name="MakerContainer2">
+    <property name="NomeClasseCss">form-group card-header</property>
+    <property name="Container">MakerContainer1</property>  <!-- filho do card -->
+    <property name="PosicaoX">0</property>
+    <property name="PosicaoY">0</property>
+    <property name="Tamanho">MESMA_LARGURA_DO_CARD</property>
+    <property name="Altura">40</property>
+</component>
+
+<!-- Label do header -->
+<component COM_CODIGO="ID3" COM_TIPO="L" name="MakerLabel2">
+    <property name="Container">MakerContainer2</property>  <!-- filho do header -->
+    <property name="Descricao">HTML_COM_ICONE_E_TITULO</property>
+    <property name="PosicaoX">10</property>
+    <property name="PosicaoY">5</property>
+</component>
+```
+
+### Icones para cards por secao
+
+| Secao | Icone |
+|---|---|
+| Dados Pessoais | `fa-id-card` |
+| Contato | `fa-envelope` |
+| Endereco | `fa-map-marker-alt` |
+| Observacoes | `fa-sticky-note` |
+| Dados Financeiros | `fa-money-bill` |
+| Documentos | `fa-folder-open` |
+| Historico | `fa-history` |
+| Configuracoes | `fa-sliders-h` |
+| Permissoes | `fa-shield-alt` |
+| Anexos | `fa-paperclip` |
+
+---
+
+## Campos — regras de layout
+
+### Alinhamento em linhas
+
+Campos na mesma linha devem ter o mesmo `PosicaoY`. Distribuir horizontalmente com gaps consistentes.
+
+Exemplo de linha com 3 campos:
+
+```
+Campo 1: X=16,  W=200
+Campo 2: X=230, W=200
+Campo 3: X=450, W=200
+```
+
+### Campos readonly
+
+- `Habilitado = False`
+- `ApenasLeitura = True`
+- Geralmente menor (ID, codigos automaticos)
+
+### Campos obrigatorios
+
+Nao ha property nativa de "obrigatorio" no componente. A obrigatoriedade e imposta por fluxogramas (regra "Antes de Gravar" que valida os campos).
+
+### Largura por tipo de dado
+
+| Dado | Largura sugerida |
+|---|---|
+| ID/Codigo | 80-100 px |
+| CPF | 180-200 px |
+| CNPJ | 200-220 px |
+| Nome/Razao Social | 400-700 px |
+| Email | 350-500 px |
+| Telefone/Celular | 180-200 px |
+| CEP | 130-150 px |
+| Endereco | 400-600 px |
+| Numero | 80-100 px |
+| Complemento | 200-300 px |
+| Bairro/Cidade | 200-350 px |
+| UF | 80-120 px |
+| Data | 180-200 px |
+| Valor monetario | 150-200 px |
+| Observacao (Memo) | Largura do card - 40px |
+
+---
+
+## Botoes — estilos CSS
+
+O Maker renderiza classes Bootstrap nos botoes via `NomeClasseCss`:
+
+| Classe | Uso |
+|---|---|
+| `btn-primary` | Acao principal |
+| `btn-secondary` | Acao secundaria |
+| `btn-success` | Confirmacao/salvar |
+| `btn-danger` | Excluir/cancelar |
+| `btn-warning` | Atencao |
+| `btn-info` | Informacao |
+| `btn-outline-primary` | Acao leve |
+| `btn-sm` | Botao pequeno (combinar com outra classe) |
+| `btn-lg` | Botao grande |
+
+---
+
+## Grid — boas praticas
+
+- `PlaceHolder`: sempre definir mensagem amigavel (ex: "Nao existem dados a serem exibidos")
+- `GradeHabilitarColunaNumerica = True`: mostra numeracao de linhas
+- `CanFreezeColumns = True`: permite fixar colunas
+- `EnableGridExport = True`: permite exportar dados
+- Se a grade tem formulario filho, preencher `CodigoForm` e `Parametros`
+
+---
+
+## Calculo da altura do formulario
+
+```
+Altura = Y_ultimo_card + Altura_ultimo_card + margem_inferior(20px)
+```
+
+Exemplo com 4 cards:
+- Titulo: Y=10, H=60 → ate Y=70
+- Card 1: Y=80, H=230 → ate Y=310
+- Card 2: Y=320, H=140 → ate Y=460
+- Card 3: Y=470, H=230 → ate Y=700
+- Card 4: Y=710, H=170 → ate Y=880
+- Altura total: 900 px
+
+---
+
+## Checklist de qualidade visual
+
+Antes de gerar o FRZ, verificar:
+
+- [ ] Titulo da pagina com HTML premium (icone + titulo + subtitulo)
+- [ ] Cada secao logica dentro de um card
+- [ ] Cada card com header e icone Font Awesome
+- [ ] Campos alinhados em linhas com Y consistente
+- [ ] Mascaras aplicadas (CPF, CNPJ, DATA, CEP)
+- [ ] ComboBox para campos com opcoes fixas (UF, status, tipo)
+- [ ] Lookup para campos com FK para outra tabela
+- [ ] Campos readonly para IDs e campos automaticos
+- [ ] CSS global no componente F
+- [ ] Responsivo = TRUE
+- [ ] Larguras proporcionais ao tipo de dado
+- [ ] Altura do formulario calculada corretamente
